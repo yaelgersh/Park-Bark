@@ -1,0 +1,321 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AF41F7675D200513995 /* AppDelegate.swift */; };
+		8DD35AF71F7675D200513995 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AF61F7675D200513995 /* ViewController.swift */; };
+		8DD35AFA1F7675D200513995 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35AF81F7675D200513995 /* Main.storyboard */; };
+		8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */; };
+		8DD35AFF1F7675D200513995 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35AFE1F7675D200513995 /* Assets.xcassets */; };
+		8DD35B021F7675D200513995 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35B001F7675D200513995 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8DD35AF11F7675D200513995 /* Park-Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Park-Bark.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD35AF41F7675D200513995 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8DD35AF61F7675D200513995 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8DD35AF91F7675D200513995 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8DD35AFC1F7675D200513995 /* Park_Bark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Park_Bark.xcdatamodel; sourceTree = "<group>"; };
+		8DD35AFE1F7675D200513995 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8DD35B011F7675D200513995 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8DD35B031F7675D200513995 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD35AEE1F7675D200513995 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8DD35AE81F7675D200513995 = {
+			isa = PBXGroup;
+			children = (
+				8DD35AF31F7675D200513995 /* Park-Bark */,
+				8DD35AF21F7675D200513995 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8DD35AF21F7675D200513995 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD35AF11F7675D200513995 /* Park-Bark.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8DD35AF31F7675D200513995 /* Park-Bark */ = {
+			isa = PBXGroup;
+			children = (
+				8DD35AF41F7675D200513995 /* AppDelegate.swift */,
+				8DD35AF61F7675D200513995 /* ViewController.swift */,
+				8DD35AF81F7675D200513995 /* Main.storyboard */,
+				8DD35AFE1F7675D200513995 /* Assets.xcassets */,
+				8DD35B001F7675D200513995 /* LaunchScreen.storyboard */,
+				8DD35B031F7675D200513995 /* Info.plist */,
+				8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */,
+			);
+			path = "Park-Bark";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD35AF01F7675D200513995 /* Park-Bark */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DD35B061F7675D200513995 /* Build configuration list for PBXNativeTarget "Park-Bark" */;
+			buildPhases = (
+				8DD35AED1F7675D200513995 /* Sources */,
+				8DD35AEE1F7675D200513995 /* Frameworks */,
+				8DD35AEF1F7675D200513995 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Park-Bark";
+			productName = "Park-Bark";
+			productReference = 8DD35AF11F7675D200513995 /* Park-Bark.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8DD35AE91F7675D200513995 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "park-bark";
+				TargetAttributes = {
+					8DD35AF01F7675D200513995 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 8DD35AEC1F7675D200513995 /* Build configuration list for PBXProject "Park-Bark" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8DD35AE81F7675D200513995;
+			productRefGroup = 8DD35AF21F7675D200513995 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DD35AF01F7675D200513995 /* Park-Bark */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DD35AEF1F7675D200513995 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD35B021F7675D200513995 /* LaunchScreen.storyboard in Resources */,
+				8DD35AFF1F7675D200513995 /* Assets.xcassets in Resources */,
+				8DD35AFA1F7675D200513995 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD35AED1F7675D200513995 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */,
+				8DD35AF71F7675D200513995 /* ViewController.swift in Sources */,
+				8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8DD35AF81F7675D200513995 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DD35AF91F7675D200513995 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8DD35B001F7675D200513995 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DD35B011F7675D200513995 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8DD35B041F7675D200513995 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8DD35B051F7675D200513995 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8DD35B071F7675D200513995 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Park-Bark/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "park-bark.Park-Bark";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		8DD35B081F7675D200513995 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Park-Bark/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "park-bark.Park-Bark";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8DD35AEC1F7675D200513995 /* Build configuration list for PBXProject "Park-Bark" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DD35B041F7675D200513995 /* Debug */,
+				8DD35B051F7675D200513995 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DD35B061F7675D200513995 /* Build configuration list for PBXNativeTarget "Park-Bark" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DD35B071F7675D200513995 /* Debug */,
+				8DD35B081F7675D200513995 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8DD35AFC1F7675D200513995 /* Park_Bark.xcdatamodel */,
+			);
+			currentVersion = 8DD35AFC1F7675D200513995 /* Park_Bark.xcdatamodel */;
+			path = Park_Bark.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8DD35AE91F7675D200513995 /* Project object */;
+}
