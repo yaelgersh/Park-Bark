@@ -13,9 +13,13 @@
 		8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */; };
 		8DD35AFF1F7675D200513995 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35AFE1F7675D200513995 /* Assets.xcassets */; };
 		8DD35B021F7675D200513995 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35B001F7675D200513995 /* LaunchScreen.storyboard */; };
+		8DD8347F1F7FAB2200023930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8DD8347E1F7FAB2200023930 /* GoogleService-Info.plist */; };
+		8F08775FC71A7A5BD0BBF5F9 /* Pods_Park_Bark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04F1BE4250E0204431055D7F /* Pods-Park-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Park-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark.release.xcconfig"; sourceTree = "<group>"; };
+		8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Park_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DD35AF11F7675D200513995 /* Park-Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Park-Bark.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DD35AF41F7675D200513995 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DD35AF61F7675D200513995 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +28,8 @@
 		8DD35AFE1F7675D200513995 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DD35B011F7675D200513995 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8DD35B031F7675D200513995 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DD8347E1F7FAB2200023930 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9CD93D1A72EAFDEF44BF065D /* Pods-Park-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Park-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F08775FC71A7A5BD0BBF5F9 /* Pods_Park_Bark.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				8DD35AF31F7675D200513995 /* Park-Bark */,
 				8DD35AF21F7675D200513995 /* Products */,
+				978440A7111E6F1E5C80306A /* Pods */,
+				CE2AC0F046DFC61C9472C23D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,10 +70,28 @@
 				8DD35AF81F7675D200513995 /* Main.storyboard */,
 				8DD35AFE1F7675D200513995 /* Assets.xcassets */,
 				8DD35B001F7675D200513995 /* LaunchScreen.storyboard */,
+				8DD8347E1F7FAB2200023930 /* GoogleService-Info.plist */,
 				8DD35B031F7675D200513995 /* Info.plist */,
 				8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */,
 			);
 			path = "Park-Bark";
+			sourceTree = "<group>";
+		};
+		978440A7111E6F1E5C80306A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9CD93D1A72EAFDEF44BF065D /* Pods-Park-Bark.debug.xcconfig */,
+				04F1BE4250E0204431055D7F /* Pods-Park-Bark.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CE2AC0F046DFC61C9472C23D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DD35B061F7675D200513995 /* Build configuration list for PBXNativeTarget "Park-Bark" */;
 			buildPhases = (
+				61535E7B2C8D8C4DBC34BA1A /* [CP] Check Pods Manifest.lock */,
 				8DD35AED1F7675D200513995 /* Sources */,
 				8DD35AEE1F7675D200513995 /* Frameworks */,
 				8DD35AEF1F7675D200513995 /* Resources */,
+				0A27B3328ADD40E5249C9395 /* [CP] Embed Pods Frameworks */,
+				F39B197611B6EA8B5752CB8C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,12 +157,71 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD35B021F7675D200513995 /* LaunchScreen.storyboard in Resources */,
+				8DD8347F1F7FAB2200023930 /* GoogleService-Info.plist in Resources */,
 				8DD35AFF1F7675D200513995 /* Assets.xcassets in Resources */,
 				8DD35AFA1F7675D200513995 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A27B3328ADD40E5249C9395 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61535E7B2C8D8C4DBC34BA1A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Park-Bark-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F39B197611B6EA8B5752CB8C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DD35AED1F7675D200513995 /* Sources */ = {
@@ -260,6 +349,7 @@
 		};
 		8DD35B071F7675D200513995 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CD93D1A72EAFDEF44BF065D /* Pods-Park-Bark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Park-Bark/Info.plist";
@@ -272,6 +362,7 @@
 		};
 		8DD35B081F7675D200513995 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04F1BE4250E0204431055D7F /* Pods-Park-Bark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Park-Bark/Info.plist";
@@ -301,6 +392,7 @@
 				8DD35B081F7675D200513995 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
