@@ -1,0 +1,6 @@
+framework module Pods_Park_Bark {
+  umbrella header "Pods-Park-Bark-umbrella.h"
+
+  export *
+  module * { export * }
+}

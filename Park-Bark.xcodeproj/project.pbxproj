@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C3291F8F794C0015439A /* ProfileViewController.swift */; };
-		8D70C32C1F9247810015439A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C32B1F9247810015439A /* LoginViewController.swift */; };
+		8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C32B1F9247810015439A /* MyLoginViewController.swift */; };
 		8D70C3321F92801A0015439A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D70C3311F92801A0015439A /* GoogleService-Info.plist */; };
 		8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AF41F7675D200513995 /* AppDelegate.swift */; };
 		8DD35AF71F7675D200513995 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AF61F7675D200513995 /* ViewController.swift */; };
@@ -23,7 +23,7 @@
 		04F1BE4250E0204431055D7F /* Pods-Park-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Park-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark.release.xcconfig"; sourceTree = "<group>"; };
 		8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Park_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D70C3291F8F794C0015439A /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		8D70C32B1F9247810015439A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8D70C32B1F9247810015439A /* MyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLoginViewController.swift; sourceTree = "<group>"; };
 		8D70C32D1F926B7B0015439A /* Park-Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Park-Bark.entitlements"; sourceTree = "<group>"; };
 		8D70C3311F92801A0015439A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DD35AF11F7675D200513995 /* Park-Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Park-Bark.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +80,7 @@
 				8D70C3311F92801A0015439A /* GoogleService-Info.plist */,
 				8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */,
 				8D70C3291F8F794C0015439A /* ProfileViewController.swift */,
-				8D70C32B1F9247810015439A /* LoginViewController.swift */,
+				8D70C32B1F9247810015439A /* MyLoginViewController.swift */,
 			);
 			path = "Park-Bark";
 			sourceTree = "<group>";
@@ -187,6 +187,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -194,6 +198,10 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -250,7 +258,7 @@
 				8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */,
 				8DD35AF71F7675D200513995 /* ViewController.swift in Sources */,
 				8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */,
-				8D70C32C1F9247810015439A /* LoginViewController.swift in Sources */,
+				8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */,
 				8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

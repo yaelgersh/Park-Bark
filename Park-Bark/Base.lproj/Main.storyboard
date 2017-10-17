@@ -10,10 +10,26 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="0x3-KY-apd">
+            <objects>
+                <navigationController restorationIdentifier="navigationToMain" storyboardIdentifier="navigationToMain" id="iK6-ab-ZS8" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cAc-PV-yI9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Kqj-65-lCp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zXD-KC-znR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3264" y="542"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="mainViewController" storyboardIdentifier="mainViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -23,7 +39,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="4D3-Nj-Wih">
-                                <rect key="frame" x="0.0" y="20" width="320" height="75"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="DzD-BZ-bCB"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="OJd-wk-F25"/>
@@ -47,7 +63,7 @@
                                 </constraints>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paw4" translatesAutoresizingMaskIntoConstraints="NO" id="8bQ-xt-p9H">
-                                <rect key="frame" x="26" y="103" width="268" height="347"/>
+                                <rect key="frame" x="26" y="147" width="268" height="303"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3e-Yr-OkC" userLabel="profileButton">
                                 <rect key="frame" x="117" y="458" width="86" height="100"/>
@@ -81,15 +97,16 @@
                             <constraint firstAttribute="trailing" secondItem="4D3-Nj-Wih" secondAttribute="trailing" id="pVz-1q-T7A"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="cER-ez-Zfb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2274" y="542"/>
         </scene>
-        <!--Login View Controller-->
+        <!--My Login View Controller-->
         <scene sceneID="hJw-VQ-ESR">
             <objects>
-                <viewController id="gQZ-U7-Ymy" customClass="LoginViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="loginView" storyboardIdentifier="loginView" id="gQZ-U7-Ymy" customClass="MyLoginViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="923-sL-enj"/>
                         <viewControllerLayoutGuide type="bottom" id="3rX-jZ-pYL"/>
@@ -104,8 +121,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Czf-vU-8X7" secondAttribute="trailing" id="7rg-1h-WsA"/>
-                            <constraint firstItem="Czf-vU-8X7" firstAttribute="leading" secondItem="waF-oe-psD" secondAttribute="leading" id="UJm-Pc-7qE"/>
+                            <constraint firstItem="Czf-vU-8X7" firstAttribute="width" secondItem="waF-oe-psD" secondAttribute="width" id="Ak4-YX-48K"/>
+                            <constraint firstItem="Czf-vU-8X7" firstAttribute="centerX" secondItem="waF-oe-psD" secondAttribute="centerX" id="Toe-xe-nyX"/>
                             <constraint firstItem="3rX-jZ-pYL" firstAttribute="top" secondItem="Czf-vU-8X7" secondAttribute="bottom" constant="220" id="YTE-Eo-4MX"/>
                             <constraint firstItem="Czf-vU-8X7" firstAttribute="top" secondItem="923-sL-enj" secondAttribute="bottom" constant="8" id="bv2-81-Ofr"/>
                         </constraints>
@@ -113,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDC-nP-Fj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1149.375" y="1107.0422535211267"/>
+            <point key="canvasLocation" x="-2274" y="1214"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="Bci-bb-S7j">
@@ -128,14 +145,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="Q0m-rN-1As">
-                                <rect key="frame" x="0.0" y="20" width="320" height="75"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="Xpm-zW-biW"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="oEh-fM-FL4"/>
                                 </constraints>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ce-PL-92f">
-                                <rect key="frame" x="0.0" y="95" width="320" height="705"/>
+                                <rect key="frame" x="0.0" y="139" width="320" height="661"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tbd-MN-KTj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
@@ -211,7 +228,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Krv-a2-1kK">
                                                         <rect key="frame" x="0.0" y="150" width="300" height="75"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="בחר תאריך" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V0X-Zw-P4N">
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="בחר תאריך" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V0X-Zw-P4N">
                                                                 <rect key="frame" x="0.0" y="22.5" width="184.5" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -254,7 +271,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Jre-75-QDd">
-                                                <rect key="frame" x="10" y="526" width="300" height="110"/>
+                                                <rect key="frame" x="10" y="525.5" width="300" height="110"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bigDogBlack" translatesAutoresizingMaskIntoConstraints="NO" id="CTw-tv-4KV">
                                                         <rect key="frame" x="225" y="5" width="75" height="100"/>
@@ -284,25 +301,25 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIy-sd-7yY" userLabel="VeryBig">
-                                                <rect key="frame" x="235" y="531" width="75" height="100"/>
+                                                <rect key="frame" x="235" y="530.5" width="75" height="100"/>
                                                 <connections>
                                                     <action selector="pickedBig:" destination="O19-Gv-s1I" eventType="touchUpInside" id="1Kd-MU-iOz"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xW8-rf-CKl" userLabel="Big">
-                                                <rect key="frame" x="160" y="531" width="75" height="100"/>
+                                                <rect key="frame" x="160" y="530.5" width="75" height="100"/>
                                                 <connections>
                                                     <action selector="pickedMediumBig:" destination="O19-Gv-s1I" eventType="touchUpInside" id="TV0-wg-irh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23s-ey-sy2" userLabel="Medium">
-                                                <rect key="frame" x="85" y="531" width="75" height="100"/>
+                                                <rect key="frame" x="85" y="530.5" width="75" height="100"/>
                                                 <connections>
                                                     <action selector="pickedMadiumSmall:" destination="O19-Gv-s1I" eventType="touchUpInside" id="sJa-HK-ItA"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffY-Sg-JsY" userLabel="Small">
-                                                <rect key="frame" x="10" y="531" width="75" height="100"/>
+                                                <rect key="frame" x="10" y="530.5" width="75" height="100"/>
                                                 <connections>
                                                     <action selector="pickedSmall:" destination="O19-Gv-s1I" eventType="touchUpInside" id="0Cw-Fo-l20"/>
                                                 </connections>
@@ -390,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcv-KS-p21" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-350.625" y="529.22535211267609"/>
+            <point key="canvasLocation" x="-351" y="542"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="SFx-JA-ew8">
