@@ -6,6 +6,7 @@ target 'Park-Bark' do
   use_frameworks!
 
 pod 'Firebase/Core'
+pod 'Firebase/Database’
 pod 'Firebase/Auth'
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'

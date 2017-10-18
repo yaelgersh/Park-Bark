@@ -17,23 +17,28 @@ class MyLoginViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginBu
     
         super.viewDidLoad()
         
-                let loginButton = FBSDKLoginButton()
+        //facebook
+        let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         loginButton.frame = CGRect(x: 15, y: view.frame.height - 100, width: view.frame.width - 32, height: 50)
-        
+    
         loginButton.delegate = self
         loginButton.readPermissions = ["email", "public_profile"]
         
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        
+        //google
         let googleButton = GIDSignInButton()
         googleButton.frame = CGRect(x: 15, y: view.frame.height - 166, width: view.frame.width - 32, height: 50)
         view.addSubview(googleButton)
         
         GIDSignIn.sharedInstance().uiDelegate = self
        
-        
 
     }
     
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,14 +87,18 @@ class MyLoginViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginBu
             }
             print("result: \(result)")
             
-//            let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainViewController") as! ViewController
-//            self.present(loginVC, animated: true, completion: nil)
-
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "navigationToMain") as! UINavigationController
-            self.present(nextViewController, animated:true, completion:nil)
+            
+            self.moveToMain()
+
+            
         }
     }
+    
+    func moveToMain(){
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
 }

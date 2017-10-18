@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1611" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gQZ-U7-Ymy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1611" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iK6-ab-ZS8">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -48,14 +48,11 @@
                             <stackView opaque="NO" contentMode="bottom" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dDJ-05-4zd">
                                 <rect key="frame" x="16" y="458" width="288" height="100"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign_out_2" translatesAutoresizingMaskIntoConstraints="NO" id="T5o-av-zdL">
-                                        <rect key="frame" x="0.0" y="0.0" width="86" height="100"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="qol-A3-Wi4">
-                                        <rect key="frame" x="101" y="0.0" width="86" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="136.5" height="100"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ginasmall" translatesAutoresizingMaskIntoConstraints="NO" id="0J7-UV-JXX">
-                                        <rect key="frame" x="202" y="0.0" width="86" height="100"/>
+                                        <rect key="frame" x="151.5" y="0.0" width="136.5" height="100"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -66,13 +63,24 @@
                                 <rect key="frame" x="26" y="147" width="268" height="303"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3e-Yr-OkC" userLabel="profileButton">
-                                <rect key="frame" x="117" y="458" width="86" height="100"/>
+                                <rect key="frame" x="16" y="458" width="136.5" height="100"/>
                                 <connections>
                                     <segue destination="O19-Gv-s1I" kind="show" id="ebC-T6-VJK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T40-7T-Rln" userLabel="ginaButton">
-                                <rect key="frame" x="218" y="458" width="86" height="100"/>
+                                <rect key="frame" x="167.5" y="458" width="136.5" height="100"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPr-Zn-ZYh">
+                                <rect key="frame" x="5" y="76" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LjM-Je-vez"/>
+                                    <constraint firstAttribute="width" constant="50" id="N9M-6l-rQD"/>
+                                </constraints>
+                                <state key="normal" image="sign_out_black"/>
+                                <connections>
+                                    <action selector="signOutFromFB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="urp-mZ-wmj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,6 +95,8 @@
                             <constraint firstItem="G3e-Yr-OkC" firstAttribute="centerY" secondItem="qol-A3-Wi4" secondAttribute="centerY" id="IuO-xQ-nnd"/>
                             <constraint firstItem="4D3-Nj-Wih" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="M7S-Q6-lXE"/>
                             <constraint firstItem="8bQ-xt-p9H" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="Ojt-TS-JmT"/>
+                            <constraint firstItem="VPr-Zn-ZYh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="5" id="Q2v-mA-5DM"/>
+                            <constraint firstItem="VPr-Zn-ZYh" firstAttribute="centerY" secondItem="4D3-Nj-Wih" secondAttribute="centerY" id="Q6s-Ie-cuT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8bQ-xt-p9H" secondAttribute="trailing" constant="10" id="RXg-aJ-vHi"/>
                             <constraint firstItem="8bQ-xt-p9H" firstAttribute="top" secondItem="4D3-Nj-Wih" secondAttribute="bottom" constant="8" id="Vmj-g1-5Tm"/>
                             <constraint firstItem="T40-7T-Rln" firstAttribute="centerY" secondItem="0J7-UV-JXX" secondAttribute="centerY" id="XQg-ee-WIv"/>
@@ -228,7 +238,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Krv-a2-1kK">
                                                         <rect key="frame" x="0.0" y="150" width="300" height="75"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="בחר תאריך" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V0X-Zw-P4N">
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="בחר תאריך" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V0X-Zw-P4N">
                                                                 <rect key="frame" x="0.0" y="22.5" width="184.5" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -620,7 +630,7 @@
         <image name="mypark" width="320" height="75"/>
         <image name="paw4" width="300" height="300"/>
         <image name="pinkcircle" width="100" height="100"/>
-        <image name="sign_out_2" width="256" height="256"/>
+        <image name="sign_out_black" width="256" height="256"/>
         <image name="smallBlack" width="100" height="100"/>
         <image name="who" width="320" height="75"/>
     </resources>

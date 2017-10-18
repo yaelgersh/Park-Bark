@@ -7,19 +7,54 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
+    var currentUser : UserApp!
+    var userId : String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        if Auth.auth().currentUser == nil {
+            self.moveToLogin()
+        }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        let user = Auth.auth().currentUser
+        if let user = user {
+            currentUser = UserApp(name: user.displayName!)
+            userId = user.uid
+            FBDatabaseManagment.getInstance().readAccount(id: userId, user: currentUser)
+        }
+    }
+
+    @IBAction func signOutFromFB(_ sender: Any) {
+        logout()
+        moveToLogin()
+    }
+    
+    func logout(){
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    func moveToLogin(){
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginView") as! MyLoginViewController
+        self.present(controller, animated: true, completion: nil)
+        
+    }
 
 }
 
