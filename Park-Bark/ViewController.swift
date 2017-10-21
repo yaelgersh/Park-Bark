@@ -20,6 +20,11 @@ class ViewController: UIViewController {
         if Auth.auth().currentUser == nil {
             self.moveToLogin()
         }
+        
+        //UINavigationBar.appearance().setBackgroundImage(UIImage(named:"header"), for: .default)
+        //self.navigationItem.titleView = UIImageView(image: UIImage(named: "header"))
+        //self.navigationItem.titleView?.contentMode = UIViewContentMode.scaleAspectFit
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {

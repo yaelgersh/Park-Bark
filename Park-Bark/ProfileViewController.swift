@@ -35,11 +35,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         createDatePicker()
         
-        //dogPic.layer.borderWidth = 1
-        //dogPic.layer.masksToBounds = false
-        //dogPic.layer.borderColor = UIColor.black.cgColor
         dogPic.layer.cornerRadius = dogPic.frame.height/2
         dogPic.clipsToBounds = true
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -28,6 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
+        UINavigationBar.appearance().setBackgroundImage(UIImage(named:"headerclean"), for: .default)
+        UINavigationBar.appearance().tintColor = UIColor.black
+        
+        let navigationFont = UIFont(name: "Superclarendon-Black", size: 30)!
+        let navigationFontAttributes = [NSFontAttributeName : navigationFont]
+        UINavigationBar.appearance().titleTextAttributes = navigationFontAttributes
+        
+        let barButtonFont = UIFont(name: "Superclarendon-Black", size: 18)!
+        let barButtonFontAttributes = [NSFontAttributeName : barButtonFont]
+        UIBarButtonItem.appearance().setTitleTextAttributes(barButtonFontAttributes, for: .normal)
+        
         return true
     }
     
