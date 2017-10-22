@@ -36,22 +36,13 @@ class MyLoginViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginBu
         GIDSignIn.sharedInstance().uiDelegate = self
        
 
-    }
-    
+    }    
         
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    
-
-    
-
-
-
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("did logout")
@@ -87,18 +78,11 @@ class MyLoginViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginBu
             }
             print("result: \(result)")
             
-            
-            
             self.moveToMain()
-
-            
         }
     }
     
     func moveToMain(){
-        
         self.dismiss(animated: true, completion: nil)
     }
-    
-
 }

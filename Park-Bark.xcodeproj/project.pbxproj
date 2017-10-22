@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82A086201F9B9DFC00059CDC /* GardenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A0861F1F9B9DFA00059CDC /* GardenViewController.swift */; };
+		82A7E6961F9BBE1200C70456 /* Garden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7E6951F9BBE1100C70456 /* Garden.swift */; };
 		8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C3291F8F794C0015439A /* ProfileViewController.swift */; };
 		8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C32B1F9247810015439A /* MyLoginViewController.swift */; };
 		8D70C3321F92801A0015439A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D70C3311F92801A0015439A /* GoogleService-Info.plist */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		04F1BE4250E0204431055D7F /* Pods-Park-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Park-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark.release.xcconfig"; sourceTree = "<group>"; };
+		82A0861F1F9B9DFA00059CDC /* GardenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenViewController.swift; sourceTree = "<group>"; };
+		82A7E6951F9BBE1100C70456 /* Garden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garden.swift; sourceTree = "<group>"; };
 		8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Park_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D70C3291F8F794C0015439A /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8D70C32B1F9247810015439A /* MyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLoginViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 				8DD35AF61F7675D200513995 /* ViewController.swift */,
 				8D70C3291F8F794C0015439A /* ProfileViewController.swift */,
 				8D70C32B1F9247810015439A /* MyLoginViewController.swift */,
+				82A0861F1F9B9DFA00059CDC /* GardenViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -103,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				8DF2F89C1F966C8D00509005 /* UserApp.swift */,
+				82A7E6951F9BBE1100C70456 /* Garden.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -290,8 +296,10 @@
 				8DF2F89D1F966C8D00509005 /* UserApp.swift in Sources */,
 				8DF2F8A01F9674AC00509005 /* FBDatabaseManagment.swift in Sources */,
 				8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */,
+				82A7E6961F9BBE1200C70456 /* Garden.swift in Sources */,
 				8DD35AF71F7675D200513995 /* ViewController.swift in Sources */,
 				8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */,
+				82A086201F9B9DFC00059CDC /* GardenViewController.swift in Sources */,
 				8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */,
 				8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */,
 			);
