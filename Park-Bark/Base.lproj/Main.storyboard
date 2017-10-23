@@ -413,7 +413,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="W7f-mU-IsQ">
+                            <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="W7f-mU-IsQ">
                                 <rect key="frame" x="26" y="94" width="268" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="עיר:  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4X-ga-bfl">
@@ -422,16 +422,18 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Bea-oX-vKc">
-                                        <rect key="frame" x="0.0" y="0.0" width="212" height="45"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="בחר עיר" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DZW-f7-wb2">
+                                        <rect key="frame" x="0.0" y="7.5" width="212" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="wLG-55-X4U"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="qmH-D1-SjE">
+                            <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="qmH-D1-SjE">
                                 <rect key="frame" x="26" y="147" width="268" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="גינה: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5g-WD-QGY">
@@ -440,15 +442,34 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-qy-HlR">
-                                        <rect key="frame" x="0.0" y="0.0" width="209.5" height="45"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="בחר גינה" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jci-VE-Ko3">
+                                        <rect key="frame" x="0.0" y="7.5" width="209.5" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="hso-L5-5x7"/>
                                 </constraints>
                             </stackView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-EP-WeV">
+                                <rect key="frame" x="16" y="200" width="288" height="273"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNL-HQ-wch">
+                                <rect key="frame" x="69" y="492" width="182" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d66-zh-mfb">
+                                <rect key="frame" x="125" y="523" width="70" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="הוסף"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -461,6 +482,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addGardenButton" destination="d66-zh-mfb" id="kKE-9a-r4J"/>
+                        <outlet property="cityTextField" destination="DZW-f7-wb2" id="Ewf-Nw-XEA"/>
+                        <outlet property="distanceLabel" destination="TNL-HQ-wch" id="sXI-i6-Ufh"/>
+                        <outlet property="gardenTextField" destination="jci-VE-Ko3" id="mdf-Kt-Ccd"/>
+                        <outlet property="gardensMap" destination="vcJ-EP-WeV" id="qUL-C6-Fwg"/>
                         <outlet property="searchDisplayController" destination="2Ta-vL-Hsb" id="wGp-GJ-UHp"/>
                     </connections>
                 </viewController>
@@ -474,7 +500,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-981" y="117"/>
+            <point key="canvasLocation" x="-982.5" y="116.19718309859155"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gRX-6v-TgW">
