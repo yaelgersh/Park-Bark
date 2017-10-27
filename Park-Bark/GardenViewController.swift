@@ -14,7 +14,7 @@ import CoreLocation
 class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
 
     var ref: DatabaseReference!
-    var refHandle: UInt!
+    //var refHandle: UInt!
     var gardensList	= [String : [Garden]]()
     let manager = CLLocationManager()
     
@@ -33,42 +33,17 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var chocenCity : String = ""
     var ChocenGarden : String = ""
     
+    let user = Auth.auth().currentUser
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         gardensMap.delegate = self
         initView()
-        
-        refHandle = ref?.child("Gardens").observe(.value, with: { (snapshot) in
-            let dataDict = snapshot.value as! [String: [String: [String : Double]]]
-            
-            for (city, gardens) in dataDict {
-                let cityName : String = city
-                var gardenName : String
-                var lat : Double
-                var lng : Double
-                for (garden, location) in gardens {
-                    gardenName = garden
-                    lat = location["lat"]!
-                    lng = location["lng"]!
-                    
-                    if(self.gardensList[cityName] != nil){
-                        self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
-                    }
-                    else{
-                       self.gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
-                    }
-                }
-            }
-            self.createCityPicker()
-        })
+        gardensList = FBDatabaseManagment.getInstance().getGardensList()
+        self.createCityPicker()
         
         // Do any additional setup after loading the view.
         
-    }
-    
-    override func viewDidDisappear(_ animated: Bool){
-        ref.child("Gardens").removeAllObservers()
-        print("dis")
     }
     
     deinit {
@@ -103,37 +78,6 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         if(CLLocationManager.authorizationStatus() == CLAuthorizationStatus.denied) {
             showLocationDisabledPopUp()
         }
-    }
-    
-    func buildGardenList() -> [String : [Garden]]
-    {
-        var gardensList = [String : [Garden]]()
-        ref = Database.database().reference()
-        refHandle = ref?.child("Gardens").observe(.value, with: { (snapshot) in
-            let dataDict = snapshot.value as! [String: [String: [String : Double]]]
-            
-            for (city, gardens) in dataDict {
-                let cityName : String = city
-                var gardenName : String
-                var lat : Double
-                var lng : Double
-                for (garden, location) in gardens {
-                    gardenName = garden
-                    lat = location["lat"]!
-                    lng = location["lng"]!
-                    
-                    if(gardensList[cityName] != nil){
-                        gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
-                    }
-                    else{
-                        gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
-                    }
-                }
-            }
-            
-        })
-        
-        return gardensList
     }
     
     func createCityPicker()
