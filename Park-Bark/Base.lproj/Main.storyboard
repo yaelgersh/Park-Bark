@@ -451,7 +451,7 @@
                                     <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Bea-oX-vKc">
                                         <rect key="frame" x="0.0" y="0.6666666666666643" width="296.33333333333331" height="44.000000000000007"/>
                                         <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="wLG-55-X4U"/>
@@ -469,12 +469,29 @@
                                     <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-qy-HlR">
                                         <rect key="frame" x="0.0" y="0.6666666666666714" width="294.66666666666669" height="43.999999999999986"/>
                                         <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="hso-L5-5x7"/>
                                 </constraints>
                             </stackView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-EP-WeV">
+                                <rect key="frame" x="16" y="200" width="288" height="273"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNL-HQ-wch">
+                                <rect key="frame" x="69" y="492" width="182" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d66-zh-mfb">
+                                <rect key="frame" x="125" y="523" width="70" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="הוסף"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -487,6 +504,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addGardenButton" destination="d66-zh-mfb" id="kKE-9a-r4J"/>
+                        <outlet property="cityTextField" destination="DZW-f7-wb2" id="Ewf-Nw-XEA"/>
+                        <outlet property="distanceLabel" destination="TNL-HQ-wch" id="sXI-i6-Ufh"/>
+                        <outlet property="gardenTextField" destination="jci-VE-Ko3" id="mdf-Kt-Ccd"/>
+                        <outlet property="gardensMap" destination="vcJ-EP-WeV" id="qUL-C6-Fwg"/>
                         <outlet property="searchDisplayController" destination="2Ta-vL-Hsb" id="wGp-GJ-UHp"/>
                     </connections>
                 </viewController>
@@ -500,7 +522,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-981" y="117"/>
+            <point key="canvasLocation" x="-982.5" y="116.19718309859155"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gRX-6v-TgW">

@@ -52,6 +52,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>take a nice picture of your dog</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>In order to detect your location, we need your permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>chooce a nice picure of your dog</string>
 	<key>UILaunchStoryboardName</key>

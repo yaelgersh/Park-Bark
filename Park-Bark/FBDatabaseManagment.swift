@@ -13,8 +13,10 @@ class FBDatabaseManagment{
     private static let instance : FBDatabaseManagment = FBDatabaseManagment()
     private let ref : DatabaseReference!
     private var usersHandler : DatabaseHandle!
+    private var gardenHandler: DatabaseHandle!
     private let CHILD_USERS : String = "Users"
     private var usersList : [String] = []
+    private var gardensList = [String : [Garden]]()
     
     private init() {
         ref = Database.database().reference()
@@ -24,6 +26,50 @@ class FBDatabaseManagment{
             //}
             self.usersList.append(snapshot.key)
         })
+        
+        /*
+        gardenHandler = ref?.child("Gardens").observe(.childAdded, with: { (snapshot) in
+            let dataDict = snapshot.value as! [String: [String: Double]]
+            let cityName : String = snapshot.key
+            
+            for (garden, location) in dataDict {
+                var gardenName : String = garden
+                var lat : Double = location["lat"]!
+                var lng : Double = location["lng"]!
+                
+                if(self.gardensList[cityName] != nil){
+                    self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
+                }
+                else{
+                    self.gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
+                }
+            }
+        })
+        */
+        
+        gardenHandler = ref?.child("Gardens").observe(.value, with: { (snapshot) in
+            let dataDict = snapshot.value as! [String: [String: [String: Double]]]
+            
+            for (city, gardens) in dataDict {
+                let cityName : String = city
+                var gardenName : String
+                var lat : Double
+                var lng : Double
+                for (garden, location) in gardens {
+                    gardenName = garden
+                    lat = location["lat"]!
+                    lng = location["lng"]!
+                    
+                    if(self.gardensList[cityName] != nil){
+                        self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
+                    }
+                    else{
+                        self.gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
+                    }
+                }
+            }
+        })
+        
     }
     static func getInstance() -> FBDatabaseManagment{
         return instance

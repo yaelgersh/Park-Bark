@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		822ECF521F9E06DE00001EEC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822ECF501F9E06AD00001EEC /* MapKit.framework */; };
+		822ECF531F9E06E900001EEC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822ECF511F9E06C500001EEC /* CoreLocation.framework */; };
 		82A086201F9B9DFC00059CDC /* GardenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A0861F1F9B9DFA00059CDC /* GardenViewController.swift */; };
 		82A7E6961F9BBE1200C70456 /* Garden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7E6951F9BBE1100C70456 /* Garden.swift */; };
 		8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C3291F8F794C0015439A /* ProfileViewController.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		04F1BE4250E0204431055D7F /* Pods-Park-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Park-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark.release.xcconfig"; sourceTree = "<group>"; };
+		822ECF501F9E06AD00001EEC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		822ECF511F9E06C500001EEC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		82A0861F1F9B9DFA00059CDC /* GardenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenViewController.swift; sourceTree = "<group>"; };
 		82A7E6951F9BBE1100C70456 /* Garden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garden.swift; sourceTree = "<group>"; };
 		8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Park_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822ECF531F9E06E900001EEC /* CoreLocation.framework in Frameworks */,
+				822ECF521F9E06DE00001EEC /* MapKit.framework in Frameworks */,
 				8F08775FC71A7A5BD0BBF5F9 /* Pods_Park_Bark.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +142,8 @@
 		CE2AC0F046DFC61C9472C23D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				822ECF511F9E06C500001EEC /* CoreLocation.framework */,
+				822ECF501F9E06AD00001EEC /* MapKit.framework */,
 				8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */,
 			);
 			name = Frameworks;
