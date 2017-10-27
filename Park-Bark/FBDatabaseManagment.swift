@@ -9,8 +9,7 @@
 import Foundation
 import FirebaseDatabase
 
-class FBDatabaseManagment{
-    private static let instance : FBDatabaseManagment = FBDatabaseManagment()
+class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FBDatabaseManagment()
     private let ref : DatabaseReference!
     private var usersHandler : DatabaseHandle!
     private var gardenHandler: DatabaseHandle!
@@ -22,30 +21,30 @@ class FBDatabaseManagment{
         ref = Database.database().reference()
         usersHandler = ref?.child(CHILD_USERS).observe(.childAdded, with: { (snapshot) in
             //let item : String = snapshot.key {
-              //  self.usersList.append(item)
+            //  self.usersList.append(item)
             //}
             self.usersList.append(snapshot.key)
         })
         
         /*
-        gardenHandler = ref?.child("Gardens").observe(.childAdded, with: { (snapshot) in
-            let dataDict = snapshot.value as! [String: [String: Double]]
-            let cityName : String = snapshot.key
-            
-            for (garden, location) in dataDict {
-                var gardenName : String = garden
-                var lat : Double = location["lat"]!
-                var lng : Double = location["lng"]!
-                
-                if(self.gardensList[cityName] != nil){
-                    self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
-                }
-                else{
-                    self.gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
-                }
-            }
-        })
-        */
+         gardenHandler = ref?.child("Gardens").observe(.childAdded, with: { (snapshot) in
+         let dataDict = snapshot.value as! [String: [String: Double]]
+         let cityName : String = snapshot.key
+         
+         for (garden, location) in dataDict {
+         var gardenName : String = garden
+         var lat : Double = location["lat"]!
+         var lng : Double = location["lng"]!
+         
+         if(self.gardensList[cityName] != nil){
+         self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
+         }
+         else{
+         self.gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
+         }
+         }
+         })
+         */
         
         gardenHandler = ref?.child("Gardens").observe(.value, with: { (snapshot) in
             let dataDict = snapshot.value as! [String: [String: [String: Double]]]
@@ -91,6 +90,12 @@ class FBDatabaseManagment{
         }
         saveAccount(id: id)
     }
+    
+    func getGardensList() -> [String : [Garden]]
+    {
+        return gardensList
+    }
+    
     
     func saveAccount(id : String){
         
