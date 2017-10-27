@@ -8,11 +8,19 @@
 
 import Foundation
 class UserApp{
-    var name : String
     
-    init(name : String) {
-        self.name = name
-        
+    private static var instance = UserApp()
+    var name : String!
+    var dogs : [Dog]!
+    
+    private init() {}
+    
+    static func getInstance() -> UserApp{
+        return instance
+    }
+    
+    func addDog(dog : Dog){
+        dogs.append(dog)
     }
     
 }

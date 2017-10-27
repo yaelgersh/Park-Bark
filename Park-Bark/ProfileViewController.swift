@@ -30,6 +30,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     let GREEN = "Green"
     let BLACK = "Black"
     
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var raceTextField: UITextField!
+    
+    var name : String!
+    var race : String!
+    var isMale : Bool = false
+    var birthday : String!
+    var size : Int = -1
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -114,11 +125,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func genderChanged(_ sender: Any) {
         genderCircle.image = UIImage(named:genderPic[genderSegmentControll.selectedSegmentIndex])
+        
     }
 
     
     
     @IBAction func pickedBig(_ sender: Any) {
+        size = 0
         bigDogPic.image = UIImage(named: dogSize[0]+GREEN)
         mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
         mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
@@ -126,6 +139,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func pickedMediumBig(_ sender: Any) {
+        size = 1
         bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
         mediumBigDogPic.image = UIImage(named: dogSize[1]+GREEN)
         mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
@@ -133,6 +147,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func pickedMadiumSmall(_ sender: Any) {
+        size = 2
         bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
         mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
         mediumSmallDogPic.image = UIImage(named: dogSize[2]+GREEN)
@@ -140,6 +155,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func pickedSmall(_ sender: Any) {
+        size = 3
         bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
         mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
         mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
@@ -147,6 +163,44 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     
+    @IBAction func addDog(_ sender: Any) {
+        if nameTextField.text == ""{
+            errorPopup(error: "error add dog - name is empty")
+            return
+        }
+        name = nameTextField.text
+        
+        if genderSegmentControll.selectedSegmentIndex == 0{
+            isMale = true
+        }
+        else{
+            isMale = false
+        }
+        
+        if datePickerText.text == ""{
+            errorPopup(error: "error add dog - birthday is empty")
+            return
+        }
+        birthday = datePickerText.text
+        
+        if raceTextField.text == ""{
+            errorPopup(error: "error add dog - race is empty")
+            return
+        }
+        race = raceTextField.text
+        
+        if size == -1{
+            errorPopup(error: "error add dog - pick size")
+            return
+        }
+        
+        UserApp.getInstance().addDog(dog: Dog(name: name, isMale: isMale, birthday: birthday, race: race, size: size))
+        
+    }
+    
+    func errorPopup(error : String){
+        print(error)
+    }
     
     
     

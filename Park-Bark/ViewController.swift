@@ -11,7 +11,7 @@ import Firebase
 
 class ViewController: UIViewController {
 
-    var currentUser : UserApp!
+    //var currentUser : UserApp!
     var userId : String!
     
     override func viewDidLoad() {
@@ -30,9 +30,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         let user = Auth.auth().currentUser
         if let user = user {
-            currentUser = UserApp(name: user.displayName!)
+            UserApp.getInstance().name = user.displayName
             userId = user.uid
-            FBDatabaseManagment.getInstance().readAccount(id: userId, user: currentUser)
+            FBDatabaseManagment.getInstance().readAccount(id: userId)
         }
     }
 

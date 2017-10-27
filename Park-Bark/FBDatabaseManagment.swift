@@ -29,13 +29,13 @@ class FBDatabaseManagment{
         return instance
     }
     
-    func readAccount(id : String, user : UserApp){
+    func readAccount(id : String){
         usersList.forEach {
             if ($0 == id) {
                 _ = ref?.child(CHILD_USERS).child(id).observe(.childChanged, with:{ (snapshot) in
                     if let item = snapshot.value as? UserApp{
-                        if(user.name == item.name){
-                            user.name = item.name
+                        if(UserApp.getInstance().name == item.name){
+                            UserApp.getInstance().name = item.name
                         }
                     }
                 })
@@ -43,12 +43,12 @@ class FBDatabaseManagment{
             }
             
         }
-        saveAccount(id: id, user: user)
+        saveAccount(id: id)
     }
     
-    func saveAccount(id : String, user : UserApp){
+    func saveAccount(id : String){
         
-        let post = ["name": user.name]
+        let post = ["name": UserApp.getInstance().name]
         ref.child(CHILD_USERS).child(id).setValue(post)
     }
     

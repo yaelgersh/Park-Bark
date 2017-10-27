@@ -18,6 +18,7 @@
 		8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8DD35AFB1F7675D200513995 /* Park_Bark.xcdatamodeld */; };
 		8DD35AFF1F7675D200513995 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35AFE1F7675D200513995 /* Assets.xcassets */; };
 		8DD35B021F7675D200513995 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DD35B001F7675D200513995 /* LaunchScreen.storyboard */; };
+		8DF23D641F9C7B2400138D82 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF23D631F9C7B2400138D82 /* Dog.swift */; };
 		8DF2F89D1F966C8D00509005 /* UserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2F89C1F966C8D00509005 /* UserApp.swift */; };
 		8DF2F8A01F9674AC00509005 /* FBDatabaseManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2F89F1F9674AC00509005 /* FBDatabaseManagment.swift */; };
 		8F08775FC71A7A5BD0BBF5F9 /* Pods_Park_Bark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */; };
@@ -40,6 +41,7 @@
 		8DD35AFE1F7675D200513995 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DD35B011F7675D200513995 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8DD35B031F7675D200513995 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DF23D631F9C7B2400138D82 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		8DF2F89C1F966C8D00509005 /* UserApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserApp.swift; sourceTree = "<group>"; };
 		8DF2F89F1F9674AC00509005 /* FBDatabaseManagment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabaseManagment.swift; sourceTree = "<group>"; };
 		9CD93D1A72EAFDEF44BF065D /* Pods-Park-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Park-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Park-Bark/Pods-Park-Bark.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				8DF2F89C1F966C8D00509005 /* UserApp.swift */,
 				82A7E6951F9BBE1100C70456 /* Garden.swift */,
+				8DF23D631F9C7B2400138D82 /* Dog.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */,
 				82A086201F9B9DFC00059CDC /* GardenViewController.swift in Sources */,
 				8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */,
+				8DF23D641F9C7B2400138D82 /* Dog.swift in Sources */,
 				8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
