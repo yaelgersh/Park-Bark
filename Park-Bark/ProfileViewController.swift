@@ -15,6 +15,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var datePickerText: UITextField!
     let datePicker = UIDatePicker()
+    var day : String!
+    var mounth : String!
+    var year : String!
+    var currentDay : String!
+    var currentMounth : String!
+    var currentYear : String!
+    var firstTime : Bool = true
 
     @IBOutlet weak var genderCircle: UIImageView!
     let genderPic = ["bluecircle", "pinkcircle"]
@@ -68,7 +75,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         datePickerText.inputAccessoryView = toolbar
         datePickerText.inputView = datePicker
-        
+        if firstTime{
+            firstTime = false
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .none
+            
+            
+            dateFormatter.dateFormat = "y"
+            currentYear = dateFormatter.string(from: datePicker.date)
+            
+            dateFormatter.dateFormat = "M"
+            currentMounth = dateFormatter.string(from: datePicker.date)
+            
+            dateFormatter.dateFormat = "d"
+            currentDay = dateFormatter.string(from: datePicker.date)
+        }
     }
     
     func donePressed(){
@@ -78,7 +100,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         
         datePickerText.text = dateFormatter.string(from: datePicker.date)
+        
+        
+        dateFormatter.dateFormat = "y"
+        year = dateFormatter.string(from: datePicker.date)
+        
+        dateFormatter.dateFormat = "M"
+        mounth = dateFormatter.string(from: datePicker.date)
+        
+        dateFormatter.dateFormat = "d"
+        day = dateFormatter.string(from: datePicker.date)
+
+        
         self.view.endEditing(true)
+        
+        print("##current: ", currentYear, currentMounth, currentDay)
+        print("##picked: ", year, mounth, day)
     }
     
     @IBAction func pickADog(_ sender: Any) {
@@ -181,6 +218,24 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             errorPopup(error: "error add dog - birthday is empty")
             return
         }
+        
+        if Int(currentYear)! < Int(year)!{
+            errorPopup(error: "birthday must be in the past")
+            return
+        }
+        if Int(currentYear)! == Int(year)!{
+            if Int(currentMounth)! < Int(mounth)!{
+                errorPopup(error: "birthday must be in the past")
+                return
+            }
+            if Int(currentMounth)! == Int(mounth)!{
+                if Int(currentDay)! < Int(day)!{
+                    errorPopup(error: "birthday must be in the past")
+                    return
+                }
+            }
+            
+        }
         birthday = datePickerText.text
         
         if raceTextField.text == ""{
@@ -194,14 +249,46 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         
-        UserApp.getInstance().addDog(dog: Dog(name: name, isMale: isMale, birthday: birthday, race: race, size: size))
+        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size){
+            let alert = UIAlertController(title: "Success", message: "\(name!) successfully added.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Add another one", style: .default, handler: { (action) in
+                self.resetThePage()
+            }))
+            alert.addAction(UIAlertAction(title: "Back", style: .default, handler: { (action) in
+                _ = self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            errorPopup(error: "you allready added \(name!)");
+        }
         
     }
     
     func errorPopup(error : String){
-        print(error)
+        let alert = UIAlertController(title: "ERROR", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
+    func resetThePage(){
+        dogPic.image = #imageLiteral(resourceName: "dog")
+        dogPic.alpha = 0.4
+        dogButton.setTitle("הוסף תמונה", for: .normal)
+        
+        nameTextField.text = ""
+        datePickerText.text = ""
+        raceTextField.text = ""
+        
+        size = -1
+        bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
+        mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
+        mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
+        smallDogPic.image = UIImage(named: dogSize[3]+BLACK)
+        
+    }
     
     
     
