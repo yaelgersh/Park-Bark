@@ -56,12 +56,53 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dogPic.layer.cornerRadius = dogPic.frame.height/2
         dogPic.clipsToBounds = true
         
+        if(UserApp.getInstance().dogs.count == 0){
+            return
+        }
+        else if(UserApp.getInstance().dogs.count == 1){
+            showDogProfile(id : 0)
+            return
+        }
+        else{
+            chooseDog()
+            return
+        }
+        
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func showDogProfile(id : Int){
+        let dog = UserApp.getInstance().dogs[id]
+        
+        nameTextField.text = dog.name
+        nameTextField.isEnabled = false
+        
+        genderSegmentControll.setEnabled(false, forSegmentAt: 0)
+        genderSegmentControll.setEnabled(false, forSegmentAt: 1)
+        if(dog.isMale){
+            genderSegmentControll.selectedSegmentIndex = 1
+        }
+        else{
+            genderSegmentControll.selectedSegmentIndex = 0
+        }
+        
+        datePickerText.text = "\(dog.day!).\(dog.mounth!).\(dog.year!)"
+        datePickerText.isEnabled = false
+        
+        raceTextField.text = dog.race
+        raceTextField.isEnabled = false
+        
+        
+
+    }
+    
+    func chooseDog(){
+        
     }
     
     func createDatePicker(){

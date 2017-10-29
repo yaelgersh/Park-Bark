@@ -78,8 +78,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func readAccount(){
         usersHandler = ref?.child(CHILD_USERS).child(UserApp.getInstance().id).observe(.value, with:{ (snapshot) in
             if let item = snapshot.value as? [String : AnyObject]{
-                print("## user name = \(item["name"] as! String) ")
-                print("## user dog = \(item["dogs"]) ")
+//                print("## user name = \(item["name"] as! String) ")
+//                print("## user dog = \(item["dogs"]) ")
                 var id = 0
                 if let dogs = item["dogs"] as? [[String : AnyObject]]{
                     for dog in dogs{
@@ -126,8 +126,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                              "day" : dog.day as AnyObject,
                                              "race" : dog.race as AnyObject,
                                              "size" : dog.size as AnyObject]
-        let post : [String : [String : AnyObject]] = ["\(dog.id!)": dogDic]
-        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).setValue(post)
+        //let post : [String : AnyObject] = ["\(dog.id!)": dogDic]
+        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(String(dog.id)).setValue(dogDic)
     }
     
     
