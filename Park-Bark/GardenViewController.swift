@@ -14,7 +14,6 @@ import CoreLocation
 class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
 
     var ref: DatabaseReference!
-    //var refHandle: UInt!
     var gardensList	= [String : [Garden]]()
     let manager = CLLocationManager()
     
@@ -27,13 +26,15 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     let cityPicker = UIPickerView()
     let gardenPicker = UIPickerView()
     
-    var cityList = [String]()
-    var gardenList = [String]()
+    var cityListNames = [String]()
+    var gardenListNames = [String]()
     
-    var chocenCity : String = ""
-    var ChocenGarden : String = ""
+    var chocenCityName : String = ""
+    var chocenGardenName : String = ""
     
-    let user = Auth.auth().currentUser
+    var chocenGarden : Garden?
+    
+    let user = Auth.auth().currentUser?.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +42,6 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         initView()
         gardensList = FBDatabaseManagment.getInstance().getGardensList()
         self.createCityPicker()
-        
-        // Do any additional setup after loading the view.
-        
     }
     
     deinit {
@@ -73,8 +71,6 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         addMapTrackingButton()
         
-        ref = Database.database().reference()
-        
         if(CLLocationManager.authorizationStatus() == CLAuthorizationStatus.denied) {
             showLocationDisabledPopUp()
         }
@@ -82,7 +78,7 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func createCityPicker()
     {
-        cityList = Array(self.gardensList.keys)
+        cityListNames = Array(self.gardensList.keys)
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -98,10 +94,10 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     
     func createGardenPicker(){
-        gardenList.removeAll()
+        gardenListNames.removeAll()
         let gardens : [Garden] = self.gardensList[cityTextField.text!]!
         for g in gardens{
-            gardenList.append(g.name)
+            gardenListNames.append(g.name)
         }
         
         let toolbar = UIToolbar()
@@ -117,34 +113,35 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func donePressedCity(){
-        let selectedValue = cityList[cityPicker.selectedRow(inComponent: 0)]
+        let selectedValue = cityListNames[cityPicker.selectedRow(inComponent: 0)]
         addGardenButton.isEnabled = false
         cityTextField.text = selectedValue
         createGardenPicker()
         gardenTextField.isUserInteractionEnabled = true
         gardenTextField.text = ""
         gardenTextField.placeholder = "בחר גינה"
-        ChocenGarden = ""
-        chocenCity = selectedValue
+        chocenGardenName = ""
+        chocenCityName = selectedValue
         self.view.endEditing(true)
     }
     
     func donePressedGarden(){
-        let selectedValue = gardenList[gardenPicker.selectedRow(inComponent: 0)]
+        let selectedValue = gardenListNames[gardenPicker.selectedRow(inComponent: 0)]
         gardenTextField.text = selectedValue
-        ChocenGarden = selectedValue
+        chocenGardenName = selectedValue
         addGardenButton.isEnabled = true
         self.view.endEditing(true)
         createRoute()
+        chocenGarden = getSelectedGarden()
     }
     
     func createRoute()
     {
         gardensMap.removeAnnotations(gardensMap.annotations)
         var selectedGarden : Garden?
-        let selectedCityGardenList : [Garden] = gardensList[chocenCity]!
+        let selectedCityGardenList : [Garden] = gardensList[chocenCityName]!
         for g in selectedCityGardenList{
-            if g.name == ChocenGarden{
+            if g.name == chocenGardenName{
                 selectedGarden = g
             }
         }
@@ -166,7 +163,7 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             let directionRequest = MKDirectionsRequest()
             directionRequest.source = sourceMapItem
             directionRequest.destination = destinationMapItem
-            directionRequest.transportType = .automobile
+            directionRequest.transportType = .walking
             
             let directions = MKDirections(request: directionRequest)
             
@@ -215,12 +212,21 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         return renderer
     }
     
+    func getSelectedGarden() -> Garden?{
+        for garden in gardensList[chocenCityName]!{
+            if garden.name == chocenGardenName{
+                return garden
+            }
+        }
+        return nil
+    }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1{
-            return cityList.count
+            return cityListNames.count
         }
         else{
-            return gardenList.count
+            return gardenListNames.count
         }
     }		
     
@@ -230,32 +236,12 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 1{
-            return cityList[row]
+            return cityListNames[row]
         }
         else{
-            return gardenList[row]
+            return gardenListNames[row]
         }
     }
-    
-    /*
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView.tag == 1{
-            addGardenButton.isEnabled = false
-            cityTextField.text = cityList[row]
-            createGardenPicker()
-            gardenTextField.isUserInteractionEnabled = true
-            gardenTextField.text = ""
-            gardenTextField.placeholder = "בחר גינה"
-            ChocenGarden = ""
-            chocenCity = cityList[row]
-        }
-        else{
-            gardenTextField.text = gardenList[row]
-            ChocenGarden = gardenList[row]
-            addGardenButton.isEnabled = true
-        }
-    }
-    */
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.cityTextField.isHidden = true
@@ -287,8 +273,6 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.present(alertController, animated: true, completion: nil)
     }
     
-    
-    
     func addMapTrackingButton(){
         let image = UIImage(named: "myLocation") as UIImage?
         let button   = UIButton(type: UIButtonType.system) as UIButton
@@ -310,29 +294,9 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             
             
             let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(selectedGarden.lat, selectedGarden.lng)
-            
-            //address
-            /*
-            let l : CLLocation = CLLocation(latitude: selectedGarden.lat, longitude: selectedGarden.lng)
-            CLGeocoder().reverseGeocodeLocation(l, completionHandler: { (placemark, error) in
-                if error != nil{
-                    print("Error in addresing")
-                }
-                else{
-                    if let place = placemark?[0]{
-                        print(place.thoroughfare!)
-                        print(place.subThoroughfare!)
-                        
-                    }
-                }
-            })
-             */
-            
             let span:MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
-                
             let region:MKCoordinateRegion = MKCoordinateRegionMake(location, span)
             gardensMap.setRegion(region, animated: true)
-                
             let annotation = MKPointAnnotation()
                 
             annotation.coordinate = location
@@ -340,6 +304,11 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             annotation.subtitle = selectedGarden.city
             gardensMap.addAnnotation(annotation)
         }
+    }
+    
+    @IBAction func addGardenClcik(_ sender: Any) {
+        FBDatabaseManagment.getInstance().saveGarden(garden: chocenGarden!, id: user!)
+        _ = navigationController?.popViewController(animated: true)
     }
  
     /*
@@ -351,5 +320,4 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         // Pass the selected object to the new view controller.
     }
     */
-
 }

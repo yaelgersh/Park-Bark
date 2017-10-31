@@ -103,5 +103,10 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         ref.child(CHILD_USERS).child(id).setValue(post)
     }
     
-    
+    func saveGarden(garden : Garden, id : String){
+        ref.child(CHILD_USERS).child(id).child("Garden").setValue(["City" : garden.city,
+                                                                   "Name" : garden.name,
+                                                                   "lat" : garden.lat,
+                                                                   "lng" : garden.lng])
+    }
 }
