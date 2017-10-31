@@ -13,7 +13,6 @@ import CoreLocation
 
 class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
 
-    var ref: DatabaseReference!
     var gardensList	= [String : [Garden]]()
     let manager = CLLocationManager()
     

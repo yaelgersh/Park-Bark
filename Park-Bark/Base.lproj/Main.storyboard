@@ -14,7 +14,7 @@
         <scene sceneID="0x3-KY-apd">
             <objects>
                 <navigationController restorationIdentifier="navigationToMain" storyboardIdentifier="navigationToMain" id="iK6-ab-ZS8" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleAspectFill" id="cAc-PV-yI9">
+                    <navigationBar key="navigationBar" contentMode="scaleAspectFill" misplaced="YES" id="cAc-PV-yI9">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -52,12 +52,6 @@
                                     <constraint firstAttribute="height" constant="100" id="bvC-QS-ElS"/>
                                 </constraints>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paw4" translatesAutoresizingMaskIntoConstraints="NO" id="8bQ-xt-p9H">
-                                <rect key="frame" x="0.0" y="218" width="414" height="300"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="KxO-o5-s4S"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3e-Yr-OkC" userLabel="profileButton">
                                 <rect key="frame" x="20" y="626" width="179.66666666666666" height="100"/>
                                 <connections>
@@ -81,6 +75,13 @@
                                     <action selector="signOutFromFB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="urp-mZ-wmj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zi-Q0-leD" userLabel="pawButton">
+                                <rect key="frame" x="0.0" y="218" width="414" height="300"/>
+                                <state key="normal" title="Button" image="paw4"/>
+                                <connections>
+                                    <segue destination="Xlj-cO-ufD" kind="show" id="JSi-DJ-VZ3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -91,22 +92,22 @@
                             <constraint firstAttribute="trailingMargin" secondItem="dDJ-05-4zd" secondAttribute="trailing" id="77j-Uz-S1c"/>
                             <constraint firstItem="G3e-Yr-OkC" firstAttribute="centerX" secondItem="qol-A3-Wi4" secondAttribute="centerX" id="Cw1-7K-I7l"/>
                             <constraint firstItem="G3e-Yr-OkC" firstAttribute="centerY" secondItem="qol-A3-Wi4" secondAttribute="centerY" id="IuO-xQ-nnd"/>
+                            <constraint firstItem="8Zi-Q0-leD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="JG2-nw-SvX"/>
                             <constraint firstItem="VPr-Zn-ZYh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="5" id="Q2v-mA-5DM"/>
-                            <constraint firstItem="8bQ-xt-p9H" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Qyv-mz-xdh"/>
-                            <constraint firstItem="8bQ-xt-p9H" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="VaC-cm-LhQ"/>
                             <constraint firstItem="T40-7T-Rln" firstAttribute="centerY" secondItem="0J7-UV-JXX" secondAttribute="centerY" id="XQg-ee-WIv"/>
+                            <constraint firstItem="8Zi-Q0-leD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XgM-sa-DUE"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dDJ-05-4zd" secondAttribute="bottom" constant="10" id="b9r-e9-16L"/>
+                            <constraint firstItem="8Zi-Q0-leD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="boE-nZ-4ZK"/>
                             <constraint firstItem="T40-7T-Rln" firstAttribute="centerX" secondItem="0J7-UV-JXX" secondAttribute="centerX" id="exC-Nj-d3a"/>
                             <constraint firstItem="G3e-Yr-OkC" firstAttribute="width" secondItem="qol-A3-Wi4" secondAttribute="width" id="g8N-Kr-g1W"/>
                             <constraint firstItem="VPr-Zn-ZYh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="xd3-mF-Ag4"/>
-                            <constraint firstItem="8bQ-xt-p9H" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="y6p-6U-2rr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Park &amp; Bark" id="cER-ez-Zfb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2274" y="542"/>
+            <point key="canvasLocation" x="-2275.36231884058" y="541.304347826087"/>
         </scene>
         <!--My Login View Controller-->
         <scene sceneID="hJw-VQ-ESR">
@@ -572,10 +573,10 @@
             </objects>
             <point key="canvasLocation" x="-982.60869565217399" y="115.7608695652174"/>
         </scene>
-        <!--View Controller-->
+        <!--In Garden View Controller-->
         <scene sceneID="gRX-6v-TgW">
             <objects>
-                <viewController id="Xlj-cO-ufD" sceneMemberID="viewController">
+                <viewController id="Xlj-cO-ufD" customClass="InGardenViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jTh-Hx-4gN"/>
                         <viewControllerLayoutGuide type="bottom" id="m1g-Dv-6Yc"/>
@@ -585,45 +586,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="who" translatesAutoresizingMaskIntoConstraints="NO" id="I42-JV-71N">
-                                <rect key="frame" x="0.0" y="30" width="414" height="53"/>
+                                <rect key="frame" x="0.0" y="74" width="414" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="53" id="u4D-ot-NQk"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZLd-gm-KuB">
-                                <rect key="frame" x="20" y="91" width="374" height="637"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZLd-gm-KuB">
+                                <rect key="frame" x="20" y="135" width="374" height="593"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LaG-QH-JtD">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dogCell" rowHeight="64" id="LaG-QH-JtD" customClass="InGardenTableViewCell" customModule="Park_Bark" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LaG-QH-JtD" id="bEc-Bg-zu3">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="63.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Uxe-ef-Tiu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="63.666666666666664"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="baj-7w-uz4">
-                                                            <rect key="frame" x="280.66666666666669" y="0.0" width="93.333333333333314" height="43"/>
+                                                            <rect key="frame" x="249.33333333333337" y="0.0" width="124.66666666666663" height="63.666666666666664"/>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleAspectFill" semanticContentAttribute="forceRightToLeft" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pwm-Yp-2o4">
-                                                            <rect key="frame" x="187" y="0.0" width="93.666666666666686" height="43"/>
+                                                            <rect key="frame" x="124.66666666666666" y="1.3333333333333321" width="124.66666666666666" height="61"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שם" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDU-hw-Ia6">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="93.666666666666671" height="14.333333333333334"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="20.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="גיל" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuR-3L-rh1">
-                                                                    <rect key="frame" x="0.0" y="14.333333333333332" width="93.666666666666671" height="14.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="20.333333333333336" width="124.66666666666667" height="20.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="סוג וגודל" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLl-x5-IpV">
-                                                                    <rect key="frame" x="0.0" y="28.666666666666668" width="93.666666666666671" height="14.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="40.666666666666657" width="124.66666666666667" height="20.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -631,15 +632,12 @@
                                                             </subviews>
                                                         </stackView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="tUQ-29-h9d">
-                                                            <rect key="frame" x="93.666666666666686" y="0.0" width="93.333333333333314" height="43"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ginasmall" translatesAutoresizingMaskIntoConstraints="NO" id="Uax-PS-84j">
-                                                            <rect key="frame" x="0.0" y="0.0" width="93.666666666666671" height="43"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="63.666666666666664"/>
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="2zV-iT-l2l">
-                                                    <rect key="frame" x="0.0" y="31" width="374" height="12"/>
+                                                    <rect key="frame" x="0.0" y="51.666666666666664" width="374" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="12" id="asd-LD-cID"/>
                                                     </constraints>
@@ -655,8 +653,19 @@
                                                 <constraint firstItem="2zV-iT-l2l" firstAttribute="centerX" secondItem="bEc-Bg-zu3" secondAttribute="centerX" id="ymj-JJ-uZu"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ageLabel" destination="CuR-3L-rh1" id="9PN-Ru-BaB"/>
+                                            <outlet property="dogImage" destination="baj-7w-uz4" id="rN3-1y-OpL"/>
+                                            <outlet property="likeImage" destination="tUQ-29-h9d" id="rNT-Zp-9bH"/>
+                                            <outlet property="nameLabel" destination="bDU-hw-Ia6" id="7VS-CR-Dzf"/>
+                                            <outlet property="sizeLabel" destination="WLl-x5-IpV" id="4vw-cA-Hqm"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Xlj-cO-ufD" id="JOO-k5-nYd"/>
+                                    <outlet property="delegate" destination="Xlj-cO-ufD" id="EPK-4x-pND"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -670,10 +679,13 @@
                             <constraint firstItem="I42-JV-71N" firstAttribute="leading" secondItem="IRe-rc-6S4" secondAttribute="leading" id="nrz-EZ-gxI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dogsInGardenTable" destination="ZLd-gm-KuB" id="xIm-1H-E99"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zOq-Pf-rXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1596" y="117"/>
+            <point key="canvasLocation" x="-1597.1014492753625" y="116.57608695652175"/>
         </scene>
     </scenes>
     <resources>

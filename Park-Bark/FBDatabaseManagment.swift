@@ -14,12 +14,14 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     private var usersHandler : DatabaseHandle!
     private var gardenHandler: DatabaseHandle!
     private var dogsHandler : DatabaseHandle!
+    private var dogInGardenHandler : DatabaseHandle!
     private let CHILD_USERS : String = "Users"
     private let CHILD_GARDENS : String = "Gardens"
     private let CHILD_DOGS : String = "dogs"
 
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
+    private var dogInGardenList = [Dog]()
     
     private init() {
         ref = Database.database().reference()
@@ -28,7 +30,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         })
         
         gardenHandler = ref?.child(CHILD_GARDENS).observe(.value, with: { (snapshot) in
-            let dataDict = snapshot.value as! [String: [String: [String: Double]]]
+            let dataDict = snapshot.value as! [String: [String: [String: AnyObject]]]
             
             for (city, gardens) in dataDict {
                 let cityName : String = city
@@ -37,8 +39,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 var lng : Double
                 for (garden, location) in gardens {
                     gardenName = garden
-                    lat = location["lat"]!
-                    lng = location["lng"]!
+                    lat = location["lat"]! as! Double
+                    lng = location["lng"]! as! Double
                     
                     if(self.gardensList[cityName] != nil){
                         self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
@@ -49,6 +51,30 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 }
             }
         })
+        
+        dogInGardenHandler = ref?.child(CHILD_GARDENS).child("כפר סבא").child("גן יקשטט").child(CHILD_DOGS).observe(.value, with: { (snapshot) in
+            let dataDict = snapshot.value as! [String: [String: Int]]
+            
+            for (userId, dogs) in dataDict {
+                
+                for (_,dogId) in dogs{
+                    _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
+                        let dog = snapshot.value as! [String: AnyObject]
+                        let name : String = dog["name"] as! String
+                        let isMale : Bool = dog["isMale"] as! Bool
+                        let year : Int = dog["year"] as! Int
+                        let mounth : Int = dog["mounth"] as! Int
+                        let day : Int = dog["day"] as! Int
+                        let race : String = dog["race"] as! String
+                        let size : Int = dog["size"] as! Int
+
+                        self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
+                    })
+                }
+                
+            }
+        })
+
         
     }
     static func getInstance() -> FBDatabaseManagment{
@@ -86,6 +112,10 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func getGardensList() -> [String : [Garden]]
     {
         return gardensList
+    }
+    
+    func getDogsInGardenList() -> [Dog]{
+        return dogInGardenList
     }
     
     
