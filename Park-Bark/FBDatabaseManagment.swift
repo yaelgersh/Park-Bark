@@ -27,26 +27,6 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             self.usersList.append(snapshot.key)
         })
         
-        /*
-         gardenHandler = ref?.child("Gardens").observe(.childAdded, with: { (snapshot) in
-         let dataDict = snapshot.value as! [String: [String: Double]]
-         let cityName : String = snapshot.key
-         
-         for (garden, location) in dataDict {
-         var gardenName : String = garden
-         var lat : Double = location["lat"]!
-         var lng : Double = location["lng"]!
-         
-         if(self.gardensList[cityName] != nil){
-         self.gardensList[cityName]?.append(Garden(city: cityName, name: gardenName, lat: lat, lng: lng))
-         }
-         else{
-         self.gardensList[cityName] = [Garden(city: cityName, name: gardenName, lat: lat, lng: lng)]
-         }
-         }
-         })
-         */
-        
         gardenHandler = ref?.child(CHILD_GARDENS).observe(.value, with: { (snapshot) in
             let dataDict = snapshot.value as! [String: [String: [String: Double]]]
             
@@ -94,17 +74,13 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         
                         UserApp.getInstance().dogs.append(Dog(id: Int(id), name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
                         id = id + 1
-                        
-                        
                     }
                 }
-                
             }
             else{
                 self.saveAccount(id: UserApp.getInstance().id)
             }
         })
-
     }
     
     func getGardensList() -> [String : [Garden]]
@@ -118,10 +94,21 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         ref.child(CHILD_USERS).child(id).setValue(post)
     }
     
+    func createDog(dog : Dog){
+        let dogDic : [String : AnyObject] = ["name" : dog.name as AnyObject,
+                                             "isMale" : dog.isMale as AnyObject,
+                                             "year" : dog.year as AnyObject,
+                                             "mounth" : dog.mounth as AnyObject,
+                                             "day" : dog.day as AnyObject,
+                                             "race" : dog.race as AnyObject,
+                                             "size" : dog.size as AnyObject]
+        //let post : [String : AnyObject] = ["\(dog.id!)": dogDic]
+        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(String(dog.id)).setValue(dogDic)
+    }
     func saveGarden(garden : Garden, id : String){
         ref.child(CHILD_USERS).child(id).child("Garden").setValue(["City" : garden.city,
                                                                    "Name" : garden.name,
                                                                    "lat" : garden.lat,
                                                                    "lng" : garden.lng])
-    }
+    }    
 }
