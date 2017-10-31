@@ -13,16 +13,17 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     private let ref : DatabaseReference!
     private var usersHandler : DatabaseHandle!
     private var gardenHandler: DatabaseHandle!
+    private var dogsHandler : DatabaseHandle!
     private let CHILD_USERS : String = "Users"
+    private let CHILD_GARDENS : String = "Gardens"
+    private let CHILD_DOGS : String = "dogs"
+
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
     
     private init() {
         ref = Database.database().reference()
         usersHandler = ref?.child(CHILD_USERS).observe(.childAdded, with: { (snapshot) in
-            //let item : String = snapshot.key {
-            //  self.usersList.append(item)
-            //}
             self.usersList.append(snapshot.key)
         })
         
@@ -46,7 +47,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
          })
          */
         
-        gardenHandler = ref?.child("Gardens").observe(.value, with: { (snapshot) in
+        gardenHandler = ref?.child(CHILD_GARDENS).observe(.value, with: { (snapshot) in
             let dataDict = snapshot.value as! [String: [String: [String: Double]]]
             
             for (city, gardens) in dataDict {
@@ -74,21 +75,36 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         return instance
     }
     
-    func readAccount(id : String){
-        usersList.forEach {
-            if ($0 == id) {
-                _ = ref?.child(CHILD_USERS).child(id).observe(.childChanged, with:{ (snapshot) in
-                    if let item = snapshot.value as? UserApp{
-                        if(UserApp.getInstance().name == item.name){
-                            UserApp.getInstance().name = item.name
-                        }
+    func readAccount(){
+        usersHandler = ref?.child(CHILD_USERS).child(UserApp.getInstance().id).observe(.value, with:{ (snapshot) in
+            if let item = snapshot.value as? [String : AnyObject]{
+//                print("## user name = \(item["name"] as! String) ")
+//                print("## user dog = \(item["dogs"]) ")
+                var id = 0
+                if let dogs = item["dogs"] as? [[String : AnyObject]]{
+                    for dog in dogs{
+                        print("^^^^^^^^")
+                        let name : String = dog["name"] as! String
+                        let isMale : Bool = dog["isMale"] as! Bool
+                        let year : Int = dog["year"] as! Int
+                        let mounth : Int = dog["mounth"] as! Int
+                        let day : Int = dog["day"] as! Int
+                        let race : String = dog["race"] as! String
+                        let size : Int = dog["size"] as! Int
+                        
+                        UserApp.getInstance().dogs.append(Dog(id: Int(id), name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
+                        id = id + 1
+                        
+                        
                     }
-                })
-                return
+                }
+                
             }
-            
-        }
-        saveAccount(id: id)
+            else{
+                self.saveAccount(id: UserApp.getInstance().id)
+            }
+        })
+
     }
     
     func getGardensList() -> [String : [Garden]]
@@ -98,8 +114,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     
     
     func saveAccount(id : String){
-        
-        let post = ["name": UserApp.getInstance().name]
+        let post : [String : String] = ["name": UserApp.getInstance().name]
         ref.child(CHILD_USERS).child(id).setValue(post)
     }
     

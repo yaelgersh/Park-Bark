@@ -146,11 +146,11 @@
                         <viewControllerLayoutGuide type="bottom" id="4Au-5M-SrT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kbe-Ai-smw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ce-PL-92f">
-                                <rect key="frame" x="0.0" y="64" width="320" height="736"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="836"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tbd-MN-KTj">
                                         <rect key="frame" x="0.0" y="-60" width="320" height="800"/>
@@ -322,10 +322,10 @@
                                                     <action selector="pickedSmall:" destination="O19-Gv-s1I" eventType="touchUpInside" id="0Cw-Fo-l20"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wec-1Y-all">
-                                                <rect key="frame" x="8" y="644" width="304" height="75"/>
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wec-1Y-all">
+                                                <rect key="frame" x="8" y="644" width="304" height="65"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="75" id="Ouj-dp-SQi"/>
+                                                    <constraint firstAttribute="height" constant="65" id="Ouj-dp-SQi"/>
                                                 </constraints>
                                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" backgroundImage="addcontinue">
@@ -343,6 +343,28 @@
                                                     <action selector="addDog:" destination="O19-Gv-s1I" eventType="touchUpInside" id="ZD3-m7-x0p"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="URK-EL-RYA">
+                                                <rect key="frame" x="8" y="717" width="304" height="75"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="75" id="T9C-xf-Fg5"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="cW0-Ud-jj1"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" backgroundImage="addcontinue">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="עריכת פרופיל">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="26" name="LucidaGrande"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <connections>
+                                                    <action selector="addDog:" destination="O19-Gv-s1I" eventType="touchUpInside" id="QdR-dP-hBx"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -358,6 +380,7 @@
                                             <constraint firstItem="Jre-75-QDd" firstAttribute="leading" secondItem="tbd-MN-KTj" secondAttribute="leading" constant="10" id="DuW-Jz-JJH"/>
                                             <constraint firstItem="wll-cE-cWE" firstAttribute="centerX" secondItem="HbZ-V0-VWl" secondAttribute="centerX" id="Dz1-oU-9vV"/>
                                             <constraint firstItem="lIy-sd-7yY" firstAttribute="centerX" secondItem="CTw-tv-4KV" secondAttribute="centerX" id="FDe-If-dAp"/>
+                                            <constraint firstItem="URK-EL-RYA" firstAttribute="top" secondItem="wec-1Y-all" secondAttribute="bottom" constant="8" id="GA8-7B-eZO"/>
                                             <constraint firstAttribute="trailing" secondItem="zgk-ZU-9NZ" secondAttribute="trailing" id="IWw-Xd-pIs"/>
                                             <constraint firstItem="wll-cE-cWE" firstAttribute="height" secondItem="HbZ-V0-VWl" secondAttribute="height" id="Ioh-hR-TS5"/>
                                             <constraint firstItem="RK9-Ct-gFd" firstAttribute="leading" secondItem="tbd-MN-KTj" secondAttribute="leading" constant="10" id="JSp-rr-QWP"/>
@@ -378,12 +401,14 @@
                                             <constraint firstItem="HbZ-V0-VWl" firstAttribute="top" secondItem="tbd-MN-KTj" secondAttribute="top" constant="5" id="fbY-ai-4Nl"/>
                                             <constraint firstItem="zgk-ZU-9NZ" firstAttribute="leading" secondItem="HbZ-V0-VWl" secondAttribute="trailing" constant="5" id="gcR-u3-Lfm"/>
                                             <constraint firstItem="23s-ey-sy2" firstAttribute="centerX" secondItem="7zX-TQ-nMd" secondAttribute="centerX" id="jnH-rs-lhq"/>
+                                            <constraint firstItem="URK-EL-RYA" firstAttribute="leading" secondItem="tbd-MN-KTj" secondAttribute="leading" constant="8" id="kj1-sx-sKq"/>
                                             <constraint firstItem="Jre-75-QDd" firstAttribute="top" secondItem="h8m-Sb-HK9" secondAttribute="bottom" constant="20" id="put-im-nV8"/>
                                             <constraint firstItem="23s-ey-sy2" firstAttribute="centerY" secondItem="9PT-zx-ABI" secondAttribute="centerY" id="sZC-0O-LwR"/>
                                             <constraint firstItem="wll-cE-cWE" firstAttribute="width" secondItem="HbZ-V0-VWl" secondAttribute="width" id="slT-oa-FYu"/>
                                             <constraint firstItem="xW8-rf-CKl" firstAttribute="centerX" secondItem="9PT-zx-ABI" secondAttribute="centerX" id="tBO-Re-qYX"/>
                                             <constraint firstItem="23s-ey-sy2" firstAttribute="height" secondItem="7zX-TQ-nMd" secondAttribute="height" id="tSO-GQ-iPq"/>
                                             <constraint firstItem="RK9-Ct-gFd" firstAttribute="top" secondItem="eTz-GB-hQh" secondAttribute="bottom" constant="10" id="v6P-oZ-vNj"/>
+                                            <constraint firstAttribute="trailing" secondItem="URK-EL-RYA" secondAttribute="trailing" constant="8" id="vbs-EV-eT3"/>
                                             <constraint firstItem="lIy-sd-7yY" firstAttribute="centerY" secondItem="CTw-tv-4KV" secondAttribute="centerY" id="vmZ-3y-Fvz"/>
                                             <constraint firstItem="lIy-sd-7yY" firstAttribute="width" secondItem="CTw-tv-4KV" secondAttribute="width" id="vrb-YN-smB"/>
                                             <constraint firstAttribute="trailing" secondItem="wec-1Y-all" secondAttribute="trailing" constant="8" id="xu3-L8-5CN"/>
@@ -411,7 +436,7 @@
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="800"/>
+                    <size key="freeformSize" width="320" height="900"/>
                     <connections>
                         <outlet property="bigDogPic" destination="CTw-tv-4KV" id="m6E-v5-gXp"/>
                         <outlet property="datePickerText" destination="V0X-Zw-P4N" id="MX0-Of-9Vr"/>

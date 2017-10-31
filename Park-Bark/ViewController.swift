@@ -11,9 +11,6 @@ import Firebase
 
 class ViewController: UIViewController {
 
-    //var currentUser : UserApp!
-    var userId : String!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,9 +18,7 @@ class ViewController: UIViewController {
             self.moveToLogin()
         }
         
-        //UINavigationBar.appearance().setBackgroundImage(UIImage(named:"header"), for: .default)
-        //self.navigationItem.titleView = UIImageView(image: UIImage(named: "header"))
-        //self.navigationItem.titleView?.contentMode = UIViewContentMode.scaleAspectFit
+        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
     }
 
@@ -31,8 +26,8 @@ class ViewController: UIViewController {
         let user = Auth.auth().currentUser
         if let user = user {
             UserApp.getInstance().name = user.displayName
-            userId = user.uid
-            FBDatabaseManagment.getInstance().readAccount(id: userId)
+            UserApp.getInstance().id = user.uid
+            FBDatabaseManagment.getInstance().readAccount()
         }
     }
 

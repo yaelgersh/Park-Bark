@@ -10,8 +10,9 @@ import Foundation
 class UserApp{
     
     private static var instance = UserApp()
+    var id : String!
     var name : String!
-    var dogs : [Dog]!
+    var dogs : [Dog] = []
     
     private init() {}
     
@@ -19,8 +20,18 @@ class UserApp{
         return instance
     }
     
-    func addDog(dog : Dog){
-        dogs.append(dog)
+    func addDog(name: String, isMale: Bool, year: Int , mounth : Int , day: Int, race: String, size: Int) -> Bool{
+        for i in 0 ..< dogs.count {
+            if dogs[i].name == name{
+                return false
+            }
+        }
+        let dog = Dog(name: name, isMale: isMale, year: year , mounth : mounth , day: day, race: race, size: size)
+        FBDatabaseManagment.getInstance().createDog(dog: dog)
+        //dogs.append(dog)
+        return true
     }
+    
+    
     
 }
