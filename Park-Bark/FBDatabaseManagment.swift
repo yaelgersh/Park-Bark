@@ -9,6 +9,10 @@
 import Foundation
 import FirebaseDatabase
 
+protocol UpdateInGardenDelegate: class {
+    func dbUpdated()
+}
+
 class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FBDatabaseManagment()
     private let ref : DatabaseReference!
     private var usersHandler : DatabaseHandle!
@@ -22,6 +26,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
     private var dogInGardenList = [Dog]()
+    
+    weak var updateInGardenDelegate: UpdateInGardenDelegate?
     
     private init() {
         ref = Database.database().reference()
@@ -53,25 +59,30 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         })
         
         dogInGardenHandler = ref?.child(CHILD_GARDENS).child("כפר סבא").child("גן יקשטט").child(CHILD_DOGS).observe(.value, with: { (snapshot) in
-            let dataDict = snapshot.value as! [String: [String: Int]]
-            
-            for (userId, dogs) in dataDict {
-                
-                for (_,dogId) in dogs{
-                    _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
-                        let dog = snapshot.value as! [String: AnyObject]
-                        let name : String = dog["name"] as! String
-                        let isMale : Bool = dog["isMale"] as! Bool
-                        let year : Int = dog["year"] as! Int
-                        let mounth : Int = dog["mounth"] as! Int
-                        let day : Int = dog["day"] as! Int
-                        let race : String = dog["race"] as! String
-                        let size : Int = dog["size"] as! Int
+            self.dogInGardenList.removeAll()
+            if let dataDict = snapshot.value as? [String: [String: Int]]
+            {
+                for (userId, dogs) in dataDict {
+                    for (_,dogId) in dogs{
+                        _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
+                            let dog = snapshot.value as! [String: AnyObject]
+                            let name : String = dog["name"] as! String
+                            let isMale : Bool = dog["isMale"] as! Bool
+                            let year : Int = dog["year"] as! Int
+                            let mounth : Int = dog["mounth"] as! Int
+                            let day : Int = dog["day"] as! Int
+                            let race : String = dog["race"] as! String
+                            let size : Int = dog["size"] as! Int
 
-                        self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
-                    })
+                            self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
+                            self.updateInGardenDelegate?.dbUpdated()
+                        })
+                        
+                    }
                 }
-                
+            }
+            else{
+                self.updateInGardenDelegate?.dbUpdated()
             }
         })
 

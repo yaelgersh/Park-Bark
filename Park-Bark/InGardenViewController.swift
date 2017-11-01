@@ -8,7 +8,17 @@
 
 import UIKit
 
-class InGardenViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class InGardenViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UpdateInGardenDelegate {
+    
+    func dbUpdated() {
+        DispatchQueue.global(qos: .background).async {
+            self.dogsInGardenList = FBDatabaseManagment.getInstance().getDogsInGardenList()
+            
+            DispatchQueue.main.async {
+                self.dogsInGardenTable.reloadData()
+            }
+        }
+    }
 
     var dogsInGardenList = FBDatabaseManagment.getInstance().getDogsInGardenList()
     
@@ -16,7 +26,9 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        FBDatabaseManagment.getInstance().updateInGardenDelegate = self
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -48,5 +60,4 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         // Pass the selected object to the new view controller.
     }
     */
-
 }

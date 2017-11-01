@@ -14,7 +14,8 @@ class InGardenTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
-    @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,5 +27,8 @@ class InGardenTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func likeClicked(_ sender: Any) {
+        likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
+    }
+    
 }
