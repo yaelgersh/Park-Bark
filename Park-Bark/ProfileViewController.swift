@@ -348,7 +348,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    
+    //
     
     @IBAction func pickedBig(_ sender: Any) {
         setClicked(size: 3)
