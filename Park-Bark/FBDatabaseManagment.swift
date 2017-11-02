@@ -72,7 +72,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 //                print("## user name = \(item["name"] as! String) ")
                 //                print("## user dog = \(item["dogs"]) ")
                 //var id = 0
-                if let dogs = item["dogs"] as? [String: [String : AnyObject]]{
+                if let dogs = item[self.CHILD_DOGS] as? [String: [String : AnyObject]]{
                     for (id, dog) in dogs{
                         //                        print("^^^^^^^^")
                         let name : String = dog["name"] as! String
@@ -171,15 +171,6 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 dog.ref.removeValue()
             }
         }
-        
-        
-    }
-    
-    func saveGarden(garden : Garden, id : String){
-        ref.child(CHILD_USERS).child(id).child("Garden").setValue(["City" : garden.city,
-                                                                   "Name" : garden.name,
-                                                                   "lat" : garden.lat,
-                                                                   "lng" : garden.lng])
     }
     
     func saveImageToStorage(image: UIImage, dog: Dog) {
@@ -211,8 +202,17 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 self.updateDog(dog: dog)
             })
         }
-
+        
     }
+
+    
+    func saveGarden(garden : Garden, id : String){
+        ref.child(CHILD_USERS).child(id).child("Garden").setValue(["City" : garden.city,
+                                                                   "Name" : garden.name,
+                                                                   "lat" : garden.lat,
+                                                                   "lng" : garden.lng])
+    }
+    
     
     func getDogsInGardenFromFB()
     {

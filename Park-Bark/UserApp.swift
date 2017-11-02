@@ -54,4 +54,11 @@ class UserApp{
         return false
     }
     
+    func logOut(){
+        id = ""
+        name = ""
+        dogs = []
+        garden = nil
+        following = []
+    }
 }

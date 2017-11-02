@@ -40,9 +40,11 @@ class ViewController: UIViewController {
     }
     
     func logout(){
+        
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            UserApp.getInstance().logOut()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
@@ -60,6 +62,50 @@ class ViewController: UIViewController {
     }
 
     @IBAction func pawClicked(_ sender: Any) {
+        let user = UserApp.getInstance()
+        if user.dogs.count == 0{//no dog
+            let alert = UIAlertController(title: "לא ניתן להתחבר לגינה", message: "על מנת להתחבר לגינה עליך להכניס את פרטי הכלב שלך", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "הוסף כלב", style: .default, handler: { (action) in
+                
+                alert.dismiss(animated: true, completion: nil)
+                
+                let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+                self.navigationController?.pushViewController(controller, animated: true)
+                
+            }))
+            alert.addAction(UIAlertAction(title: "לא עכשיו", style: .default, handler: { (action) in
+                
+                alert.dismiss(animated: true, completion: nil)
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if user.garden == nil{//no gerden
+            let alert = UIAlertController(title: "לא ניתן להתחבר לגינה", message:"על מנת להתחבר לגינה עליך להירשם תחילה לגינה", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "הירשם לגינה", style: .default, handler: { (action) in
+                
+                alert.dismiss(animated: true, completion: nil)
+                
+                let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginGarden") as! GardenViewController
+                self.navigationController?.pushViewController(controller, animated: true)
+                
+            }))
+            alert.addAction(UIAlertAction(title: "לא עכשיו", style: .default, handler: { (action) in
+                
+                alert.dismiss(animated: true, completion: nil)
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        
+        //gerden check in
+        
     }
 }
 
