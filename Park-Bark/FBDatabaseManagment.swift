@@ -189,7 +189,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     }
     
     func updateImageInStorage(image: UIImage, dog: Dog){
-        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(dog.id).png")
+        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(dog.id!).png")
         if let uploadData = UIImagePNGRepresentation(image){
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{

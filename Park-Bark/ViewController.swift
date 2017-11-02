@@ -59,5 +59,7 @@ class ViewController: UIViewController {
         
     }
 
+    @IBAction func pawClicked(_ sender: Any) {
+    }
 }
 
