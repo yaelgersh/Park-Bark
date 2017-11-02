@@ -13,6 +13,7 @@ class UserApp{
     var id : String!
     var name : String!
     var dogs : [Dog] = []
+    var garden : Garden?
     
     private init() {}
     
@@ -31,7 +32,4 @@ class UserApp{
         //dogs.append(dog)
         return true
     }
-    
-    
-    
 }

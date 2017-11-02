@@ -113,6 +113,14 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         id = id + 1
                     }
                 }
+                if let garden = item["Garden"] as? [String : AnyObject]{
+                    let city : String = garden["City"] as! String
+                    let name : String = garden["Name"] as! String
+                    let lat : Double = garden["lat"] as! Double
+                    let lng : Double = garden["lng"] as! Double
+               
+                    UserApp.getInstance().garden = Garden(city: city, name: name, lat: lat, lng: lng)                    
+                }
             }
             else{
                 self.saveAccount(id: UserApp.getInstance().id)

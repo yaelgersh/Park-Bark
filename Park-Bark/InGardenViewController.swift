@@ -51,6 +51,10 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    deinit {
+        print("\(self) InGarden - dead")
+    }
+    
     /*
     // MARK: - Navigation
 
