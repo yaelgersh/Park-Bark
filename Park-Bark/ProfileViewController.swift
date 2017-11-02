@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
+    @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var addProfileButton: UIButton!
+    @IBOutlet weak var updateProfileButton: UIButton!
     @IBOutlet weak var dogButton: UIButton!
     @IBOutlet weak var dogPic: UIImageView!
     
     @IBOutlet weak var datePickerText: UITextField!
     let datePicker = UIDatePicker()
+    var id : Int!
     var day : String!
     var mounth : String!
     var year : String!
@@ -22,17 +27,28 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var currentMounth : String!
     var currentYear : String!
     var firstTime : Bool = true
-
+    
+    @IBOutlet weak var ageTitle: UILabel!
     @IBOutlet weak var genderCircle: UIImageView!
     let genderPic = ["bluecircle", "pinkcircle"]
     
+    @IBOutlet weak var veryBigButton: UIButton!
+    @IBOutlet weak var bigButton: UIButton!
+    @IBOutlet weak var mediumButton: UIButton!
+    @IBOutlet weak var smallButton: UIButton!
+    var buttons: [UIButton]!
     
+    @IBOutlet weak var genderTextField: UITextField!
     @IBOutlet weak var genderSegmentControll: UISegmentedControl!
-   
+    
     @IBOutlet weak var bigDogPic: UIImageView!
     @IBOutlet weak var mediumBigDogPic: UIImageView!
     @IBOutlet weak var mediumSmallDogPic: UIImageView!
     @IBOutlet weak var smallDogPic: UIImageView!
+    var dogsSizes: [UIImageView]!
+    
+    
+    
     let dogSize = ["bigDog", "mediumBig", "mediumSmall", "small"]
     let GREEN = "Green"
     let BLACK = "Black"
@@ -56,11 +72,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dogPic.layer.cornerRadius = dogPic.frame.height/2
         dogPic.clipsToBounds = true
         
+        editProfileButton.isHidden = true
+        updateProfileButton.isHidden = true
+        addProfileButton.isHidden = true
+        
+        buttons = [smallButton, mediumButton, bigButton, veryBigButton]
+        dogsSizes = [smallDogPic, mediumSmallDogPic, mediumBigDogPic, bigDogPic]
+        
         if(UserApp.getInstance().dogs.count == 0){
-            return
-        }
-        else if(UserApp.getInstance().dogs.count == 1){
-            showDogProfile(id : 0)
+            addProfileButton.isHidden = false
             return
         }
         else{
@@ -70,39 +90,91 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func showDogProfile(id : Int){
+        self.id = id
         let dog = UserApp.getInstance().dogs[id]
+        
+        dogPic.alpha = 1
+        dogButton.setTitle("", for: .normal)
+        dogButton.isEnabled = false
+        
+        if (dog.urlImage) != nil{
+            //let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage!)
+            let url = URL(string: UserApp.getInstance().dogs[id].urlImage!)
+            let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                if error != nil{
+                    print(error!)
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.dogPic.image = UIImage(data: data!)
+                    
+                }
+            })
+            task.resume()
+        }
         
         nameTextField.text = dog.name
         nameTextField.isEnabled = false
         
-        genderSegmentControll.setEnabled(false, forSegmentAt: 0)
-        genderSegmentControll.setEnabled(false, forSegmentAt: 1)
-        if(dog.isMale){
-            genderSegmentControll.selectedSegmentIndex = 1
+        if(dog.isMale!){
+            genderTextField.text = "זכר"
         }
         else{
-            genderSegmentControll.selectedSegmentIndex = 0
+            genderTextField.text = "נקבה"
         }
+        genderTextField.isEnabled = false
         
-        datePickerText.text = "\(dog.day!).\(dog.mounth!).\(dog.year!)"
+        ageTitle.text = "גיל: "
+        
+        var tempDate = DateComponents()
+        tempDate.year = dog.year
+        tempDate.month = dog.mounth
+        tempDate.day = dog.day
+        
+        let now = Date()
+        let calendar = Calendar.current
+        let dogBirthday = calendar.date(from: tempDate)
+        
+        let ageComponents = calendar.dateComponents([.year], from: dogBirthday!, to: now)
+        let theAge = ageComponents.year!
+        
+        datePickerText.text = "\(theAge)"
         datePickerText.isEnabled = false
         
         raceTextField.text = dog.race
         raceTextField.isEnabled = false
         
+        for i in 0 ..< buttons.count{
+            buttons[i].isEnabled = false
+        }
+        setClicked(size: dog.size)
         
-
     }
     
     func chooseDog(){
+        let alert = UIAlertController(title: "", message: "מה תרצה\\י לעשות?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "להוסיף כלב", style: .default, handler: { (action) in
+            self.addProfileButton.isHidden = false
+        }))
+        let count : Int = UserApp.getInstance().dogs.count
+        for i in 0 ..< count{
+            alert.addAction(UIAlertAction(title: "הצג את \(UserApp.getInstance().dogs[i].name!)", style: .default, handler: { (action) in
+                self.showDogProfile(id: i)
+                self.editProfileButton.isHidden = false
+            }))
+        }
         
+        alert.addAction(UIAlertAction(title: "חזרה לתפריט הראשי", style: .default, handler: { (action) in
+            _ = self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func createDatePicker(){
@@ -151,7 +223,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         dateFormatter.dateFormat = "d"
         day = dateFormatter.string(from: datePicker.date)
-
+        
         
         self.view.endEditing(true)
         
@@ -162,32 +234,40 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func pickADog(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
         
-        let actionSheet = UIAlertController(title: "Photo Source", message: "choose a source", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "מאגר תמונות", message: "בחר מאגר תמונות", preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action:UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: "מצלמה", style: .default, handler: {(action:UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera){
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
             }
             else{
                 // cant run in debug mode
-                print("Camera not available")
+                print("המצלמה לא זמינה")
             }
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {(action:UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: "אלבום תמונות", style: .default, handler: {(action:UIAlertAction) in
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "ביטול", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            dogPic.image = editedImage
+            dogPic.alpha = 1
+            
+            dogButton.setTitle("", for: .normal)
+            
+        }
+        else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             dogPic.image = image
             dogPic.alpha = 1
             
@@ -205,45 +285,41 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         genderCircle.image = UIImage(named:genderPic[genderSegmentControll.selectedSegmentIndex])
         
     }
-
+    
     
     
     @IBAction func pickedBig(_ sender: Any) {
-        size = 0
-        bigDogPic.image = UIImage(named: dogSize[0]+GREEN)
-        mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
-        mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
-        smallDogPic.image = UIImage(named: dogSize[3]+BLACK)
+        setClicked(size: 3)
     }
-
+    
     @IBAction func pickedMediumBig(_ sender: Any) {
-        size = 1
-        bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
-        mediumBigDogPic.image = UIImage(named: dogSize[1]+GREEN)
-        mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
-        smallDogPic.image = UIImage(named: dogSize[3]+BLACK)
+        setClicked(size: 2)
     }
     
     @IBAction func pickedMadiumSmall(_ sender: Any) {
-        size = 2
-        bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
-        mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
-        mediumSmallDogPic.image = UIImage(named: dogSize[2]+GREEN)
-        smallDogPic.image = UIImage(named: dogSize[3]+BLACK)
+        setClicked(size: 1)
     }
     
     @IBAction func pickedSmall(_ sender: Any) {
-        size = 3
-        bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
-        mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
-        mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
-        smallDogPic.image = UIImage(named: dogSize[3]+GREEN)
+        setClicked(size: 0)
     }
     
+    func setClicked(size: Int){
+        self.size = size
+        
+        for i in 0 ..< dogsSizes.count{
+            if i == size{
+                dogsSizes[i].image = UIImage(named: dogSize[i]+GREEN)
+            }
+            else{
+                dogsSizes[i].image = UIImage(named: dogSize[i]+BLACK)
+            }
+        }
+    }
     
     @IBAction func addDog(_ sender: Any) {
         if nameTextField.text == ""{
-            errorPopup(error: "error add dog - name is empty")
+            errorPopup(error: "שם הכלב הוא שדה חובה")
             return
         }
         name = nameTextField.text
@@ -256,22 +332,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         
         if datePickerText.text == ""{
-            errorPopup(error: "error add dog - birthday is empty")
+            errorPopup(error: "יום הולדת הכלב הוא שדה חובה")
             return
         }
         
         if Int(currentYear)! < Int(year)!{
-            errorPopup(error: "birthday must be in the past")
+            errorPopup(error: "תאריך יום ההולדת לא אפשרי")
             return
         }
         if Int(currentYear)! == Int(year)!{
             if Int(currentMounth)! < Int(mounth)!{
-                errorPopup(error: "birthday must be in the past")
+                errorPopup(error: "תאריך יום ההולדת לא אפשרי")
                 return
             }
             if Int(currentMounth)! == Int(mounth)!{
                 if Int(currentDay)! < Int(day)!{
-                    errorPopup(error: "birthday must be in the past")
+                    errorPopup(error: "תאריך יום ההולדת לא אפשרי")
                     return
                 }
             }
@@ -280,35 +356,145 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         birthday = datePickerText.text
         
         if raceTextField.text == ""{
-            errorPopup(error: "error add dog - race is empty")
+            errorPopup(error: "גזע הכלב הוא שדה חובה")
             return
         }
         race = raceTextField.text
         
         if size == -1{
-            errorPopup(error: "error add dog - pick size")
+            errorPopup(error: "גודל הכלב הוא שדה חובה")
             return
         }
         
-        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size){
-            let alert = UIAlertController(title: "Success", message: "\(name!) successfully added.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Add another one", style: .default, handler: { (action) in
+        
+        
+        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size, dogPic: dogPic.image!){
+            let alert = UIAlertController(title: "", message: "\(name!) נוסף\\ה בהצלחה.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "הוסף\\י עוד כלב", style: .default, handler: { (action) in
                 self.resetThePage()
             }))
-            alert.addAction(UIAlertAction(title: "Back", style: .default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "חזרה", style: .default, handler: { (action) in
                 _ = self.navigationController?.popViewController(animated: true)
             }))
             self.present(alert, animated: true, completion: nil)
         }
         else{
-            errorPopup(error: "you allready added \(name!)");
+            errorPopup(error: "\(name!) כבר ברשימת הכלבים שלך");
         }
         
     }
     
+    
+    @IBAction func editProfile(_ sender: Any) {
+        updateProfileButton.isHidden = false
+        editProfileButton.isHidden = true
+        
+        let dog = UserApp.getInstance().dogs[id]
+        
+        dogPic.alpha = 0.4
+        dogButton.setTitle("", for: .normal)
+        dogButton.isEnabled = true
+        
+        nameTextField.isEnabled = true
+        
+        genderTextField.isHidden = true
+        if(dog.isMale!){
+            genderSegmentControll.selectedSegmentIndex = 0
+        }
+        else{
+            genderSegmentControll.selectedSegmentIndex = 1
+        }
+        
+        ageTitle.text = "נולדתי בתאריך: "
+        
+        datePickerText.text = "\(dog.day!)/\(dog.mounth!)/\(dog.year!)"
+        datePickerText.isEnabled = true
+        
+        raceTextField.isEnabled = true
+        
+        for i in 0 ..< buttons.count{
+            buttons[i].isEnabled = true
+        }
+        
+    }
+    
+    @IBAction func updateProfile(_ sender: Any) {
+        updateProfileButton.isHidden = true
+        editProfileButton.isHidden = false
+
+        var dog = UserApp.getInstance().dogs[id]
+        
+        if nameTextField.text == ""{
+            errorPopup(error: "שם הכלב הוא שדה חובה")
+            return
+        }
+        name = nameTextField.text
+        
+        if genderSegmentControll.selectedSegmentIndex == 0{
+            dog.isMale = true
+        }
+        else{
+            dog.isMale = false
+        }
+        
+        if datePickerText.text == ""{
+            errorPopup(error: "יום הולדת הכלב הוא שדה חובה")
+            return
+        }
+        
+        if Int(currentYear)! < Int(year)!{
+            errorPopup(error: "תאריך יום ההולדת לא אפשרי")
+            return
+        }
+        if Int(currentYear)! == Int(year)!{
+            if Int(currentMounth)! < Int(mounth)!{
+                errorPopup(error: "תאריך יום ההולדת לא אפשרי")
+                return
+            }
+            if Int(currentMounth)! == Int(mounth)!{
+                if Int(currentDay)! < Int(day)!{
+                    errorPopup(error: "תאריך יום ההולדת לא אפשרי")
+                    return
+                }
+            }
+            
+        }
+        dog.year = Int(year)
+        dog.mounth = Int(mounth)
+        dog.day = Int(day)
+        
+        if raceTextField.text == ""{
+            errorPopup(error: "גזע הכלב הוא שדה חובה")
+            return
+        }
+        dog.race = raceTextField.text
+        
+        if size == -1{
+            errorPopup(error: "גודל הכלב הוא שדה חובה")
+            return
+        }
+        dog.size = size
+        
+        
+//        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size, dogPic: dogPic.image!){
+//            let alert = UIAlertController(title: "", message: "\(name!) נוסף\\ה בהצלחה.", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "הוסף\\י עוד כלב", style: .default, handler: { (action) in
+//                self.resetThePage()
+//            }))
+//            alert.addAction(UIAlertAction(title: "חזרה", style: .default, handler: { (action) in
+//                _ = self.navigationController?.popViewController(animated: true)
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//        else{
+//            errorPopup(error: "\(name!) כבר ברשימת הכלבים שלך");
+//        }
+
+    }
+    
     func errorPopup(error : String){
-        let alert = UIAlertController(title: "ERROR", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+        let alert = UIAlertController(title: "שגיאה", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "אישור", style: .default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -323,11 +509,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         datePickerText.text = ""
         raceTextField.text = ""
         
-        size = -1
-        bigDogPic.image = UIImage(named: dogSize[0]+BLACK)
-        mediumBigDogPic.image = UIImage(named: dogSize[1]+BLACK)
-        mediumSmallDogPic.image = UIImage(named: dogSize[2]+BLACK)
-        smallDogPic.image = UIImage(named: dogSize[3]+BLACK)
+        setClicked(size: -1)
         
     }
     

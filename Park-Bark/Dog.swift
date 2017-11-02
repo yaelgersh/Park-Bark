@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Dog{
     static var counter : Int = 0
@@ -18,10 +19,11 @@ class Dog{
     var day : Int!
     var race : String!
     var size : Int! // 0 = small    1 = small/medium    2 = big/medium  3 = big
+    var urlImage : String?
     
-    init(name : String, isMale : Bool , year: Int , mounth : Int , day: Int , race : String, size : Int) {
+    init(name: String, isMale: Bool , year: Int , mounth: Int , day: Int , race: String, size: Int) {
         id = Dog.counter
-        Dog.counter = Dog.counter + 1
+        //Dog.counter = Dog.counter + 1
         
         self.name = name
         self.isMale = isMale
@@ -33,7 +35,7 @@ class Dog{
         
     }
     
-    init(id : Int, name : String, isMale : Bool , year: Int , mounth : Int , day: Int , race : String, size : Int) {
+    init(id: Int, name: String, isMale: Bool , year: Int , mounth: Int , day: Int , race: String, size: Int, urlImage: String?) {
         self.id = id
         Dog.counter = Dog.counter + 1
         
@@ -44,6 +46,7 @@ class Dog{
         self.day = day
         self.race = race
         self.size = size
+        self.urlImage = urlImage
         
     }
     
