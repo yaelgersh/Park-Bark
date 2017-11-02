@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 class UserApp{
     
     private static var instance = UserApp()
@@ -21,15 +23,27 @@ class UserApp{
         return instance
     }
     
-    func addDog(name: String, isMale: Bool, year: Int , mounth : Int , day: Int, race: String, size: Int) -> Bool{
+    func addDog(name: String, isMale: Bool, year: Int , mounth : Int , day: Int, race: String, size: Int, dogPic: UIImage) -> Bool{
+        if !dogExists(name: name){
+            let dog = Dog(name: name, isMale: isMale, year: year , mounth : mounth , day: day, race: race, size: size)
+            FBDatabaseManagment.getInstance().saveImageToStorage(image: dogPic, dog: dog)
+            
+            
+            
+            //dogs.append(dog)
+            //Dog.counter = Dog.counter + 1
+            return true
+        }
+        
+        return false
+    }
+    
+    func dogExists(name : String) -> Bool{
         for i in 0 ..< dogs.count {
             if dogs[i].name == name{
-                return false
+                return true
             }
         }
-        let dog = Dog(name: name, isMale: isMale, year: year , mounth : mounth , day: day, race: race, size: size)
-        FBDatabaseManagment.getInstance().createDog(dog: dog)
-        //dogs.append(dog)
-        return true
+        return false
     }
 }

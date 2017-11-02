@@ -26,8 +26,6 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FBDatabaseManagment.getInstance().updateInGardenDelegate = self
-        
         
         // Do any additional setup after loading the view.
     }

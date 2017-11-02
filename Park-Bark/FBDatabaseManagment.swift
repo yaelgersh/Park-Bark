@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseDatabase
 
 protocol UpdateInGardenDelegate: class {
@@ -63,22 +64,31 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             if let dataDict = snapshot.value as? [String: [String: Int]]
             {
                 for (userId, dogs) in dataDict {
+                    
                     for (_,dogId) in dogs{
                         _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
-                            let dog = snapshot.value as! [String: AnyObject]
-                            let name : String = dog["name"] as! String
-                            let isMale : Bool = dog["isMale"] as! Bool
-                            let year : Int = dog["year"] as! Int
-                            let mounth : Int = dog["mounth"] as! Int
-                            let day : Int = dog["day"] as! Int
-                            let race : String = dog["race"] as! String
-                            let size : Int = dog["size"] as! Int
-
-                            self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
-                            self.updateInGardenDelegate?.dbUpdated()
+                            if let dog = snapshot.value as? [String: AnyObject]{
+                                let name : String = dog["name"] as! String
+                                let isMale : Bool = dog["isMale"] as! Bool
+                                let year : Int = dog["year"] as! Int
+                                let mounth : Int = dog["mounth"] as! Int
+                                let day : Int = dog["day"] as! Int
+                                let race : String = dog["race"] as! String
+                                let size : Int = dog["size"] as! Int
+                                if let urlImage : String = dog["urlImage"] as? String{
+                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage))
+                                }
+                                else{
+                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil))
+                                }
+                                
+                                self.updateInGardenDelegate?.dbUpdated()
+                                Dog.counter = Dog.counter - 1
+                            }
                         })
                         
                     }
+                    
                 }
             }
             else{
@@ -100,7 +110,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 var id = 0
                 if let dogs = item["dogs"] as? [[String : AnyObject]]{
                     for dog in dogs{
-                        print("^^^^^^^^")
+//                        print("^^^^^^^^")
                         let name : String = dog["name"] as! String
                         let isMale : Bool = dog["isMale"] as! Bool
                         let year : Int = dog["year"] as! Int
@@ -108,9 +118,11 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         let day : Int = dog["day"] as! Int
                         let race : String = dog["race"] as! String
                         let size : Int = dog["size"] as! Int
-                        
-                        UserApp.getInstance().dogs.append(Dog(id: Int(id), name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size))
-                        id = id + 1
+                        let urlImage : String? = dog["urlImage"] as? String
+                        if (!UserApp.getInstance().dogExists(name: name)){
+                            UserApp.getInstance().dogs.append(Dog(id: Int(id), name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage!))
+                            id = id + 1
+                        }
                     }
                 }
                 if let garden = item["Garden"] as? [String : AnyObject]{
@@ -150,7 +162,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                              "mounth" : dog.mounth as AnyObject,
                                              "day" : dog.day as AnyObject,
                                              "race" : dog.race as AnyObject,
-                                             "size" : dog.size as AnyObject]
+                                             "size" : dog.size as AnyObject,
+                                             "urlImage" : dog.urlImage as AnyObject]
         //let post : [String : AnyObject] = ["\(dog.id!)": dogDic]
         ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(String(dog.id)).setValue(dogDic)
     }
@@ -159,5 +172,61 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                                                    "Name" : garden.name,
                                                                    "lat" : garden.lat,
                                                                    "lng" : garden.lng])
-    }    
+    }
+    
+    func saveImageToStorage(image: UIImage, dog: Dog) {
+        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id + String(dog.id) + ".png")
+        if let uploadData = UIImagePNGRepresentation(image){
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                if error != nil{
+                    print(error!)
+                    return //nil
+                }
+                dog.urlImage = metadata?.downloadURL()?.absoluteString
+                self.createDog(dog: dog)
+            })
+        }
+    }
+    
+    func getImageFromStorage(id : Int){
+//        let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage)
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            if error != nil{
+//                print(error!)
+//                return
+//            }
+//        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
