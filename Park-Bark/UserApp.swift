@@ -29,14 +29,15 @@ class UserApp{
             let dog = Dog(name: name, isMale: isMale, year: year , mounth : mounth , day: day, race: race, size: size)
             FBDatabaseManagment.getInstance().saveImageToStorage(image: dogPic, dog: dog)
             
-            
-            
-            //dogs.append(dog)
-            //Dog.counter = Dog.counter + 1
             return true
         }
         
         return false
+    }
+    
+    func updateDog(index : Int, image: UIImage){
+        FBDatabaseManagment.getInstance().updateImageInStorage(image: image, dog: dogs[index])
+        //FBDatabaseManagment.getInstance().updateDog(index: index)
     }
     
     func removeDog(dog: Dog, index: Int){

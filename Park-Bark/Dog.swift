@@ -11,7 +11,7 @@ import UIKit
 
 class Dog{
     //static var counter : Int = 0
-    let id : String?
+    var id : String?
     var name : String!
     var isMale : Bool! // true = male   false = female
     var year : Int!
