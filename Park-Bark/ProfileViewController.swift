@@ -84,7 +84,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         else{
-            chooseDog()
+            choodeAction()
             return
         }
         
@@ -94,6 +94,63 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func choodeAction(){
+        if UserApp.getInstance().dogs.count > 0 {
+            let alert = UIAlertController(title: "", message: "מה תרצה\\י לעשות?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "להוסיף כלב", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+                self.addProfileButton.isHidden = false
+            }))
+            
+            alert.addAction(UIAlertAction(title: "תצוגת פרופיל", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+                let showAlert = UIAlertController(title: "תצוגת פרופיל", message: "בחר\\י כלב", preferredStyle: .alert)
+                let dogsCount = UserApp.getInstance().dogs.count
+                for i in 0 ..< dogsCount{
+                    showAlert.addAction(UIAlertAction(title: "\(UserApp.getInstance().dogs[i].name!)", style: .default, handler: { (action) in
+                        showAlert.dismiss(animated: true, completion: nil)
+                        self.showDogProfile(id: i)
+                    }))
+                }
+                self.present(showAlert, animated: true, completion: nil)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "מחיקת כלב", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+                let delAlert = UIAlertController(title: "מחיקת פרופיל", message: "בחר\\י כלב", preferredStyle: .alert)
+                let dogsCount = UserApp.getInstance().dogs.count
+                for i in 0 ..< dogsCount{
+                    delAlert.addAction(UIAlertAction(title: "\(UserApp.getInstance().dogs[i].name!)", style: .default, handler: { (action) in
+                        delAlert.dismiss(animated: true, completion: nil)
+                        let warnAlert = UIAlertController(title: "מחיקת פרופיל", message: "האם למחוק את \(UserApp.getInstance().dogs[i].name!)", preferredStyle: .alert)
+                        warnAlert.addAction(UIAlertAction(title: "מחק", style: UIAlertActionStyle.default, handler: { (action) in
+                            warnAlert.dismiss(animated: true, completion: nil)
+                            self.deletDog(id: i)
+                            self.choodeAction()
+                        }))
+                        warnAlert.addAction(UIAlertAction(title: "ביטול", style: UIAlertActionStyle.default, handler: { (action) in
+                            warnAlert.dismiss(animated: true, completion: nil)
+                            self.choodeAction()
+                        }))
+                        self.present(warnAlert, animated: true, completion: nil)
+                        
+                    }))
+                }
+                self.present(delAlert, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "חזרה לתפריט הראשי", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+                _ = self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func deletDog(id: Int){
+        UserApp.getInstance().dogs.remove(at: id)
+        
     }
     
     func showDogProfile(id : Int){
