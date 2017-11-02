@@ -89,14 +89,25 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         }
                     }
                 }
+                
                 if let garden = item["Garden"] as? [String : AnyObject]{
                     let city : String = garden["City"] as! String
                     let name : String = garden["Name"] as! String
                     let lat : Double = garden["lat"] as! Double
                     let lng : Double = garden["lng"] as! Double
                     
-                    UserApp.getInstance().garden = Garden(city: city, name: name, lat: lat, lng: lng)
-                    self.getDogsInGardenFromFB()
+                    if((UserApp.getInstance().garden != nil && name != UserApp.getInstance().garden?.name) || UserApp.getInstance().garden == nil){
+                        UserApp.getInstance().garden = Garden(city: city, name: name, lat: lat, lng: lng)
+                        self.getDogsInGardenFromFB()
+                    }
+                }
+                
+                if let following = item["Following"] as? [String : String]{
+                    for dogId in following.keys{
+                        if(!UserApp.getInstance().following.contains(dogId)){
+                            UserApp.getInstance().following.append(dogId)
+                        }
+                    }
                 }
             }
             else{
@@ -189,7 +200,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     }
     
     func updateImageInStorage(image: UIImage, dog: Dog){
-        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(dog.id).png")
+        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(dog.id!).png")
         if let uploadData = UIImagePNGRepresentation(image){
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{
@@ -247,4 +258,16 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).removeAllObservers()
     }
     
+    func addFollowing(id : String, name : String){
+        let post : [String : String] = [id : name]
+        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child("Following").updateChildValues(post)
+    }
+    
+    func removeFollowing(id : String){
+        let follow = ref.child(CHILD_USERS).child(UserApp.getInstance().id).child("Following").child(id)
+        follow.ref.removeValue()
+        if let index = UserApp.getInstance().following.index(of: id) {
+            UserApp.getInstance().following.remove(at: index)
+        }
+    }
 }
