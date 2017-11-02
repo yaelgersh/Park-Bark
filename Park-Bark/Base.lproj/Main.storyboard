@@ -668,20 +668,11 @@
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Uxe-ef-Tiu" secondAttribute="trailing" id="GKd-qW-DyD"/>
-                                                <constraint firstAttribute="bottom" secondItem="2zV-iT-l2l" secondAttribute="bottom" id="Lm5-7B-oJt"/>
-                                                <constraint firstItem="2zV-iT-l2l" firstAttribute="width" secondItem="bEc-Bg-zu3" secondAttribute="width" id="Nq2-T5-ltb"/>
-                                                <constraint firstAttribute="bottom" secondItem="Uxe-ef-Tiu" secondAttribute="bottom" id="YpK-de-EVA"/>
-                                                <constraint firstItem="Uxe-ef-Tiu" firstAttribute="top" secondItem="bEc-Bg-zu3" secondAttribute="top" id="f1J-Rp-BUE"/>
-                                                <constraint firstItem="Uxe-ef-Tiu" firstAttribute="leading" secondItem="bEc-Bg-zu3" secondAttribute="leading" id="hg1-NJ-rDc"/>
-                                                <constraint firstItem="2zV-iT-l2l" firstAttribute="centerX" secondItem="bEc-Bg-zu3" secondAttribute="centerX" id="ymj-JJ-uZu"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="ageLabel" destination="CuR-3L-rh1" id="9PN-Ru-BaB"/>
                                             <outlet property="dogImage" destination="baj-7w-uz4" id="rN3-1y-OpL"/>
-                                            <outlet property="likeImage" destination="tUQ-29-h9d" id="rNT-Zp-9bH"/>
+                                            <outlet property="likeButton" destination="Fxo-i5-KEv" id="YRZ-GE-kHs"/>
                                             <outlet property="nameLabel" destination="bDU-hw-Ia6" id="7VS-CR-Dzf"/>
                                             <outlet property="sizeLabel" destination="WLl-x5-IpV" id="4vw-cA-Hqm"/>
                                         </connections>

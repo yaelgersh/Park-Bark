@@ -10,6 +10,10 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
+protocol UpdateInGardenDelegate: class {
+    func dbUpdated()
+}
+
 class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FBDatabaseManagment()
     private let ref : DatabaseReference!
     private var usersHandler : DatabaseHandle!
@@ -23,6 +27,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
     private var dogInGardenList = [Dog]()
+    
+    weak var updateInGardenDelegate: UpdateInGardenDelegate?
     
     private init() {
         ref = Database.database().reference()
