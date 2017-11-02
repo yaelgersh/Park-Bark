@@ -71,9 +71,9 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             if let item = snapshot.value as? [String : AnyObject]{
                 //                print("## user name = \(item["name"] as! String) ")
                 //                print("## user dog = \(item["dogs"]) ")
-                var id = 0
-                if let dogs = item["dogs"] as? [[String : AnyObject]]{
-                    for dog in dogs{
+                //var id = 0
+                if let dogs = item["dogs"] as? [String: [String : AnyObject]]{
+                    for (id, dog) in dogs{
                         //                        print("^^^^^^^^")
                         let name : String = dog["name"] as! String
                         let isMale : Bool = dog["isMale"] as! Bool
@@ -84,8 +84,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         let size : Int = dog["size"] as! Int
                         let urlImage : String? = dog["urlImage"] as? String
                         if (!UserApp.getInstance().dogExists(name: name)){
-                            UserApp.getInstance().dogs.append(Dog(id: Int(id), name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage!))
-                            id = id + 1
+                            UserApp.getInstance().dogs.append(Dog(id: id, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage!))
+                            //id = id + 1
                         }
                     }
                 }
@@ -130,8 +130,15 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                              "size" : dog.size as AnyObject,
                                              "urlImage" : dog.urlImage as AnyObject]
         //let post : [String : AnyObject] = ["\(dog.id!)": dogDic]
-        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(String(dog.id)).setValue(dogDic)
+        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).childByAutoId().setValue(dogDic)
     }
+    
+    
+    func removeDog(id : String){
+        let dog = ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(id)
+        dog.ref.removeValue()
+    }
+    
     func saveGarden(garden : Garden, id : String){
         ref.child(CHILD_USERS).child(id).child("Garden").setValue(["City" : garden.city,
                                                                    "Name" : garden.name,
@@ -140,7 +147,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     }
     
     func saveImageToStorage(image: UIImage, dog: Dog) {
-        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id + String(dog.id) + ".png")
+        let imageNama = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(imageNama).png")
         if let uploadData = UIImagePNGRepresentation(image){
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{
@@ -157,7 +165,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     {
         self.dogInGardenHandler = ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).observe(.value, with: { (snapshot) in
             self.dogInGardenList.removeAll()
-            if let dataDict = snapshot.value as? [String: [String: Int]]
+            if let dataDict = snapshot.value as? [String: [String: String]]
             {
                 for (userId, dogs) in dataDict {
                     
@@ -179,7 +187,6 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                 }
                                 
                                 self.updateInGardenDelegate?.dbUpdated()
-                                Dog.counter = Dog.counter - 1
                             }
                         })
                         

@@ -39,6 +39,11 @@ class UserApp{
         return false
     }
     
+    func removeDog(dog: Dog, index: Int){
+        dogs.remove(at: index)
+        FBDatabaseManagment.getInstance().removeDog(id: dog.id!)
+    }
+    
     func dogExists(name : String) -> Bool{
         for i in 0 ..< dogs.count {
             if dogs[i].name == name{
