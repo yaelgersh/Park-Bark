@@ -60,8 +60,9 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         })
         
         dogInGardenHandler = ref?.child(CHILD_GARDENS).child("כפר סבא").child("גן יקשטט").child(CHILD_DOGS).observe(.value, with: { (snapshot) in
-            if let dataDict = snapshot.value as? [String: [String: Int]]{
-            
+            self.dogInGardenList.removeAll()
+            if let dataDict = snapshot.value as? [String: [String: Int]]
+            {
                 for (userId, dogs) in dataDict {
                     
                     for (_,dogId) in dogs{
@@ -81,13 +82,17 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                     self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil))
                                 }
                                 
-                                
+                                self.updateInGardenDelegate?.dbUpdated()
                                 Dog.counter = Dog.counter - 1
                             }
                         })
+                        
                     }
                     
                 }
+            }
+            else{
+                self.updateInGardenDelegate?.dbUpdated()
             }
         })
 
