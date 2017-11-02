@@ -16,6 +16,7 @@ class UserApp{
     var name : String!
     var dogs : [Dog] = []
     var garden : Garden?
+    var following: [String] = []
     
     private init() {}
     
@@ -46,4 +47,5 @@ class UserApp{
         }
         return false
     }
+    
 }

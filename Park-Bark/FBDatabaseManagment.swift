@@ -23,12 +23,14 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     private let CHILD_USERS : String = "Users"
     private let CHILD_GARDENS : String = "Gardens"
     private let CHILD_DOGS : String = "dogs"
-
+    
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
     private var dogInGardenList = [Dog]()
     
     weak var updateInGardenDelegate: UpdateInGardenDelegate?
+    
+    var firstRun: Bool = true
     
     private init() {
         ref = Database.database().reference()
@@ -58,46 +60,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 }
             }
         })
-        
-        dogInGardenHandler = ref?.child(CHILD_GARDENS).child("כפר סבא").child("גן יקשטט").child(CHILD_DOGS).observe(.value, with: { (snapshot) in
-            self.dogInGardenList.removeAll()
-            if let dataDict = snapshot.value as? [String: [String: Int]]
-            {
-                for (userId, dogs) in dataDict {
-                    
-                    for (_,dogId) in dogs{
-                        _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
-                            if let dog = snapshot.value as? [String: AnyObject]{
-                                let name : String = dog["name"] as! String
-                                let isMale : Bool = dog["isMale"] as! Bool
-                                let year : Int = dog["year"] as! Int
-                                let mounth : Int = dog["mounth"] as! Int
-                                let day : Int = dog["day"] as! Int
-                                let race : String = dog["race"] as! String
-                                let size : Int = dog["size"] as! Int
-                                if let urlImage : String = dog["urlImage"] as? String{
-                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage))
-                                }
-                                else{
-                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil))
-                                }
-                                
-                                self.updateInGardenDelegate?.dbUpdated()
-                                Dog.counter = Dog.counter - 1
-                            }
-                        })
-                        
-                    }
-                    
-                }
-            }
-            else{
-                self.updateInGardenDelegate?.dbUpdated()
-            }
-        })
-
-        
     }
+    
     static func getInstance() -> FBDatabaseManagment{
         return instance
     }
@@ -105,12 +69,12 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func readAccount(){
         usersHandler = ref?.child(CHILD_USERS).child(UserApp.getInstance().id).observe(.value, with:{ (snapshot) in
             if let item = snapshot.value as? [String : AnyObject]{
-//                print("## user name = \(item["name"] as! String) ")
-//                print("## user dog = \(item["dogs"]) ")
+                //                print("## user name = \(item["name"] as! String) ")
+                //                print("## user dog = \(item["dogs"]) ")
                 var id = 0
                 if let dogs = item["dogs"] as? [[String : AnyObject]]{
                     for dog in dogs{
-//                        print("^^^^^^^^")
+                        //                        print("^^^^^^^^")
                         let name : String = dog["name"] as! String
                         let isMale : Bool = dog["isMale"] as! Bool
                         let year : Int = dog["year"] as! Int
@@ -130,8 +94,9 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                     let name : String = garden["Name"] as! String
                     let lat : Double = garden["lat"] as! Double
                     let lng : Double = garden["lng"] as! Double
-               
-                    UserApp.getInstance().garden = Garden(city: city, name: name, lat: lat, lng: lng)                    
+                    
+                    UserApp.getInstance().garden = Garden(city: city, name: name, lat: lat, lng: lng)
+                    self.getDogsInGardenFromFB()
                 }
             }
             else{
@@ -188,45 +153,59 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         }
     }
     
+    func getDogsInGardenFromFB()
+    {
+        self.dogInGardenHandler = ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).observe(.value, with: { (snapshot) in
+            self.dogInGardenList.removeAll()
+            if let dataDict = snapshot.value as? [String: [String: Int]]
+            {
+                for (userId, dogs) in dataDict {
+                    
+                    for (_,dogId) in dogs{
+                        _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
+                            if let dog = snapshot.value as? [String: AnyObject]{
+                                let name : String = dog["name"] as! String
+                                let isMale : Bool = dog["isMale"] as! Bool
+                                let year : Int = dog["year"] as! Int
+                                let mounth : Int = dog["mounth"] as! Int
+                                let day : Int = dog["day"] as! Int
+                                let race : String = dog["race"] as! String
+                                let size : Int = dog["size"] as! Int
+                                if let urlImage : String = dog["urlImage"] as? String{
+                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage))
+                                }
+                                else{
+                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil))
+                                }
+                                
+                                self.updateInGardenDelegate?.dbUpdated()
+                                Dog.counter = Dog.counter - 1
+                            }
+                        })
+                        
+                    }
+                    
+                }
+            }
+            else{
+                self.updateInGardenDelegate?.dbUpdated()
+            }
+        })
+    }
+    
+    func stopObserverForInGarden()
+    {
+        ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).removeAllObservers()
+    }
     func getImageFromStorage(id : Int){
-//        let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage)
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            if error != nil{
-//                print(error!)
-//                return
-//            }
-//        }
+        //        let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage)
+        //        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        //            if error != nil{
+        //                print(error!)
+        //                return
+        //            }
+        //        }
         
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

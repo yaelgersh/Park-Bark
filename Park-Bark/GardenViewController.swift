@@ -306,6 +306,9 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBAction func addGardenClcik(_ sender: Any) {
+        if UserApp.getInstance().garden != nil{
+            FBDatabaseManagment.getInstance().stopObserverForInGarden()
+        }
         FBDatabaseManagment.getInstance().saveGarden(garden: chocenGarden!, id: user!)
         _ = navigationController?.popViewController(animated: true)
     }

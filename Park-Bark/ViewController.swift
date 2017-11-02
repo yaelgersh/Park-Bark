@@ -27,7 +27,10 @@ class ViewController: UIViewController {
         if let user = user {
             UserApp.getInstance().name = user.displayName
             UserApp.getInstance().id = user.uid
-            FBDatabaseManagment.getInstance().readAccount()
+            if FBDatabaseManagment.getInstance().firstRun{
+                FBDatabaseManagment.getInstance().readAccount()
+                FBDatabaseManagment.getInstance().firstRun = false
+            }
         }
     }
 
