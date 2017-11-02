@@ -120,7 +120,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         ref.child(CHILD_USERS).child(id).setValue(post)
     }
     
-    func createDog(dog : Dog){
+    private func createDog(dog : Dog){
         let dogDic : [String : AnyObject] = ["name" : dog.name as AnyObject,
                                              "isMale" : dog.isMale as AnyObject,
                                              "year" : dog.year as AnyObject,
@@ -129,14 +129,39 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                              "race" : dog.race as AnyObject,
                                              "size" : dog.size as AnyObject,
                                              "urlImage" : dog.urlImage as AnyObject]
-        //let post : [String : AnyObject] = ["\(dog.id!)": dogDic]
-        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).childByAutoId().setValue(dogDic)
+        
+        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(dog.id!).setValue(dogDic)
     }
     
+    func updateDog(dog: Dog){
+        //let dog = UserApp.getInstance().dogs[index]
+        let dogDic : [String : AnyObject] = ["name" : dog.name as AnyObject,
+                                             "isMale" : dog.isMale as AnyObject,
+                                             "year" : dog.year as AnyObject,
+                                             "mounth" : dog.mounth as AnyObject,
+                                             "day" : dog.day as AnyObject,
+                                             "race" : dog.race as AnyObject,
+                                             "size" : dog.size as AnyObject,
+                                             "urlImage" : dog.urlImage as AnyObject]
+        
+        ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).updateChildValues([dog.id! : dogDic])
+        
+    }
     
     func removeDog(id : String){
         let dog = ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(id)
-        dog.ref.removeValue()
+        
+        let imageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(id).png")
+        imageRef.delete { (error) in
+            if error != nil {
+                print(error!)
+                return
+            } else {
+                dog.ref.removeValue()
+            }
+        }
+        
+        
     }
     
     func saveGarden(garden : Garden, id : String){
@@ -147,18 +172,35 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     }
     
     func saveImageToStorage(image: UIImage, dog: Dog) {
-        let imageNama = NSUUID().uuidString
-        let storageRef = Storage.storage().reference().child("\(imageNama).png")
+        let imageName = NSUUID().uuidString
+        dog.id = imageName
+        
+        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(imageName).png")
         if let uploadData = UIImagePNGRepresentation(image){
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{
                     print(error!)
-                    return //nil
+                    return
                 }
                 dog.urlImage = metadata?.downloadURL()?.absoluteString
                 self.createDog(dog: dog)
             })
         }
+    }
+    
+    func updateImageInStorage(image: UIImage, dog: Dog){
+        let storageRef = Storage.storage().reference().child(UserApp.getInstance().id).child("\(dog.id).png")
+        if let uploadData = UIImagePNGRepresentation(image){
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                if error != nil{
+                    print(error!)
+                    return
+                }
+                dog.urlImage = metadata?.downloadURL()?.absoluteString
+                self.updateDog(dog: dog)
+            })
+        }
+
     }
     
     func getDogsInGardenFromFB()
@@ -204,15 +246,5 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     {
         ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).removeAllObservers()
     }
-    func getImageFromStorage(id : Int){
-        //        let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage)
-        //        URLSession.shared.dataTask(with: url) { (data, response, error) in
-        //            if error != nil{
-        //                print(error!)
-        //                return
-        //            }
-        //        }
-        
-        
-    }
+    
 }

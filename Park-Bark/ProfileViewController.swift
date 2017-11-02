@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var datePickerText: UITextField!
     let datePicker = UIDatePicker()
-    var id : Int!
+    var index : Int!
     var day : String!
     var mounth : String!
     var year : String!
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     
-    let dogSize = ["bigDog", "mediumBig", "mediumSmall", "small"]
+    let dogSize = ["small","mediumSmall", "mediumBig", "bigDog"]
     let GREEN = "Green"
     let BLACK = "Black"
     
@@ -86,7 +86,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         else{
-            choodeAction()
+            chooseAction()
             return
         }
         
@@ -98,7 +98,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
-    func choodeAction(){
+    func chooseAction(){
         if UserApp.getInstance().dogs.count > 0 {
             let alert = UIAlertController(title: "", message: "מה תרצה\\י לעשות?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "להוסיף כלב", style: .default, handler: { (action) in
@@ -113,7 +113,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 for i in 0 ..< dogsCount{
                     showAlert.addAction(UIAlertAction(title: "\(UserApp.getInstance().dogs[i].name!)", style: .default, handler: { (action) in
                         showAlert.dismiss(animated: true, completion: nil)
-                        self.showDogProfile(id: i)
+                        self.showDogProfile(index: i)
                     }))
                 }
                 self.present(showAlert, animated: true, completion: nil)
@@ -130,11 +130,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                         warnAlert.addAction(UIAlertAction(title: "מחק", style: UIAlertActionStyle.default, handler: { (action) in
                             warnAlert.dismiss(animated: true, completion: nil)
                             self.deletDog(index: i)
-                            self.choodeAction()
+                            self.chooseAction()
                         }))
                         warnAlert.addAction(UIAlertAction(title: "ביטול", style: UIAlertActionStyle.default, handler: { (action) in
                             warnAlert.dismiss(animated: true, completion: nil)
-                            self.choodeAction()
+                            self.chooseAction()
                         }))
                         self.present(warnAlert, animated: true, completion: nil)
                         
@@ -158,9 +158,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         UserApp.getInstance().removeDog(dog: UserApp.getInstance().dogs[index], index: index)
     }
     
-    func showDogProfile(id : Int){
-        self.id = id
-        let dog = UserApp.getInstance().dogs[id]
+    func showDogProfile(index : Int){
+        editProfileButton.isHidden = false
+        
+        self.index = index
+        let dog = UserApp.getInstance().dogs[index]
         
         dogPic.alpha = 1
         dogButton.setTitle("", for: .normal)
@@ -168,7 +170,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         if (dog.urlImage) != nil{
             //let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage!)
-            let url = URL(string: UserApp.getInstance().dogs[id].urlImage!)
+            let url = URL(string: UserApp.getInstance().dogs[index].urlImage!)
             let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
                 if error != nil{
                     print(error!)
@@ -185,12 +187,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         nameTextField.text = dog.name
         nameTextField.isEnabled = false
         
+        genderSegmentControll.isEnabled = false
         if(dog.isMale!){
             genderTextField.text = "זכר"
+            genderCircle.image = UIImage(named:genderPic[0])
         }
         else{
             genderTextField.text = "נקבה"
+            genderCircle.image = UIImage(named:genderPic[1])
         }
+        genderTextField.isHidden = false
         genderTextField.isEnabled = false
         
         ageTitle.text = "גיל: "
@@ -213,6 +219,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         raceTextField.text = dog.race
         raceTextField.isEnabled = false
         
+        size = dog.size
         for i in 0 ..< buttons.count{
             buttons[i].isEnabled = false
         }
@@ -228,7 +235,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let count : Int = UserApp.getInstance().dogs.count
         for i in 0 ..< count{
             alert.addAction(UIAlertAction(title: "הצג את \(UserApp.getInstance().dogs[i].name!)", style: .default, handler: { (action) in
-                self.showDogProfile(id: i)
+                self.showDogProfile(index: i)
                 self.editProfileButton.isHidden = false
             }))
         }
@@ -452,7 +459,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editProfileButton.isHidden = true
         genderTextField.isHidden = false
         
-        let dog = UserApp.getInstance().dogs[id]
+        let dog = UserApp.getInstance().dogs[index]
         
         dogPic.alpha = 0.4
         dogButton.setTitle("", for: .normal)
@@ -461,6 +468,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         nameTextField.isEnabled = true
         
         genderTextField.isHidden = true
+        genderSegmentControll.isEnabled = true
         if(dog.isMale!){
             genderSegmentControll.selectedSegmentIndex = 0
         }
@@ -489,13 +497,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editProfileButton.isHidden = false
         genderTextField.isHidden = true
 
-        var dog = UserApp.getInstance().dogs[id]
+        let dog: Dog! = UserApp.getInstance().dogs[index]
+        
+        
         
         if nameTextField.text == ""{
             errorPopup(error: "שם הכלב הוא שדה חובה")
             return
         }
-        name = nameTextField.text
+        for i in 0 ..< UserApp.getInstance().dogs.count{
+            if i != index{
+                if(nameTextField.text == UserApp.getInstance().dogs[i].name!){
+                    errorPopup(error: "יש כלב אחר בשם \(nameTextField.text!) ");
+                    return
+                }
+            }
+        }
+        dog.name = nameTextField.text
         
         if genderSegmentControll.selectedSegmentIndex == 0{
             dog.isMale = true
@@ -543,20 +561,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dog.size = size
         
         
-        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size, dogPic: dogPic.image!){
-            let alert = UIAlertController(title: "", message: "\(name!) נוסף\\ה בהצלחה.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "הוסף\\י עוד כלב", style: .default, handler: { (action) in
-                self.resetThePage()
-            }))
-            alert.addAction(UIAlertAction(title: "חזרה", style: .default, handler: { (action) in
-                _ = self.navigationController?.popViewController(animated: true)
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
-        else{
-            errorPopup(error: "\(name!) כבר ברשימת הכלבים שלך");
-        }
-
+        UserApp.getInstance().updateDog(index: index, image: dogPic.image!)
+        showDogProfile(index: index)
     }
     
     func errorPopup(error : String){
