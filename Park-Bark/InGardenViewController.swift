@@ -42,9 +42,13 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dogCell", for: indexPath) as! InGardenTableViewCell
         
+        cell.dogId = dogsInGardenList[indexPath.row].id
         cell.nameLabel.text = dogsInGardenList[indexPath.row].name
         cell.ageLabel.text = "\(dogsInGardenList[indexPath.row].day!)/\(dogsInGardenList[indexPath.row].mounth!)/\(dogsInGardenList[indexPath.row].year!)"
         cell.sizeLabel.text = dogsInGardenList[indexPath.row].race
+        if(UserApp.getInstance().following.contains(dogsInGardenList[indexPath.row].id!)){
+            cell.likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
+        }
         
         return cell
     }

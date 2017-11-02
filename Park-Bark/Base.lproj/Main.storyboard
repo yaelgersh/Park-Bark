@@ -15,7 +15,7 @@
             <objects>
                 <navigationController restorationIdentifier="navigationToMain" storyboardIdentifier="navigationToMain" id="iK6-ab-ZS8" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleAspectFill" id="cAc-PV-yI9">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -520,7 +520,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="עיר:  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4X-ga-bfl">
-                                <rect key="frame" x="199" y="104" width="121" height="30"/>
+                                <rect key="frame" x="199" y="108" width="121" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="87H-hC-pd0"/>
                                     <constraint firstAttribute="width" constant="121" id="KCb-2D-sQ5"/>
@@ -530,7 +530,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bea-oX-vKc">
-                                <rect key="frame" x="16" y="104" width="175" height="30"/>
+                                <rect key="frame" x="16" y="108" width="175" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="IkR-QN-KLJ"/>
                                 </constraints>
@@ -538,7 +538,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="גינה: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5g-WD-QGY">
-                                <rect key="frame" x="199" y="142" width="121" height="30"/>
+                                <rect key="frame" x="199" y="146" width="121" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="C9I-fT-6jw"/>
                                     <constraint firstAttribute="width" constant="121" id="OHK-bb-MnO"/>
@@ -548,7 +548,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-qy-HlR">
-                                <rect key="frame" x="16" y="149" width="175" height="30"/>
+                                <rect key="frame" x="16" y="153" width="175" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="94C-eX-DRe"/>
                                 </constraints>
@@ -556,7 +556,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-EP-WeV">
-                                <rect key="frame" x="16" y="204" width="288" height="186"/>
+                                <rect key="frame" x="16" y="208" width="288" height="182"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

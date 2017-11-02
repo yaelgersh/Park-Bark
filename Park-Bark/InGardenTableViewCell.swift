@@ -15,7 +15,7 @@ class InGardenTableViewCell: UITableViewCell {
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
-    
+    var dogId : String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +28,15 @@ class InGardenTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func likeClicked(_ sender: Any) {
-        likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
+        if(likeButton.currentImage?.isEqual((UIImage(named: "heart"))))!{
+            likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
+            FBDatabaseManagment.getInstance().addFollowing(id: dogId, name: nameLabel.text!)
+        }
+        
+        else{
+            likeButton.setImage(UIImage(named: "heart"), for: .normal)
+            FBDatabaseManagment.getInstance().removeFollowing(id: dogId)
+        }
     }
     
 }
