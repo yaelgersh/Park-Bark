@@ -88,6 +88,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="pawClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="75M-eO-sep"/>
+                                    <segue destination="Xlj-cO-ufD" kind="show" id="apU-kd-sN3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -686,6 +687,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="ageLabel" destination="CuR-3L-rh1" id="9PN-Ru-BaB"/>
+                                            <outlet property="dogImage" destination="bxt-2J-yX0" id="LRz-yc-e3O"/>
                                             <outlet property="likeButton" destination="Fxo-i5-KEv" id="YRZ-GE-kHs"/>
                                             <outlet property="nameLabel" destination="bDU-hw-Ia6" id="7VS-CR-Dzf"/>
                                             <outlet property="sizeLabel" destination="WLl-x5-IpV" id="4vw-cA-Hqm"/>

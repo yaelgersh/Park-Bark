@@ -41,14 +41,42 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dogCell", for: indexPath) as! InGardenTableViewCell
-        
         cell.dogId = dogsInGardenList[indexPath.row].id
+        
+        if let dog = UserApp.getInstance().findDogById(id: cell.dogId){
+        
+            if (dog.urlImage) != nil{
+                //let url = URL(fileURLWithPath: UserApp.getInstance().dogs[id].urlImage!)
+                let url = URL(string: dog.urlImage!)
+                let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                    if error != nil{
+                        print(error!)
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        cell.dogImage.image = UIImage(data: data!)
+                        
+                    }
+                })
+                task.resume()
+            }
+        }
+        cell.dogImage.layer.cornerRadius = cell.dogImage.frame.height/2
+        cell.dogImage.clipsToBounds = true
+        
+        
+        
+        
+        
         cell.nameLabel.text = dogsInGardenList[indexPath.row].name
         cell.ageLabel.text = "\(dogsInGardenList[indexPath.row].day!)/\(dogsInGardenList[indexPath.row].mounth!)/\(dogsInGardenList[indexPath.row].year!)"
         cell.sizeLabel.text = dogsInGardenList[indexPath.row].race
         if(UserApp.getInstance().following.contains(dogsInGardenList[indexPath.row].id!)){
             cell.likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
         }
+        
+        
+        
         
         return cell
     }

@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func pawClicked(_ sender: Any) {
-        let user = UserApp.getInstance()
+       /* let user = UserApp.getInstance()
         if user.dogs.count == 0{//no dog
             let alert = UIAlertController(title: "לא ניתן להתחבר לגינה", message: "על מנת להתחבר לגינה עליך להכניס את פרטי הכלב שלך", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "הוסף כלב", style: .default, handler: { (action) in
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
             return
-        }
+        }*/
         
         
         //gerden check in
