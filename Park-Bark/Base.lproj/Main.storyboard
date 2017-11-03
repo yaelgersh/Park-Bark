@@ -648,22 +648,22 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pwm-Yp-2o4">
-                                                    <rect key="frame" x="72" y="8" width="152" height="63"/>
+                                                    <rect key="frame" x="75" y="8" width="146" height="61.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שם" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDU-hw-Ia6">
-                                                            <rect key="frame" x="0.0" y="0.0" width="152" height="21"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="146" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="גיל" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuR-3L-rh1">
-                                                            <rect key="frame" x="0.0" y="21" width="152" height="21"/>
+                                                            <rect key="frame" x="0.0" y="20.5" width="146" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="סוג וגודל          " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLl-x5-IpV">
-                                                            <rect key="frame" x="0.0" y="42" width="152" height="21"/>
+                                                            <rect key="frame" x="0.0" y="41" width="146" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -693,10 +693,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="bxt-2J-yX0" secondAttribute="trailing" id="JDV-qf-GMy"/>
                                                 <constraint firstItem="bxt-2J-yX0" firstAttribute="centerY" secondItem="bEc-Bg-zu3" secondAttribute="centerY" id="SPE-dQ-RXx"/>
                                                 <constraint firstItem="Fxo-i5-KEv" firstAttribute="centerY" secondItem="bEc-Bg-zu3" secondAttribute="centerY" id="TDU-BT-dV6"/>
-                                                <constraint firstItem="pwm-Yp-2o4" firstAttribute="leading" secondItem="Fxo-i5-KEv" secondAttribute="trailing" constant="4" id="UcS-Je-cSo"/>
+                                                <constraint firstItem="pwm-Yp-2o4" firstAttribute="leading" secondItem="Fxo-i5-KEv" secondAttribute="trailing" constant="7" id="UcS-Je-cSo"/>
                                                 <constraint firstItem="pwm-Yp-2o4" firstAttribute="top" secondItem="bEc-Bg-zu3" secondAttribute="topMargin" id="e9p-Yn-Icm"/>
                                                 <constraint firstItem="Fxo-i5-KEv" firstAttribute="leading" secondItem="bEc-Bg-zu3" secondAttribute="leadingMargin" id="hwB-Te-3Cy"/>
-                                                <constraint firstItem="bxt-2J-yX0" firstAttribute="leading" secondItem="pwm-Yp-2o4" secondAttribute="trailing" constant="4" id="jiD-89-Z1S"/>
+                                                <constraint firstItem="bxt-2J-yX0" firstAttribute="leading" secondItem="pwm-Yp-2o4" secondAttribute="trailing" constant="7" id="jiD-89-Z1S"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
