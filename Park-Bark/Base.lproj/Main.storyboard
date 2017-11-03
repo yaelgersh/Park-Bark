@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iK6-ab-ZS8">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1611" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iK6-ab-ZS8">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -81,8 +81,14 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zi-Q0-leD" userLabel="pawButton">
                                 <rect key="frame" x="0.0" y="90" width="320" height="300"/>
                                 <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDw-qq-Afr" userLabel="pawButton">
+                                <rect key="frame" x="0.0" y="90" width="320" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="Xlj-cO-ufD" kind="show" id="JSi-DJ-VZ3"/>
+                                    <action selector="pawClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="75M-eO-sep"/>
+                                    <segue destination="Xlj-cO-ufD" kind="show" id="apU-kd-sN3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -150,7 +156,7 @@
         <!--Profile View Controller-->
         <scene sceneID="Bci-bb-S7j">
             <objects>
-                <viewController id="O19-Gv-s1I" customClass="ProfileViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="profile" storyboardIdentifier="profile" id="O19-Gv-s1I" customClass="ProfileViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qKK-Pk-32B"/>
                         <viewControllerLayoutGuide type="bottom" id="4Au-5M-SrT"/>
@@ -488,7 +494,7 @@
         <!--Garden View Controller-->
         <scene sceneID="SFx-JA-ew8">
             <objects>
-                <viewController id="cjB-w8-xRo" customClass="GardenViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="loginGarden" storyboardIdentifier="loginGarden" id="cjB-w8-xRo" customClass="GardenViewController" customModule="Park_Bark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BXx-zB-QO6"/>
                         <viewControllerLayoutGuide type="bottom" id="RbA-NR-vzy"/>
@@ -515,7 +521,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="עיר:  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4X-ga-bfl">
-                                <rect key="frame" x="199" y="108" width="121" height="30"/>
+                                <rect key="frame" x="199" y="104" width="121" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="87H-hC-pd0"/>
                                     <constraint firstAttribute="width" constant="121" id="KCb-2D-sQ5"/>
@@ -525,7 +531,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bea-oX-vKc">
-                                <rect key="frame" x="16" y="108" width="175" height="30"/>
+                                <rect key="frame" x="16" y="104" width="175" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="IkR-QN-KLJ"/>
                                 </constraints>
@@ -533,7 +539,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="גינה: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5g-WD-QGY">
-                                <rect key="frame" x="199" y="146" width="121" height="30"/>
+                                <rect key="frame" x="199" y="142" width="121" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="C9I-fT-6jw"/>
                                     <constraint firstAttribute="width" constant="121" id="OHK-bb-MnO"/>
@@ -543,7 +549,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-qy-HlR">
-                                <rect key="frame" x="16" y="153" width="175" height="30"/>
+                                <rect key="frame" x="16" y="149" width="175" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="94C-eX-DRe"/>
                                 </constraints>
@@ -551,7 +557,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-EP-WeV">
-                                <rect key="frame" x="16" y="208" width="288" height="182"/>
+                                <rect key="frame" x="16" y="204" width="288" height="186"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -611,63 +617,77 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="who" translatesAutoresizingMaskIntoConstraints="NO" id="I42-JV-71N">
-                                <rect key="frame" x="0.0" y="74" width="320" height="53"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="53" id="u4D-ot-NQk"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZLd-gm-KuB">
-                                <rect key="frame" x="16" y="135" width="288" height="337"/>
+                                <rect key="frame" x="16" y="91" width="288" height="381"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dogCell" rowHeight="88" id="LaG-QH-JtD" customClass="InGardenTableViewCell" customModule="Park_Bark" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LaG-QH-JtD" id="bEc-Bg-zu3">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="87.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxo-i5-KEv" userLabel="LikeButton">
-                                                    <rect key="frame" x="16" y="6" width="63" height="59"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button" image="heart"/>
-                                                    <connections>
-                                                        <action selector="likeClicked:" destination="LaG-QH-JtD" eventType="touchUpInside" id="u5v-C5-xjB"/>
-                                                    </connections>
-                                                </button>
-                                                <stackView opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" fixedFrame="YES" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pwm-Yp-2o4">
-                                                    <rect key="frame" x="130" y="13" width="101" height="61.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <stackView opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pwm-Yp-2o4">
+                                                    <rect key="frame" x="72" y="8" width="152" height="61.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="שם" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDU-hw-Ia6">
-                                                            <rect key="frame" x="0.0" y="0.0" width="101" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שם" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDU-hw-Ia6">
+                                                            <rect key="frame" x="0.0" y="0.0" width="152" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="גיל" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuR-3L-rh1">
-                                                            <rect key="frame" x="0.0" y="20.5" width="101" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="גיל" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuR-3L-rh1">
+                                                            <rect key="frame" x="0.0" y="20.5" width="152" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="סוג וגודל          " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLl-x5-IpV">
-                                                            <rect key="frame" x="0.0" y="41" width="101" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="סוג וגודל          " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLl-x5-IpV">
+                                                            <rect key="frame" x="0.0" y="41" width="152" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="baj-7w-uz4">
-                                                    <rect key="frame" x="239" y="8" width="124.66666666666666" height="72.666666666666671"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxo-i5-KEv" userLabel="LikeButton">
+                                                    <rect key="frame" x="8" y="14" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="7Zh-uq-yHE"/>
+                                                        <constraint firstAttribute="height" constant="60" id="zzn-Rg-PLU"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="heart"/>
+                                                    <connections>
+                                                        <action selector="likeClicked:" destination="LaG-QH-JtD" eventType="touchUpInside" id="u5v-C5-xjB"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="bxt-2J-yX0">
+                                                    <rect key="frame" x="228" y="13.5" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="HTU-IE-L0a"/>
+                                                        <constraint firstAttribute="height" constant="60" id="ZRb-JT-kJW"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="bxt-2J-yX0" secondAttribute="trailing" id="JDV-qf-GMy"/>
+                                                <constraint firstItem="bxt-2J-yX0" firstAttribute="centerY" secondItem="bEc-Bg-zu3" secondAttribute="centerY" id="SPE-dQ-RXx"/>
+                                                <constraint firstItem="Fxo-i5-KEv" firstAttribute="centerY" secondItem="bEc-Bg-zu3" secondAttribute="centerY" id="TDU-BT-dV6"/>
+                                                <constraint firstItem="pwm-Yp-2o4" firstAttribute="leading" secondItem="Fxo-i5-KEv" secondAttribute="trailing" constant="4" id="UcS-Je-cSo"/>
+                                                <constraint firstItem="pwm-Yp-2o4" firstAttribute="top" secondItem="bEc-Bg-zu3" secondAttribute="topMargin" id="e9p-Yn-Icm"/>
+                                                <constraint firstItem="Fxo-i5-KEv" firstAttribute="leading" secondItem="bEc-Bg-zu3" secondAttribute="leadingMargin" id="hwB-Te-3Cy"/>
+                                                <constraint firstItem="bxt-2J-yX0" firstAttribute="leading" secondItem="pwm-Yp-2o4" secondAttribute="trailing" constant="4" id="jiD-89-Z1S"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="ageLabel" destination="CuR-3L-rh1" id="9PN-Ru-BaB"/>
-                                            <outlet property="dogImage" destination="baj-7w-uz4" id="rN3-1y-OpL"/>
+                                            <outlet property="dogImage" destination="bxt-2J-yX0" id="LRz-yc-e3O"/>
                                             <outlet property="likeButton" destination="Fxo-i5-KEv" id="YRZ-GE-kHs"/>
                                             <outlet property="nameLabel" destination="bDU-hw-Ia6" id="7VS-CR-Dzf"/>
                                             <outlet property="sizeLabel" destination="WLl-x5-IpV" id="4vw-cA-Hqm"/>
@@ -697,7 +717,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zOq-Pf-rXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1597.1014492753625" y="116.57608695652175"/>
+            <point key="canvasLocation" x="-1597.5" y="116.25"/>
         </scene>
     </scenes>
     <resources>

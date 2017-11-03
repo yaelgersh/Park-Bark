@@ -53,5 +53,20 @@ class UserApp{
         }
         return false
     }
+    func findDogById(id: String) -> Dog?{
+        for dog in dogs{
+            if dog.id == id{
+                return dog
+            }
+        }
+        return nil
+    }
     
+    func logOut(){
+        id = ""
+        name = ""
+        dogs = []
+        garden = nil
+        following = []
+    }
 }

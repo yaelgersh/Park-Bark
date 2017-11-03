@@ -17,6 +17,8 @@ class InGardenTableViewCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     var dogId : String!
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
