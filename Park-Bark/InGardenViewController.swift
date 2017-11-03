@@ -74,19 +74,13 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.dogImage.layer.cornerRadius = cell.dogImage.frame.height/2
         cell.dogImage.clipsToBounds = true
         
-        
-        
-        
-        
         cell.nameLabel.text = dogsInGardenList[indexPath.row].name
         cell.ageLabel.text = "\(dogsInGardenList[indexPath.row].day!)/\(dogsInGardenList[indexPath.row].mounth!)/\(dogsInGardenList[indexPath.row].year!)"
         cell.sizeLabel.text = dogsInGardenList[indexPath.row].race
         if(UserApp.getInstance().following.contains(dogsInGardenList[indexPath.row].id!)){
             cell.likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
         }
-        
-        
-        
+        cell.ownerId = dogsInGardenList[indexPath.row].ownerId
         
         return cell
     }

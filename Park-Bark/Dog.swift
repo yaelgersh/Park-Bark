@@ -20,6 +20,7 @@ class Dog{
     var race : String!
     var size : Int! // 0 = small    1 = small/medium    2 = big/medium  3 = big
     var urlImage : String?
+    var ownerId : String?
     
     init(name: String, isMale: Bool , year: Int , mounth: Int , day: Int , race: String, size: Int) {
         //id = Dog.counter
@@ -50,4 +51,7 @@ class Dog{
         
     }
     
+    func setOwnerId(ownerId : String){
+        self.ownerId = ownerId
+    }
 }

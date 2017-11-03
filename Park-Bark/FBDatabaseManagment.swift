@@ -233,10 +233,14 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                 let race : String = dog["race"] as! String
                                 let size : Int = dog["size"] as! Int
                                 if let urlImage : String = dog["urlImage"] as? String{
-                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage))
+                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
+                                    newDog.setOwnerId(ownerId: userId)
+                                    self.dogInGardenList.append(newDog)
                                 }
                                 else{
-                                    self.dogInGardenList.append(Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil))
+                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
+                                    newDog.setOwnerId(ownerId: userId)
+                                    self.dogInGardenList.append(newDog)
                                 }
                                 
                                 self.updateInGardenDelegate?.dbUpdated()
@@ -281,5 +285,15 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         let user = UserApp.getInstance()
         let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id).child(user.dogs[dogIndex].id!)
             dogRef.ref.removeValue()
+    }
+    
+    func addFollowedBy(dogId: String, ownerId : String, userId : String){
+        let post : [String : String] = [userId : UserApp.getInstance().name]
+        ref.child(CHILD_USERS).child(ownerId).child(CHILD_DOGS).child(dogId).child("FollowedBy").updateChildValues(post)
+    }
+    
+    func removeFollowedBy(dogId: String, ownerId : String, userId : String){
+        let followedBy = ref.child(CHILD_USERS).child(ownerId).child(CHILD_DOGS).child(dogId).child("FollowedBy").child(userId)
+        followedBy.ref.removeValue()
     }
 }

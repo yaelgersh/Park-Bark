@@ -16,6 +16,7 @@ class InGardenTableViewCell: UITableViewCell {
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     var dogId : String!
+    var ownerId : String!
     
     
     
@@ -33,11 +34,13 @@ class InGardenTableViewCell: UITableViewCell {
         if(likeButton.currentImage?.isEqual((UIImage(named: "heartempty"))))!{
             likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
             FBDatabaseManagment.getInstance().addFollowing(id: dogId, name: nameLabel.text!)
+            FBDatabaseManagment.getInstance().addFollowedBy(dogId: dogId, ownerId : ownerId, userId : UserApp.getInstance().id)
         }
         
         else{
             likeButton.setImage(UIImage(named: "heartempty"), for: .normal)
             FBDatabaseManagment.getInstance().removeFollowing(id: dogId)
+            FBDatabaseManagment.getInstance().removeFollowedBy(dogId: dogId, ownerId : ownerId, userId : UserApp.getInstance().id)
         }
     }
     
