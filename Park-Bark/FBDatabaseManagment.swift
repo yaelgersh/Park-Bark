@@ -222,7 +222,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             {
                 for (userId, dogs) in dataDict {
                     
-                    for (_,dogId) in dogs{
+                    for dogId in dogs.keys{
                         _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
                             if let dog = snapshot.value as? [String: AnyObject]{
                                 let name : String = dog["name"] as! String
