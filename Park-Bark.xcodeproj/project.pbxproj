@@ -13,6 +13,8 @@
 		82A7E6961F9BBE1200C70456 /* Garden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A7E6951F9BBE1100C70456 /* Garden.swift */; };
 		84B327361FA88D0200C44B12 /* InGardenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B327351FA88D0200C44B12 /* InGardenViewController.swift */; };
 		84B327381FA8A8AF00C44B12 /* InGardenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B327371FA8A8AF00C44B12 /* InGardenTableViewCell.swift */; };
+		8D66C4331FACB040004F36D4 /* imageToDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D66C4321FACB040004F36D4 /* imageToDialog.swift */; };
+		8D66C4351FACC7A8004F36D4 /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D66C4341FACC7A8004F36D4 /* MyFriendsViewController.swift */; };
 		8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C3291F8F794C0015439A /* ProfileViewController.swift */; };
 		8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70C32B1F9247810015439A /* MyLoginViewController.swift */; };
 		8D70C3321F92801A0015439A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D70C3311F92801A0015439A /* GoogleService-Info.plist */; };
@@ -37,6 +39,8 @@
 		84B327351FA88D0200C44B12 /* InGardenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGardenViewController.swift; sourceTree = "<group>"; };
 		84B327371FA8A8AF00C44B12 /* InGardenTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGardenTableViewCell.swift; sourceTree = "<group>"; };
 		8CEEA41085C469F236801CD3 /* Pods_Park_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Park_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D66C4321FACB040004F36D4 /* imageToDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageToDialog.swift; sourceTree = "<group>"; };
+		8D66C4341FACC7A8004F36D4 /* MyFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
 		8D70C3291F8F794C0015439A /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8D70C32B1F9247810015439A /* MyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLoginViewController.swift; sourceTree = "<group>"; };
 		8D70C32D1F926B7B0015439A /* Park-Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Park-Bark.entitlements"; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				82A0861F1F9B9DFA00059CDC /* GardenViewController.swift */,
 				84B327351FA88D0200C44B12 /* InGardenViewController.swift */,
 				84B327371FA8A8AF00C44B12 /* InGardenTableViewCell.swift */,
+				8D66C4321FACB040004F36D4 /* imageToDialog.swift */,
+				8D66C4341FACC7A8004F36D4 /* MyFriendsViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -316,10 +322,12 @@
 				8DD35AFD1F7675D200513995 /* Park_Bark.xcdatamodeld in Sources */,
 				82A7E6961F9BBE1200C70456 /* Garden.swift in Sources */,
 				8DD35AF71F7675D200513995 /* ViewController.swift in Sources */,
+				8D66C4351FACC7A8004F36D4 /* MyFriendsViewController.swift in Sources */,
 				8D70C32A1F8F794C0015439A /* ProfileViewController.swift in Sources */,
 				82A086201F9B9DFC00059CDC /* GardenViewController.swift in Sources */,
 				8D70C32C1F9247810015439A /* MyLoginViewController.swift in Sources */,
 				84B327381FA8A8AF00C44B12 /* InGardenTableViewCell.swift in Sources */,
+				8D66C4331FACB040004F36D4 /* imageToDialog.swift in Sources */,
 				8DF23D641F9C7B2400138D82 /* Dog.swift in Sources */,
 				8DD35AF51F7675D200513995 /* AppDelegate.swift in Sources */,
 			);

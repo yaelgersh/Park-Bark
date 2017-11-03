@@ -1,42 +1,23 @@
 //
-//  InGardenViewController.swift
+//  MyFriendsViewController.swift
 //  Park-Bark
 //
-//  Created by admin on 31/10/2017.
+//  Created by Yael on 03/11/2017.
 //  Copyright © 2017 park-bark. All rights reserved.
 //
 
 import UIKit
 
-class InGardenViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UpdateInGardenDelegate {
-    
-    @IBOutlet weak var dogsInGardenTable: UITableView!
-    
-    
-    var dogsInGardenList = FBDatabaseManagment.getInstance().getDogsInGardenList()
+class MyFriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet weak var friendsTable: UITableView!
+    var myFriends: [Dog] = []
     let sizes: [String] = ["קטן", "בינוני", "גדול", "גדול מאוד"]
     
-    func dbUpdated() {
-        DispatchQueue.global(qos: .background).async {
-            self.dogsInGardenList = FBDatabaseManagment.getInstance().getDogsInGardenList()
-            
-            DispatchQueue.main.async {
-                self.dogsInGardenTable.reloadData()
-            }
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        FBDatabaseManagment.getInstance().updateInGardenDelegate = self
-    
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
 
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.navigationItem.title = UserApp.getInstance().garden?.name
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,10 +25,10 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dogsInGardenList.count
+        return myFriends.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dogCell", for: indexPath) as! InGardenTableViewCell
         
@@ -55,7 +36,7 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.dogImage.clipsToBounds = true
         
         
-        let dog: Dog = dogsInGardenList[indexPath.row]
+        let dog: Dog = myFriends[indexPath.row]
         cell.dogId = dog.id
         cell.nameLabel.text = " שם: \(dog.name!)"
         
@@ -101,20 +82,17 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         else{
             cell.genderCircle.image = #imageLiteral(resourceName: "pinkcircle")
         }
-        cell.ownerId = dogsInGardenList[indexPath.row].ownerId
+        cell.ownerId = myFriends[indexPath.row].ownerId
         return cell
     }
     
-    deinit {
-        print("\(self) InGarden - dead")
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title:"\(dogsInGardenList[indexPath.row].name!)", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title:"\(myFriends[indexPath.row].name!)", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "חזרה", style: .default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
         })
-        let cell = dogsInGardenTable.cellForRow(at: indexPath) as! InGardenTableViewCell
+        let cell = friendsTable.cellForRow(at: indexPath) as! InGardenTableViewCell
         alert.addImage(image: cell.dogImage.image!)
         alert.addAction(action)
         
@@ -123,5 +101,6 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         //self.view.addSubview(imageView)
         self.present(alert, animated: true, completion: nil)
     }
-    
+
+
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class InGardenTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var genderCircle: UIImageView!
     @IBOutlet weak var dogImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
