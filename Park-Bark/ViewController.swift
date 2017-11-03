@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class ViewController: UIViewController {
+    @IBOutlet weak var pawImage: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func pawClicked(_ sender: Any) {
-       /* let user = UserApp.getInstance()
+        let user = UserApp.getInstance()
         if user.dogs.count == 0{//no dog
             let alert = UIAlertController(title: "לא ניתן להתחבר לגינה", message: "על מנת להתחבר לגינה עליך להכניס את פרטי הכלב שלך", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "הוסף כלב", style: .default, handler: { (action) in
@@ -101,11 +102,38 @@ class ViewController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
             return
-        }*/
+        }
         
         
         //gerden check in
+        if(pawImage.image?.isEqual((UIImage(named: "paw4"))))!{
+            
+            for i in 0 ..< UserApp.getInstance().dogs.count{
+                FBDatabaseManagment.getInstance().signInGarden(dogIndex: i)
+            }
+            pawImage.image = UIImage(named: "paw3")
+            
+        }
+        //garden check out
+        else{
+            for i in 0 ..< UserApp.getInstance().dogs.count{
+                FBDatabaseManagment.getInstance().signOutGarden(dogIndex: i)
+            }
+            pawImage.image = UIImage(named: "paw4")
+        }
+
         
+    }
+    
+    @IBAction func gardeClicked(_ sender: Any) {
+        if(UserApp.getInstance().garden == nil){
+            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginGarden") as! GardenViewController
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        else{
+            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HowIsInTheGarden") as! InGardenViewController
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 

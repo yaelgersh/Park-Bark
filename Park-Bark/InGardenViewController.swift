@@ -18,6 +18,7 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.dogsInGardenTable.reloadData()
             }
         }
+        
     }
 
     var dogsInGardenList = FBDatabaseManagment.getInstance().getDogsInGardenList()
@@ -27,7 +28,16 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         FBDatabaseManagment.getInstance().updateInGardenDelegate = self
+        
+        
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationItem.title = UserApp.getInstance().garden?.name
     }
 
     override func didReceiveMemoryWarning() {

@@ -222,7 +222,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             {
                 for (userId, dogs) in dataDict {
                     
-                    for (_,dogId) in dogs{
+                    for (dogId,_) in dogs{
                         _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
                             if let dog = snapshot.value as? [String: AnyObject]{
                                 let name : String = dog["name"] as! String
@@ -269,5 +269,17 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         if let index = UserApp.getInstance().following.index(of: id) {
             UserApp.getInstance().following.remove(at: index)
         }
+    }
+    
+    func signInGarden(dogIndex: Int){
+        let user = UserApp.getInstance()
+        let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id)
+        dogRef.setValue([user.dogs[dogIndex].id! : user.dogs[dogIndex].name!])
+        
+    }
+    func signOutGarden(dogIndex: Int){
+        let user = UserApp.getInstance()
+        let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id).child(user.dogs[dogIndex].id!)
+            dogRef.ref.removeValue()
     }
 }
