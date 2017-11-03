@@ -30,14 +30,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(named:"headerclean"), for: .default)
         UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().barTintColor = UIColor.black
         
-        let navigationFont = UIFont(name: "Superclarendon-Black", size: 30)!
+        
+        //let navigationFont = [NSForegroundColorAttributeName: UIColor.white,
+                             // NSFontAttributeName: UIFont(name: "Superclarendon-Black", size: 30)!]
+        /*let navigationFont = UIFont(name: "Superclarendon-Black", size: 30)!
         let navigationFontAttributes = [NSFontAttributeName : navigationFont]
-        UINavigationBar.appearance().titleTextAttributes = navigationFontAttributes
+        UINavigationBar.appearance().titleTextAttributes = navigationFontAttributes*/
         
-        let barButtonFont = UIFont(name: "Superclarendon-Black", size: 18)!
+        let barButtonFont = UIFont(name: "Noteworthy-Bold", size: 18)!
         let barButtonFontAttributes = [NSFontAttributeName : barButtonFont]
         UIBarButtonItem.appearance().setTitleTextAttributes(barButtonFontAttributes, for: .normal)
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Noteworthy-Bold", size: 30)!,NSForegroundColorAttributeName: UIColor.black]
         
         return true
     }

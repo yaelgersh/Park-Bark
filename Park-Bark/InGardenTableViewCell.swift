@@ -30,13 +30,13 @@ class InGardenTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func likeClicked(_ sender: Any) {
-        if(likeButton.currentImage?.isEqual((UIImage(named: "heart"))))!{
+        if(likeButton.currentImage?.isEqual((UIImage(named: "heartempty"))))!{
             likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
             FBDatabaseManagment.getInstance().addFollowing(id: dogId, name: nameLabel.text!)
         }
         
         else{
-            likeButton.setImage(UIImage(named: "heart"), for: .normal)
+            likeButton.setImage(UIImage(named: "heartempty"), for: .normal)
             FBDatabaseManagment.getInstance().removeFollowing(id: dogId)
         }
     }

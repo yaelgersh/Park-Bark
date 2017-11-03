@@ -270,4 +270,16 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             UserApp.getInstance().following.remove(at: index)
         }
     }
+    
+    func signInGarden(dogIndex: Int){
+        let user = UserApp.getInstance()
+        let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id)
+        dogRef.setValue([user.dogs[dogIndex].id! : user.dogs[dogIndex].name!])
+        
+    }
+    func signOutGarden(dogIndex: Int){
+        let user = UserApp.getInstance()
+        let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id).child(user.dogs[dogIndex].id!)
+            dogRef.ref.removeValue()
+    }
 }
