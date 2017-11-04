@@ -34,7 +34,7 @@ class InGardenTableViewCell: UITableViewCell {
     @IBAction func likeClicked(_ sender: Any) {
         if(likeButton.currentImage?.isEqual((UIImage(named: "heartempty"))))!{
             likeButton.setImage(UIImage(named: "heartfull"), for: .normal)
-            FBDatabaseManagment.getInstance().addFollowing(id: dogId, name: nameLabel.text!)
+            FBDatabaseManagment.getInstance().addFollowing(id: dogId, ownerId : ownerId)
             FBDatabaseManagment.getInstance().addFollowedBy(dogId: dogId, ownerId : ownerId, userId : UserApp.getInstance().id)
         }
         

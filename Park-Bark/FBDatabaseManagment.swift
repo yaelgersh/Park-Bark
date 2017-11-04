@@ -323,8 +323,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).removeAllObservers()
     }
     
-    func addFollowing(id : String, name : String){
-        let post : [String : String] = [id : name]
+    func addFollowing(id : String, ownerId : String){
+        let post : [String : String] = [id : ownerId]
         ref.child(CHILD_USERS).child(UserApp.getInstance().id).child("Following").updateChildValues(post)
     }
     
