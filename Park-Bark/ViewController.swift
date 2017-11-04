@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import UserNotifications
 
-class ViewController: UIViewController, UNUserNotificationCenterDelegate {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDogInGardenDelegate {
     @IBOutlet weak var pawImage: UIImageView!
 
     override func viewDidLoad() {
