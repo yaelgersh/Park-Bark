@@ -132,7 +132,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             pawImage.image = UIImage(named: "paw3")
             addNotification(timeInterval : 10)
             
-            addNotification(timeInterval: 10)
         }
         //garden check out
         else{

@@ -214,8 +214,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let calendar = Calendar.current
         let dogBirthday = calendar.date(from: tempDate)
         
-        let ageComponents = calendar.dateComponents([.year], from: dogBirthday!, to: now)
-        let theAge = ageComponents.year!
+        let yearComponents = calendar.dateComponents([.year], from: dogBirthday!, to: now)
+        let monthComponents = calendar.dateComponents([.month], from: dogBirthday!, to: now)
+        let months = Int((Double(Int(monthComponents.month!) % 12)/12)*10)
+        let theAge = "\(yearComponents.year!).\(String(months))"
+
         
         datePickerText.text = "\(theAge)"
         datePickerText.isEnabled = false

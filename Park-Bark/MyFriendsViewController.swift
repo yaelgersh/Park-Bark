@@ -11,13 +11,13 @@ import UIKit
 class MyFriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var friendsTable: UITableView!
-    var myFriends: [Dog] = []
+    var myFriends: [Dog] = FBDatabaseManagment.getInstance().getMyFriendsList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        myFriends = FBDatabaseManagment.getInstance().getMyFriendsList()
-        friendsTable.reloadData()
+        //myFriends = FBDatabaseManagment.getInstance().getMyFriendsList()
+        //friendsTable.reloadData()
         self.navigationItem.title = "חברים שלי"
         // Do any additional setup after loading the view.
     }
