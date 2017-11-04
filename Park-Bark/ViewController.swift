@@ -23,7 +23,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             self.moveToLogin()
         }
         
-        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
     }
 
@@ -39,6 +38,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             UNUserNotificationCenter.current().delegate = self
         }
     }
+    
     func dbUpdated(_ bool: Bool) {
         DispatchQueue.main.async{
             if bool{
@@ -50,9 +50,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
                 ViewController.inGarden = false
             }
             FBDatabaseManagment.getInstance().anyDogInGardenDelegate = nil
-            
         }
-        
     }
     
 
@@ -125,7 +123,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             return
         }
         
-        
         //gerden check in
         if(pawImage.image?.isEqual((UIImage(named: "paw4"))))!{
             ViewController.inGarden = true
@@ -177,14 +174,42 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         }
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.actionIdentifier == "answer1"{
-            print("a1")
-        }
-        else{
-            print("answer2")
-        }
+    func addNotification(timeInterval : Int){
+        //notification permission
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in})
         
+        let answerYes = UNNotificationAction(identifier: "yes", title: "Yes", options: [])
+        let answerNo = UNNotificationAction(identifier: "no", title: "No", options: [])
+        let category = UNNotificationCategory(identifier: "myCategory", actions: [answerYes, answerNo], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
+        //create the notification
+        let content = UNMutableNotificationContent()
+        content.title = "עדיין בגינה?"
+        //content.subtitle = "this is subtitle"
+        //content.body = "this is body"
+        content.categoryIdentifier  = "myCategory"
+        content.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeInterval), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.actionIdentifier == "yes"{
+            print("yes")
+            addNotification(timeInterval: 10)
+        }
+        else if response.actionIdentifier == "no"{
+            print("no")
+            for i in 0 ..< UserApp.getInstance().dogs.count{
+                FBDatabaseManagment.getInstance().signOutGarden(dogIndex: i)
+            }
+            pawImage.image = UIImage(named: "paw4")
+        }
         completionHandler()
     }
 }
