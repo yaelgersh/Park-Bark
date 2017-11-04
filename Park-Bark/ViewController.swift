@@ -9,11 +9,12 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AnyDogInGardenDelegate{
     @IBOutlet weak var pawImage: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        FBDatabaseManagment.getInstance().anyDogInGardenDelegate = self
         
         if Auth.auth().currentUser == nil {
             self.moveToLogin()
@@ -34,6 +35,20 @@ class ViewController: UIViewController {
             }
         }
     }
+    func dbUpdated(_ bool: Bool) {
+        DispatchQueue.main.async{
+            if bool{
+                self.pawImage.image = UIImage(named: "paw3")
+            }
+            else{
+                self.pawImage.image = UIImage(named: "paw4")
+            }
+            FBDatabaseManagment.getInstance().anyDogInGardenDelegate = nil
+            
+        }
+        
+    }
+    
 
     @IBAction func signOutFromFB(_ sender: Any) {
         logout()

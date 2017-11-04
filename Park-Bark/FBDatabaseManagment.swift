@@ -13,24 +13,33 @@ import FirebaseDatabase
 protocol UpdateInGardenDelegate: class {
     func dbUpdated()
 }
+protocol AnyDogInGardenDelegate: class {
+    func dbUpdated(_ bool:Bool)
+}
 
 class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FBDatabaseManagment()
     private let ref : DatabaseReference!
     private var usersHandler : DatabaseHandle!
     private var gardenHandler: DatabaseHandle!
     private var dogsHandler : DatabaseHandle!
+    private var followingHandler : DatabaseHandle!
     private var dogInGardenHandler : DatabaseHandle!
+    
     private let CHILD_USERS : String = "Users"
     private let CHILD_GARDENS : String = "Gardens"
     private let CHILD_DOGS : String = "dogs"
+    private let CHILD_FOLLOWING = "following"
     
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
     private var dogInGardenList = [Dog]()
+    private var myFriendsList = [Dog]()
     
     weak var updateInGardenDelegate: UpdateInGardenDelegate?
+    weak var anyDogInGardenDelegate: AnyDogInGardenDelegate?
     
     var firstRun: Bool = true
+   // var checkedInGarden : Bool = false
     
     private init() {
         ref = Database.database().reference()
@@ -69,12 +78,11 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func readAccount(){
         usersHandler = ref?.child(CHILD_USERS).child(UserApp.getInstance().id).observe(.value, with:{ (snapshot) in
             if let item = snapshot.value as? [String : AnyObject]{
-                //                print("## user name = \(item["name"] as! String) ")
-                //                print("## user dog = \(item["dogs"]) ")
-                //var id = 0
+               
                 if let dogs = item[self.CHILD_DOGS] as? [String: [String : AnyObject]]{
+                    var anyInTheGarden: Bool = false
                     for (id, dog) in dogs{
-                        //                        print("^^^^^^^^")
+                        
                         let name : String = dog["name"] as! String
                         let isMale : Bool = dog["isMale"] as! Bool
                         let year : Int = dog["year"] as! Int
@@ -84,10 +92,23 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         let size : Int = dog["size"] as! Int
                         let urlImage : String? = dog["urlImage"] as? String
                         if (!UserApp.getInstance().dogExists(name: name)){
-                            UserApp.getInstance().dogs.append(Dog(id: id, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage!))
-                            //id = id + 1
+                            let newDog = Dog(id: id, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage!)
+                            UserApp.getInstance().dogs.append(newDog)
+                            
+                            if let inTheGarden : Bool = dog["inTheGerden"] as? Bool{
+                                newDog.inTheGarden = inTheGarden
+                                anyInTheGarden = anyInTheGarden||newDog.inTheGarden
+                            }
+                            else{
+                                newDog.inTheGarden = false
+                            }
+                            
                         }
                     }
+                    //if !self.checkedInGarden{
+                       //self.checkedInGarden = true
+                    self.anyDogInGardenDelegate?.dbUpdated(anyInTheGarden)
+                    //}
                 }
                 
                 if let garden = item["Garden"] as? [String : AnyObject]{
@@ -100,6 +121,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         UserApp.getInstance().garden = Garden(city: city, name: name, lat: lat, lng: lng)
                         self.getDogsInGardenFromFB()
                     }
+                    
                 }
                 
                 if let following = item["Following"] as? [String : String]{
@@ -139,7 +161,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                              "day" : dog.day as AnyObject,
                                              "race" : dog.race as AnyObject,
                                              "size" : dog.size as AnyObject,
-                                             "urlImage" : dog.urlImage as AnyObject]
+                                             "urlImage" : dog.urlImage as AnyObject,
+                                             "inTheGerden" : false as AnyObject]
         
         ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).child(dog.id!).setValue(dogDic)
     }
@@ -153,7 +176,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                              "day" : dog.day as AnyObject,
                                              "race" : dog.race as AnyObject,
                                              "size" : dog.size as AnyObject,
-                                             "urlImage" : dog.urlImage as AnyObject]
+                                             "urlImage" : dog.urlImage as AnyObject,
+                                             "inTheGerden" : dog.inTheGarden as AnyObject]
         
         ref.child(CHILD_USERS).child(UserApp.getInstance().id).child(CHILD_DOGS).updateChildValues([dog.id! : dogDic])
         
@@ -213,6 +237,43 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                                                    "lng" : garden.lng])
     }
     
+    func getMyFriendsFromFB(){
+        self.followingHandler = ref?.child(CHILD_USERS).child((UserApp.getInstance().id)!).child(CHILD_FOLLOWING).observe(.value, with: { (snapshot) in
+            self.myFriendsList.removeAll()
+            if let dataDict = snapshot.value as? [String: [String: String]]
+            {
+                for (userId, dogs) in dataDict {
+                    
+                    for dogId in dogs.keys{
+                        _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
+                            if let dog = snapshot.value as? [String: AnyObject]{
+                                let name : String = dog["name"] as! String
+                                let isMale : Bool = dog["isMale"] as! Bool
+                                let year : Int = dog["year"] as! Int
+                                let mounth : Int = dog["mounth"] as! Int
+                                let day : Int = dog["day"] as! Int
+                                let race : String = dog["race"] as! String
+                                let size : Int = dog["size"] as! Int
+                                if let urlImage : String = dog["urlImage"] as? String{
+                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
+                                    newDog.setOwnerId(ownerId: userId)
+                                    self.myFriendsList.append(newDog)
+                                }
+                                else{
+                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
+                                    newDog.setOwnerId(ownerId: userId)
+                                    self.myFriendsList.append(newDog)
+                                }
+                            }
+                        })
+                        
+                    }
+                    
+                }
+            }
+            
+        })
+    }
     
     func getDogsInGardenFromFB()
     {
@@ -279,12 +340,16 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         let user = UserApp.getInstance()
         let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id)
         dogRef.setValue([user.dogs[dogIndex].id! : user.dogs[dogIndex].name!])
-        
+        let inGarden = ref.child(CHILD_USERS).child(user.id).child(CHILD_DOGS).child(user.dogs[dogIndex].id!)
+        inGarden.updateChildValues(["inTheGerden" : true as AnyObject])
     }
+    
     func signOutGarden(dogIndex: Int){
         let user = UserApp.getInstance()
         let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id).child(user.dogs[dogIndex].id!)
             dogRef.ref.removeValue()
+        let inGarden = ref.child(CHILD_USERS).child(user.id).child(CHILD_DOGS).child(user.dogs[dogIndex].id!)
+        inGarden.updateChildValues(["inTheGerden" : false as AnyObject])
     }
     
     func addFollowedBy(dogId: String, ownerId : String, userId : String){
@@ -295,5 +360,9 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func removeFollowedBy(dogId: String, ownerId : String, userId : String){
         let followedBy = ref.child(CHILD_USERS).child(ownerId).child(CHILD_DOGS).child(dogId).child("FollowedBy").child(userId)
         followedBy.ref.removeValue()
+    }
+    
+    func checkIfDogInGarden(){
+        
     }
 }
