@@ -16,7 +16,8 @@ class MyFriendsViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //myFriends = UserApp.getInstance().following as! [Dog]
+        myFriends = FBDatabaseManagment.getInstance().getMyFriendsList()
+        friendsTable.reloadData()
         // Do any additional setup after loading the view.
     }
 

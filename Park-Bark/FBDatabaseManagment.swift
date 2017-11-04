@@ -28,7 +28,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     private let CHILD_USERS : String = "Users"
     private let CHILD_GARDENS : String = "Gardens"
     private let CHILD_DOGS : String = "dogs"
-    private let CHILD_FOLLOWING = "following"
+    private let CHILD_FOLLOWING = "Following"
     
     private var usersList : [String] = []
     private var gardensList = [String : [Garden]]()
@@ -39,7 +39,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     weak var anyDogInGardenDelegate: AnyDogInGardenDelegate?
     
     var firstRun: Bool = true
-   // var checkedInGarden : Bool = false
+    var anyInTheGarden: Bool = false
     
     private init() {
         ref = Database.database().reference()
@@ -80,7 +80,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             if let item = snapshot.value as? [String : AnyObject]{
                
                 if let dogs = item[self.CHILD_DOGS] as? [String: [String : AnyObject]]{
-                    var anyInTheGarden: Bool = false
+                    self.anyInTheGarden = false
                     for (id, dog) in dogs{
                         
                         let name : String = dog["name"] as! String
@@ -97,7 +97,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                             
                             if let inTheGarden : Bool = dog["inTheGerden"] as? Bool{
                                 newDog.inTheGarden = inTheGarden
-                                anyInTheGarden = anyInTheGarden||newDog.inTheGarden
+                                self.anyInTheGarden = self.anyInTheGarden||newDog.inTheGarden
                             }
                             else{
                                 newDog.inTheGarden = false
@@ -105,10 +105,9 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                             
                         }
                     }
-                    //if !self.checkedInGarden{
-                       //self.checkedInGarden = true
-                    self.anyDogInGardenDelegate?.dbUpdated(anyInTheGarden)
-                    //}
+                    
+                    self.anyDogInGardenDelegate?.dbUpdated(self.anyInTheGarden)
+                    
                 }
                 
                 if let garden = item["Garden"] as? [String : AnyObject]{
@@ -130,6 +129,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                             UserApp.getInstance().following.append(dogId)
                         }
                     }
+                    self.getMyFriendsFromFB()
                 }
             }
             else{
@@ -147,6 +147,9 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         return dogInGardenList
     }
     
+    func getMyFriendsList() -> [Dog]{
+        return myFriendsList
+    }
     
     func saveAccount(id : String){
         let post : [String : String] = ["name": UserApp.getInstance().name]
@@ -240,35 +243,30 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func getMyFriendsFromFB(){
         self.followingHandler = ref?.child(CHILD_USERS).child((UserApp.getInstance().id)!).child(CHILD_FOLLOWING).observe(.value, with: { (snapshot) in
             self.myFriendsList.removeAll()
-            if let dataDict = snapshot.value as? [String: [String: String]]
+            if let dataDict = snapshot.value as? [String: String]
             {
-                for (userId, dogs) in dataDict {
-                    
-                    for dogId in dogs.keys{
-                        _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
-                            if let dog = snapshot.value as? [String: AnyObject]{
-                                let name : String = dog["name"] as! String
-                                let isMale : Bool = dog["isMale"] as! Bool
-                                let year : Int = dog["year"] as! Int
-                                let mounth : Int = dog["mounth"] as! Int
-                                let day : Int = dog["day"] as! Int
-                                let race : String = dog["race"] as! String
-                                let size : Int = dog["size"] as! Int
-                                if let urlImage : String = dog["urlImage"] as? String{
-                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
-                                    newDog.setOwnerId(ownerId: userId)
-                                    self.myFriendsList.append(newDog)
-                                }
-                                else{
-                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
-                                    newDog.setOwnerId(ownerId: userId)
-                                    self.myFriendsList.append(newDog)
-                                }
+                for (dogId, userId) in dataDict {
+                    _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let dog = snapshot.value as? [String: AnyObject]{
+                            let name : String = dog["name"] as! String
+                            let isMale : Bool = dog["isMale"] as! Bool
+                            let year : Int = dog["year"] as! Int
+                            let mounth : Int = dog["mounth"] as! Int
+                            let day : Int = dog["day"] as! Int
+                            let race : String = dog["race"] as! String
+                            let size : Int = dog["size"] as! Int
+                            if let urlImage : String = dog["urlImage"] as? String{
+                                let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
+                                newDog.setOwnerId(ownerId: userId)
+                                self.myFriendsList.append(newDog)
                             }
-                        })
-                        
-                    }
-                    
+                            else{
+                                let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
+                                newDog.setOwnerId(ownerId: userId)
+                                self.myFriendsList.append(newDog)
+                            }
+                        }
+                    })
                 }
             }
             
@@ -323,8 +321,8 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).removeAllObservers()
     }
     
-    func addFollowing(id : String, name : String){
-        let post : [String : String] = [id : name]
+    func addFollowing(id : String, ownerId : String){
+        let post : [String : String] = [id : ownerId]
         ref.child(CHILD_USERS).child(UserApp.getInstance().id).child("Following").updateChildValues(post)
     }
     

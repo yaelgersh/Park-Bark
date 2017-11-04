@@ -12,7 +12,9 @@ import UserNotifications
 
 class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDogInGardenDelegate {
     @IBOutlet weak var pawImage: UIImageView!
-
+    
+    static var inGarden: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         FBDatabaseManagment.getInstance().anyDogInGardenDelegate = self
@@ -41,9 +43,11 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         DispatchQueue.main.async{
             if bool{
                 self.pawImage.image = UIImage(named: "paw3")
+                ViewController.inGarden = true
             }
             else{
                 self.pawImage.image = UIImage(named: "paw4")
+                ViewController.inGarden = false
             }
             FBDatabaseManagment.getInstance().anyDogInGardenDelegate = nil
             
@@ -124,7 +128,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         
         //gerden check in
         if(pawImage.image?.isEqual((UIImage(named: "paw4"))))!{
-            
+            ViewController.inGarden = true
             for i in 0 ..< UserApp.getInstance().dogs.count{
                 FBDatabaseManagment.getInstance().signInGarden(dogIndex: i)
             }
@@ -133,7 +137,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             //notification permission
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in})
             
-            let answer1 = UNNotificationAction(identifier: "answer1", title: "this is a1", options: UNNotificationActionOptions.foreground)
+            let answer1 = UNNotificationAction(identifier: "answer1", title: "this is a1", options: [])
             let answer2 = UNNotificationAction(identifier: "answer2", title: "this is a2", options: UNNotificationActionOptions.foreground)
             let category = UNNotificationCategory(identifier: "myCategory", actions: [answer1, answer2], intentIdentifiers: [], options: [])
             UNUserNotificationCenter.current().setNotificationCategories([category])
@@ -154,6 +158,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         }
         //garden check out
         else{
+            ViewController.inGarden = false
             for i in 0 ..< UserApp.getInstance().dogs.count{
                 FBDatabaseManagment.getInstance().signOutGarden(dogIndex: i)
             }
@@ -167,7 +172,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             self.navigationController?.pushViewController(controller, animated: true)
         }
         else{
-            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HowIsInTheGarden") as! InGardenViewController
+            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WhoIsInTheGarden") as! InGardenViewController
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

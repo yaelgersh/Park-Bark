@@ -66,4 +66,29 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         self.present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func chengeGarden(_ sender: Any) {
+        if ViewController.inGarden{
+            let alert = UIAlertController(title: "לא ניתן להחליף גינה", message:" על מנת להחליף גינה עליך לצאת מהגינה הנוכחית בעמוד הראשי", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "חזרה לעמוד הבית", style: .default, handler: { (action) in
+                
+                alert.dismiss(animated: true, completion: nil)
+                
+                _ = self.navigationController?.popViewController(animated: true)
+                
+            }))
+            alert.addAction(UIAlertAction(title: "ביטול", style: .default, handler: { (action) in
+                
+                alert.dismiss(animated: true, completion: nil)
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            return
+
+        }
+        else{
+            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginGarden") as! GardenViewController
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
 }
