@@ -130,6 +130,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
                 FBDatabaseManagment.getInstance().signInGarden(dogIndex: i)
             }
             pawImage.image = UIImage(named: "paw3")
+            addNotification(timeInterval : 10)
             
             addNotification(timeInterval: 10)
         }
