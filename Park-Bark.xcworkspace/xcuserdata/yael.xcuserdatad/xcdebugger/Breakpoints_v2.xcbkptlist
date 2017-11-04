@@ -14,9 +14,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "getMyFriendsFromFB()"
-            landmarkType = "7">
+            endingLineNumber = "244">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -30,9 +28,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "getMyFriendsFromFB()"
-            landmarkType = "7">
+            endingLineNumber = "250">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"

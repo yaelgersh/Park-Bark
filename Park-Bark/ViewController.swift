@@ -131,27 +131,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             }
             pawImage.image = UIImage(named: "paw3")
             
-            //notification permission
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in})
-            
-            let answer1 = UNNotificationAction(identifier: "answer1", title: "this is a1", options: [])
-            let answer2 = UNNotificationAction(identifier: "answer2", title: "this is a2", options: UNNotificationActionOptions.foreground)
-            let category = UNNotificationCategory(identifier: "myCategory", actions: [answer1, answer2], intentIdentifiers: [], options: [])
-            UNUserNotificationCenter.current().setNotificationCategories([category])
-            
-            //create the notification
-            let content = UNMutableNotificationContent()
-            content.title = "this is title"
-            content.subtitle = "this is subtitle"
-            content.body = "this is body"
-            content.categoryIdentifier  = "myCategory"
-            content.badge = 1
-            
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-            
-            let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
-            
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            addNotification(timeInterval: 10)
         }
         //garden check out
         else{

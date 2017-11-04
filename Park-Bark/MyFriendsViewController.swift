@@ -18,6 +18,7 @@ class MyFriendsViewController: UIViewController, UITableViewDataSource, UITableV
 
         myFriends = FBDatabaseManagment.getInstance().getMyFriendsList()
         friendsTable.reloadData()
+        self.navigationItem.title = "חברים שלי"
         // Do any additional setup after loading the view.
     }
 
