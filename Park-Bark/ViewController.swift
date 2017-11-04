@@ -140,6 +140,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
                 FBDatabaseManagment.getInstance().signOutGarden(dogIndex: i)
             }
             pawImage.image = UIImage(named: "paw4")
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }
     

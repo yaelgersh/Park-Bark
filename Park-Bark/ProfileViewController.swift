@@ -45,8 +45,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var mediumBigDogPic: UIImageView!
     @IBOutlet weak var mediumSmallDogPic: UIImageView!
     @IBOutlet weak var smallDogPic: UIImageView!
-    var dogsSizes: [UIImageView]!
-    
+    var dogsSizes: [UIImageView]!    
     
     
     let dogSize = ["small","mediumSmall", "mediumBig", "bigDog"]
@@ -61,7 +60,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var isMale : Bool = false
     var birthday : String!
     var size : Int = -1
-    
     
     
     override func viewDidLoad() {
@@ -89,8 +87,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             chooseAction()
             return
         }
-        
-        
+    }
+    
+    deinit {
+        print("\(self) profile - dead")
     }
     
     override func didReceiveMemoryWarning() {
@@ -218,7 +218,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let monthComponents = calendar.dateComponents([.month], from: dogBirthday!, to: now)
         let months = Int((Double(Int(monthComponents.month!) % 12)/12)*10)
         let theAge = "\(yearComponents.year!).\(String(months))"
-
         
         datePickerText.text = "\(theAge)"
         datePickerText.isEnabled = false
@@ -287,9 +286,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
         
-        
         datePickerText.text = dateFormatter.string(from: datePicker.date)
-        
         
         dateFormatter.dateFormat = "y"
         year = dateFormatter.string(from: datePicker.date)
@@ -299,7 +296,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         dateFormatter.dateFormat = "d"
         day = dateFormatter.string(from: datePicker.date)
-        
         
         self.view.endEditing(true)
         
@@ -341,7 +337,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             dogPic.alpha = 1
             
             dogButton.setTitle("", for: .normal)
-            
         }
         else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             dogPic.image = image
@@ -442,8 +437,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         
-        
-        
         if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size, dogPic: dogPic.image!){
             let alert = UIAlertController(title: "", message: "\(name!) נוסף\\ה בהצלחה.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "הוסף\\י עוד כלב", style: .default, handler: { (action) in
@@ -457,9 +450,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         else{
             errorPopup(error: "\(name!) כבר ברשימת הכלבים שלך");
         }
-        
     }
-    
     
     @IBAction func editProfile(_ sender: Any) {
         updateProfileButton.isHidden = false
@@ -496,7 +487,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         for i in 0 ..< buttons.count{
             buttons[i].isEnabled = true
         }
-        
     }
     
     @IBAction func updateProfile(_ sender: Any) {
@@ -505,8 +495,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         genderTextField.isHidden = true
 
         let dog: Dog! = UserApp.getInstance().dogs[index]
-        
-        
         
         if nameTextField.text == ""{
             errorPopup(error: "שם הכלב הוא שדה חובה")
@@ -549,8 +537,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                     return
                 }
             }
-            
         }
+        
         dog.year = Int(year)
         dog.mounth = Int(mounth)
         dog.day = Int(day)
@@ -559,6 +547,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             errorPopup(error: "גזע הכלב הוא שדה חובה")
             return
         }
+        
         dog.race = raceTextField.text
         
         if size == -1{
@@ -566,7 +555,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         dog.size = size
-        
         
         UserApp.getInstance().updateDog(index: index, image: dogPic.image!)
         showDogProfile(index: index)
@@ -590,30 +578,5 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         raceTextField.text = ""
         
         setClicked(size: -1)
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
