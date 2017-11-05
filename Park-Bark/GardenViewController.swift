@@ -10,8 +10,9 @@ import UIKit
 import Firebase
 import MapKit
 import CoreLocation
+import MessageUI
 
-class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
+class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate {
 
     var gardensList	= [String : [Garden]]()
     let manager = CLLocationManager()
@@ -313,13 +314,36 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         _ = navigationController?.popViewController(animated: true)
     }
  
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func sendEmail(_ sender: Any) {
+        let mailComposeVC = configureMailController()
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeVC, animated: true, completion: nil)
+        }
+        else{
+            showmailError()
+        }
     }
-    */
+    
+    func configureMailController() -> MFMailComposeViewController{
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        
+        mailComposerVC.setToRecipients(["avi.elgal@gmail.com", "yaelgersh92@gmail.com"])
+        mailComposerVC.setSubject("Park&Bark new garden")
+        mailComposerVC.setMessageBody("add new garden request", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showmailError(){
+        let errorAlert = UIAlertController(title: "לא ניתן לשלוח את ההודעה ", message: "המכשיר שלך לא תומך בשליחת הודעות email", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "אישור", style: .default, handler: nil)
+        errorAlert.addAction(dismiss)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
 }
