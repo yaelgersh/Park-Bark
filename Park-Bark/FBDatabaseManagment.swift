@@ -326,9 +326,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                     
                 }
             }
-            else{
-                self.updateInGardenDelegate?.dbUpdated()
-            }
+            
         })
     }
     
@@ -369,12 +367,24 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         inGarden.updateChildValues(["inTheGerden" : true as AnyObject])
     }
     
+    /*
     func signOutGarden(dogIndex: Int){
         let user = UserApp.getInstance()
         let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id).child(user.dogs[dogIndex].id!)
             dogRef.ref.removeValue()
         let inGarden = ref.child(CHILD_USERS).child(user.id).child(CHILD_DOGS).child(user.dogs[dogIndex].id!)
         inGarden.updateChildValues(["inTheGerden" : false as AnyObject])
+    }
+ */
+    
+    func signOutGarden(){
+        let user = UserApp.getInstance()
+        let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id)
+        dogRef.ref.removeValue()
+        for i in 0 ..< user.dogs.count{
+            let inGarden = ref.child(CHILD_USERS).child(user.id).child(CHILD_DOGS).child(user.dogs[i].id!)
+            inGarden.updateChildValues(["inTheGerden" : false as AnyObject])
+        }
     }
     
     func addFollowedBy(dogId: String, ownerId : String, userId : String){

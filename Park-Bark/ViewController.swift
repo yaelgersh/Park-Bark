@@ -143,9 +143,12 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         //garden check out
         else{
             ViewController.inGarden = false
+            /*
             for i in 0 ..< UserApp.getInstance().dogs.count{
                 FBDatabaseManagment.getInstance().signOutGarden(dogIndex: i)
             }
+             */
+            FBDatabaseManagment.getInstance().signOutGarden()
             pawImage.image = UIImage(named: "paw4")
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
@@ -193,9 +196,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         }
         else if response.actionIdentifier == "no"{
             print("no")
-            for i in 0 ..< UserApp.getInstance().dogs.count{
-                FBDatabaseManagment.getInstance().signOutGarden(dogIndex: i)
-            }
+            FBDatabaseManagment.getInstance().signOutGarden()
             pawImage.image = UIImage(named: "paw4")
         }
         completionHandler()
