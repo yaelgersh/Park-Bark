@@ -246,6 +246,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             if let dataDict = snapshot.value as? [String: String]
             {
                 for (dogId, userId) in dataDict {
+                    
                     _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
                         if let dog = snapshot.value as? [String: AnyObject]{
                             let name : String = dog["name"] as! String
@@ -258,15 +259,20 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                             if let urlImage : String = dog["urlImage"] as? String{
                                 let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
                                 newDog.setOwnerId(ownerId: userId)
-                                self.myFriendsList.append(newDog)
+                                if !self.isDogInTheList(list: self.myFriendsList, id: dogId){
+                                    self.myFriendsList.append(newDog)
+                                }
                             }
                             else{
                                 let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
                                 newDog.setOwnerId(ownerId: userId)
-                                self.myFriendsList.append(newDog)
+                                if !self.isDogInTheList(list: self.myFriendsList, id: dogId){
+                                    self.myFriendsList.append(newDog)
+                                }
                             }
                         }
                     })
+                    
                 }
             }
             
@@ -282,6 +288,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 for (userId, dogs) in dataDict {
                     
                     for dogId in dogs.keys{
+                        
                         _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
                             if let dog = snapshot.value as? [String: AnyObject]{
                                 let name : String = dog["name"] as! String
@@ -294,12 +301,16 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                 if let urlImage : String = dog["urlImage"] as? String{
                                     let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
                                     newDog.setOwnerId(ownerId: userId)
-                                    self.dogInGardenList.append(newDog)
+                                    if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
+                                        self.dogInGardenList.append(newDog)
+                                    }
                                 }
                                 else{
                                     let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
                                     newDog.setOwnerId(ownerId: userId)
-                                    self.dogInGardenList.append(newDog)
+                                    if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
+                                        self.dogInGardenList.append(newDog)
+                                    }
                                 }
                                 
                                 self.updateInGardenDelegate?.dbUpdated()
@@ -314,6 +325,15 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                 self.updateInGardenDelegate?.dbUpdated()
             }
         })
+    }
+    
+    private func isDogInTheList(list: [Dog], id: String) -> Bool{
+        for i in 0 ..< list.count{
+            if (list[i].id == id){
+                return true
+            }
+        }
+        return false
     }
     
     func stopObserverForInGarden()
@@ -336,8 +356,10 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     
     func signInGarden(dogIndex: Int){
         let user = UserApp.getInstance()
+        //change in the garden
         let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id)
         dogRef.updateChildValues([user.dogs[dogIndex].id! : user.dogs[dogIndex].name!])
+        //change in the user
         let inGarden = ref.child(CHILD_USERS).child(user.id).child(CHILD_DOGS).child(user.dogs[dogIndex].id!)
         inGarden.updateChildValues(["inTheGerden" : true as AnyObject])
     }
