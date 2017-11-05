@@ -22,6 +22,10 @@ class MyFriendsViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
     }
 
+    deinit {
+        print("\(self) My Freinds - dead")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

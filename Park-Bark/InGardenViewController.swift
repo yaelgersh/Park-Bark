@@ -41,6 +41,10 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        print("\(self) In Garden - dead")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dogsInGardenList.count
     }
@@ -53,10 +57,6 @@ class InGardenViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.initTheCell(dog: dog)
         
         return cell
-    }
-    
-    deinit {
-        print("\(self) InGarden - dead")
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
