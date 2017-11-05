@@ -257,12 +257,12 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func showLocationDisabledPopUp(){
-        let alertController = UIAlertController(title: "Location Access Disabled", message: "In order to show your location and calculte route we need your permission", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Location Access Disabled", message: "על מנת לזהות את מיקומך אנחנו צריכים את אישורך", preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "ביטול", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        let openAction = UIAlertAction(title: "Open Settings", style: .default){(action) in
+        let openAction = UIAlertAction(title: "הגדרות", style: .default){(action) in
             if let url = URL(string: UIApplicationOpenSettingsURLString){
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }

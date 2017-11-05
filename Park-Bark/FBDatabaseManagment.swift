@@ -286,39 +286,39 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
             if let dataDict = snapshot.value as? [String: [String: String]]
             {
                 for (userId, dogs) in dataDict {
-                    
-                    for dogId in dogs.keys{
-                        
-                        _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
-                            if let dog = snapshot.value as? [String: AnyObject]{
-                                let name : String = dog["name"] as! String
-                                let isMale : Bool = dog["isMale"] as! Bool
-                                let year : Int = dog["year"] as! Int
-                                let month : Int = dog["mounth"] as! Int
-                                let day : Int = dog["day"] as! Int
-                                let race : String = dog["race"] as! String
-                                let size : Int = dog["size"] as! Int
-                                if let urlImage : String = dog["urlImage"] as? String{
-                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: urlImage)
-                                    newDog.setOwnerId(ownerId: userId)
-                                    if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
-                                        self.dogInGardenList.append(newDog)
+                    if userId != UserApp.getInstance().id
+                    {
+                   	     for dogId in dogs.keys
+                        {
+                            _ = self.ref?.child(self.CHILD_USERS).child(userId).child(self.CHILD_DOGS).child(String(dogId)).observeSingleEvent(of: .value, with: { (snapshot) in
+                                if let dog = snapshot.value as? [String: AnyObject]{
+                                    let name : String = dog["name"] as! String
+                                    let isMale : Bool = dog["isMale"] as! Bool
+                                    let year : Int = dog["year"] as! Int
+                                    let month : Int = dog["mounth"] as! Int
+                                    let day : Int = dog["day"] as! Int
+                                    let race : String = dog["race"] as! String
+                                    let size : Int = dog["size"] as! Int
+                                    if let urlImage : String = dog["urlImage"] as? String{
+                                        let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: urlImage)
+                                        newDog.setOwnerId(ownerId: userId)
+                                        if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
+                                            self.dogInGardenList.append(newDog)
+                                        }
                                     }
-                                }
-                                else{
-                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: nil)
-                                    newDog.setOwnerId(ownerId: userId)
-                                    if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
-                                        self.dogInGardenList.append(newDog)
+                                    else{
+                                        let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: nil)
+                                        newDog.setOwnerId(ownerId: userId)
+                                        if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
+                                            self.dogInGardenList.append(newDog)
+                                        }
                                     }
+                                    
+                                    self.updateInGardenDelegate?.dbUpdated()
                                 }
-                                
-                                self.updateInGardenDelegate?.dbUpdated()
-                            }
-                        })
-                        
+                            })
+                        }
                     }
-                    
                 }
             }
             

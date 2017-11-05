@@ -162,6 +162,18 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         //notification permission
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in})
         
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { (settings) in
+            if(settings.authorizationStatus == .authorized){
+                self.buildNotification(timeInterval: 10)
+            }
+            else{
+                self.alertToEncourageNotificationPermission()
+            }
+        }
+    }
+    
+    func buildNotification(timeInterval : Int){
         let answerYes = UNNotificationAction(identifier: "yes", title: "Yes", options: [])
         let answerNo = UNNotificationAction(identifier: "no", title: "No", options: [])
         let category = UNNotificationCategory(identifier: "myCategory", actions: [answerYes, answerNo], intentIdentifiers: [], options: [])
@@ -179,7 +191,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         
         let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)        
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -193,6 +205,23 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             pawImage.image = UIImage(named: "paw4")
         }
         completionHandler()
+    }
+    
+    func alertToEncourageNotificationPermission()
+    {
+        //Photo Library not available - Alert
+        let notificationUnavailableAlertController = UIAlertController (title: "התראות לא זמינות", message: "על מנת לתזכר אותך לגבי עזיבת הגינה - אנחנו צריכים הרשאה מימך לשלוח התראות", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "הגדרות", style: .destructive) { (_) -> Void in
+            let settingsUrl = NSURL(string:UIApplicationOpenSettingsURLString)
+            if let url = settingsUrl {
+                UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "ביטול", style: .default, handler: nil)
+        notificationUnavailableAlertController .addAction(settingsAction)
+        notificationUnavailableAlertController .addAction(cancelAction)
+        self.present(notificationUnavailableAlertController , animated: true, completion: nil)
     }
 }
 

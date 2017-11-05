@@ -53,9 +53,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>take a nice picture of your dog</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>In order to detect your location, we need your permission</string>
+	<string>על מנת לזהות את מיקומך אנחנו צריכים את אישורך</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>על מנת לגשת לתמונות שלך אנחנו צריכים את אישורך</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>chooce a nice picure of your dog</string>
+	<string>על מנת לגשת לתמונות שלך אנחנו צריכים את אישורך</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -67,8 +69,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

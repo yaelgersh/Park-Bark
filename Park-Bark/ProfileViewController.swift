@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Photos
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -67,8 +68,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         createDatePicker()
         
-        //dogPic.layer.cornerRadius = dogPic.frame.height/2
-        //dogPic.clipsToBounds = true
+        dogPic.layer.cornerRadius = dogPic.frame.height/2
+        dogPic.clipsToBounds = true
         
         editProfileButton.isHidden = true
         updateProfileButton.isHidden = true
@@ -298,31 +299,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func pickADog(_ sender: Any) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        
-        let actionSheet = UIAlertController(title: "מאגר תמונות", message: "בחר מאגר תמונות", preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "מצלמה", style: .default, handler: {(action:UIAlertAction) in
-            if UIImagePickerController.isSourceTypeAvailable(.camera){
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            }
-            else{
-                // cant run in debug mode
-                print("המצלמה לא זמינה")
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "אלבום תמונות", style: .default, handler: {(action:UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "ביטול", style: .cancel, handler: nil))
-        
-        self.present(actionSheet, animated: true, completion: nil)
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized{
+            photoPermissionGranted()
+        }
+        else{
+            PHPhotoLibrary.requestAuthorization(requestAuthorizationHandler)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -575,4 +557,61 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         setClicked(size: -1)
     }
+    
+    func requestAuthorizationHandler(status: PHAuthorizationStatus){
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized{
+            photoPermissionGranted()
+        }
+        else{
+            alertToEncouragePhotoLibraryAccess()
+        }
+    }
+    
+    func alertToEncouragePhotoLibraryAccess()
+    {
+        //Photo Library not available - Alert
+        let cameraUnavailableAlertController = UIAlertController (title: "ספריית תמונות לא זמינה", message: "על מנת לגשת לתמונות שלך אנחנו צריכים את אישורך", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "הגדרות", style: .destructive) { (_) -> Void in
+            let settingsUrl = NSURL(string:UIApplicationOpenSettingsURLString)
+            if let url = settingsUrl {
+                UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "ביטול", style: .default, handler: nil)
+        cameraUnavailableAlertController .addAction(settingsAction)
+        cameraUnavailableAlertController .addAction(cancelAction)
+        self.present(cameraUnavailableAlertController , animated: true, completion: nil)
+    }
+    
+    func photoPermissionGranted()
+    {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        
+        let actionSheet = UIAlertController(title: "מאגר תמונות", message: "בחר מאגר תמונות", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "מצלמה", style: .default, handler: {(action:UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+            else{
+                // cant run in debug mode
+                print("המצלמה לא זמינה")
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "אלבום תמונות", style: .default, handler: {(action:UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "ביטול", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
 }
