@@ -14,6 +14,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
     @IBOutlet weak var pawImage: UIImageView!
     
     static var inGarden: Bool = false
+    var loading : UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             UserApp.getInstance().name = user.displayName
             UserApp.getInstance().id = user.uid
             if FBDatabaseManagment.getInstance().firstRun{
+                loadData()
                 FBDatabaseManagment.getInstance().readAccount()
                 FBDatabaseManagment.getInstance().anyDogInGardenDelegate = self
                 FBDatabaseManagment.getInstance().firstRun = false
@@ -54,7 +56,24 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         }
     }
     
-
+    func loadData(){
+        self.loading.center = self.view.center
+        self.loading.hidesWhenStopped = true
+        self.self.loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(self.loading)
+        loading.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        DispatchQueue.global(qos: .background).async {
+            sleep(6)
+            
+            DispatchQueue.main.async {
+                self.loading.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
+        }
+    }
+    
     @IBAction func signOutFromFB(_ sender: Any) {
         logout()
         self.pawImage.image = UIImage(named: "paw4")
@@ -188,9 +207,9 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         
         //create the notification
         let content = UNMutableNotificationContent()
-        content.title = "עדיין בגינה?"
+        content.title = "Park-Bark"
         //content.subtitle = "this is subtitle"
-        //content.body = "this is body"
+        content.body = "עדיין בגינה"
         content.categoryIdentifier  = "myCategory"
         content.badge = 1
         
@@ -205,11 +224,13 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
         if response.actionIdentifier == "yes"{
             print("yes")
             addNotification(timeInterval: 10)
+            UIApplication.shared.applicationIconBadgeNumber = 0
         }
         else if response.actionIdentifier == "no"{
             print("no")
             FBDatabaseManagment.getInstance().signOutGarden()
             pawImage.image = UIImage(named: "paw4")
+            UIApplication.shared.applicationIconBadgeNumber = 0
         }
         completionHandler()
     }

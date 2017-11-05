@@ -78,7 +78,7 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func createCityPicker()
     {
-        cityListNames = Array(self.gardensList.keys)
+        cityListNames = Array(self.gardensList.keys).sorted()
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -99,6 +99,7 @@ class GardenViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         for g in gardens{
             gardenListNames.append(g.name)
         }
+        gardenListNames = gardenListNames.sorted()
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
