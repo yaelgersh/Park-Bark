@@ -67,8 +67,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         createDatePicker()
         
-        //dogPic.layer.cornerRadius = dogPic.frame.height/2
-        //dogPic.clipsToBounds = true
+        dogPic.layer.cornerRadius = dogPic.frame.height/2
+        dogPic.clipsToBounds = true
         
         editProfileButton.isHidden = true
         updateProfileButton.isHidden = true
