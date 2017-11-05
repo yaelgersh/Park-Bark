@@ -337,7 +337,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     func signInGarden(dogIndex: Int){
         let user = UserApp.getInstance()
         let dogRef = ref.child(CHILD_GARDENS).child((user.garden?.city)!).child((user.garden?.name)!).child(CHILD_DOGS).child(user.id)
-        dogRef.setValue([user.dogs[dogIndex].id! : user.dogs[dogIndex].name!])
+        dogRef.updateChildValues([user.dogs[dogIndex].id! : user.dogs[dogIndex].name!])
         let inGarden = ref.child(CHILD_USERS).child(user.id).child(CHILD_DOGS).child(user.dogs[dogIndex].id!)
         inGarden.updateChildValues(["inTheGerden" : true as AnyObject])
     }
