@@ -33,6 +33,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             UserApp.getInstance().id = user.uid
             if FBDatabaseManagment.getInstance().firstRun{
                 FBDatabaseManagment.getInstance().readAccount()
+                FBDatabaseManagment.getInstance().anyDogInGardenDelegate = self
                 FBDatabaseManagment.getInstance().firstRun = false
             }
             UNUserNotificationCenter.current().delegate = self
@@ -56,15 +57,21 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
 
     @IBAction func signOutFromFB(_ sender: Any) {
         logout()
-        moveToLogin()
+        self.pawImage.image = UIImage(named: "paw4")
+        //moveToLogin()
     }
     
     func logout(){
         
         let firebaseAuth = Auth.auth()
         do {
+            FBDatabaseManagment.getInstance().logOutFb()
             try firebaseAuth.signOut()
+            
             UserApp.getInstance().logOut()
+            
+            FBDatabaseManagment.getInstance().firstRun = true
+            moveToLogin()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }

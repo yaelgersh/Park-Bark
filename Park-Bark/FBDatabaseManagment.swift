@@ -41,6 +41,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     var firstRun: Bool = true
     var anyInTheGarden: Bool = false
     
+    
     private init() {
         ref = Database.database().reference()
         usersHandler = ref?.child(CHILD_USERS).observe(.childAdded, with: { (snapshot) in
@@ -129,13 +130,15 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                             UserApp.getInstance().following.append(dogId)
                         }
                     }
-                    self.getMyFriendsFromFB()
+                    
                 }
             }
             else{
                 self.saveAccount(id: UserApp.getInstance().id)
             }
+            
         })
+        self.getMyFriendsFromFB()
     }
     
     func getGardensList() -> [String : [Garden]]
@@ -241,6 +244,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     }
     
     func getMyFriendsFromFB(){
+        //
         self.followingHandler = ref?.child(CHILD_USERS).child((UserApp.getInstance().id)!).child(CHILD_FOLLOWING).observe(.value, with: { (snapshot) in
             self.myFriendsList.removeAll()
             if let dataDict = snapshot.value as? [String: String]
@@ -281,6 +285,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
     
     func getDogsInGardenFromFB()
     {
+        
         self.dogInGardenHandler = ref?.child(CHILD_GARDENS).child((UserApp.getInstance().garden?.city)!).child((UserApp.getInstance().garden?.name)!).child(CHILD_DOGS).observe(.value, with: { (snapshot) in
             self.dogInGardenList.removeAll()
             if let dataDict = snapshot.value as? [String: [String: String]]
@@ -382,7 +387,11 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         followedBy.ref.removeValue()
     }
     
-    func checkIfDogInGarden(){
-        
+    func logOutFb(){
+        //removeAllObservers
+        ref?.child(CHILD_USERS).child(UserApp.getInstance().id).removeAllObservers()
+        ref?.child(CHILD_USERS).child((UserApp.getInstance().id)!).child(CHILD_FOLLOWING).removeAllObservers()
+        dogInGardenList.removeAll()
+        myFriendsList.removeAll()
     }
 }
