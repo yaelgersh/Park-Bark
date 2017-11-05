@@ -24,9 +24,9 @@ class UserApp{
         return instance
     }
     
-    func addDog(name: String, isMale: Bool, year: Int , mounth : Int , day: Int, race: String, size: Int, dogPic: UIImage) -> Bool{
+    func addDog(name: String, isMale: Bool, year: Int , month : Int , day: Int, race: String, size: Int, dogPic: UIImage) -> Bool{
         if !dogExists(name: name){
-            let dog = Dog(name: name, isMale: isMale, year: year , mounth : mounth , day: day, race: race, size: size)
+            let dog = Dog(name: name, isMale: isMale, year: year , month : month , day: day, race: race, size: size)
             FBDatabaseManagment.getInstance().saveImageToStorage(image: dogPic, dog: dog)
             
             return true

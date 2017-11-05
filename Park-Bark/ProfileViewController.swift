@@ -21,10 +21,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     let datePicker = UIDatePicker()
     var index : Int!
     var day : String!
-    var mounth : String!
+    var month : String!
     var year : String!
     var currentDay : String!
-    var currentMounth : String!
+    var currentMonth : String!
     var currentYear : String!
     var firstTime : Bool = true
     
@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var mediumBigDogPic: UIImageView!
     @IBOutlet weak var mediumSmallDogPic: UIImageView!
     @IBOutlet weak var smallDogPic: UIImageView!
-    var dogsSizes: [UIImageView]!    
+    var dogsSizes: [UIImageView]!
     
     
     let dogSize = ["small","mediumSmall", "mediumBig", "bigDog"]
@@ -67,8 +67,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         createDatePicker()
         
-        dogPic.layer.cornerRadius = dogPic.frame.height/2
-        dogPic.clipsToBounds = true
+        //dogPic.layer.cornerRadius = dogPic.frame.height/2
+        //dogPic.clipsToBounds = true
         
         editProfileButton.isHidden = true
         updateProfileButton.isHidden = true
@@ -207,7 +207,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         var tempDate = DateComponents()
         tempDate.year = dog.year
-        tempDate.month = dog.mounth
+        tempDate.month = dog.month
         tempDate.day = dog.day
         
         let now = Date()
@@ -236,17 +236,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func chooseDog(){
         let alert = UIAlertController(title: "", message: "מה תרצה\\י לעשות?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "להוסיף כלב", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
             self.addProfileButton.isHidden = false
         }))
         let count : Int = UserApp.getInstance().dogs.count
         for i in 0 ..< count{
             alert.addAction(UIAlertAction(title: "הצג את \(UserApp.getInstance().dogs[i].name!)", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
                 self.showDogProfile(index: i)
                 self.editProfileButton.isHidden = false
             }))
         }
         
         alert.addAction(UIAlertAction(title: "חזרה לתפריט הראשי", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
             _ = self.navigationController?.popViewController(animated: true)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -274,7 +277,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             currentYear = dateFormatter.string(from: datePicker.date)
             
             dateFormatter.dateFormat = "M"
-            currentMounth = dateFormatter.string(from: datePicker.date)
+            currentMonth = dateFormatter.string(from: datePicker.date)
             
             dateFormatter.dateFormat = "d"
             currentDay = dateFormatter.string(from: datePicker.date)
@@ -292,15 +295,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         year = dateFormatter.string(from: datePicker.date)
         
         dateFormatter.dateFormat = "M"
-        mounth = dateFormatter.string(from: datePicker.date)
+        month = dateFormatter.string(from: datePicker.date)
         
         dateFormatter.dateFormat = "d"
         day = dateFormatter.string(from: datePicker.date)
         
         self.view.endEditing(true)
         
-        print("##current: ", currentYear, currentMounth, currentDay)
-        print("##picked: ", year, mounth, day)
+        print("##current: ", currentYear, currentMonth, currentDay)
+        print("##picked: ", year, month, day)
     }
     
     @IBAction func pickADog(_ sender: Any) {
@@ -412,11 +415,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         if Int(currentYear)! == Int(year)!{
-            if Int(currentMounth)! < Int(mounth)!{
+            if Int(currentMonth)! < Int(month)!{
                 errorPopup(error: "תאריך יום ההולדת לא אפשרי")
                 return
             }
-            if Int(currentMounth)! == Int(mounth)!{
+            if Int(currentMonth)! == Int(month)!{
                 if Int(currentDay)! < Int(day)!{
                     errorPopup(error: "תאריך יום ההולדת לא אפשרי")
                     return
@@ -437,12 +440,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         
-        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , mounth : Int(mounth)! , day: Int(day)!, race: race, size: size, dogPic: dogPic.image!){
+        if UserApp.getInstance().addDog(name: name, isMale: isMale, year: Int(year)! , month : Int(month)! , day: Int(day)!, race: race, size: size, dogPic: dogPic.image!){
             let alert = UIAlertController(title: "", message: "\(name!) נוסף\\ה בהצלחה.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "הוסף\\י עוד כלב", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
                 self.resetThePage()
             }))
             alert.addAction(UIAlertAction(title: "חזרה", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
                 _ = self.navigationController?.popViewController(animated: true)
             }))
             self.present(alert, animated: true, completion: nil)
@@ -476,10 +481,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         ageTitle.text = "נולדתי בתאריך: "
         year = String(dog.year)
-        mounth = String(dog.mounth)
+        month = String(dog.month)
         day = String(dog.day)
         
-        datePickerText.text = "\(day!)/\(mounth!)/\(year!)"
+        datePickerText.text = "\(day!)/\(month!)/\(year!)"
         datePickerText.isEnabled = true
         
         raceTextField.isEnabled = true
@@ -527,11 +532,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         if Int(currentYear)! == Int(year)!{
-            if Int(currentMounth)! < Int(mounth)!{
+            if Int(currentMonth)! < Int(month)!{
                 errorPopup(error: "תאריך יום ההולדת לא אפשרי")
                 return
             }
-            if Int(currentMounth)! == Int(mounth)!{
+            if Int(currentMonth)! == Int(month)!{
                 if Int(currentDay)! < Int(day)!{
                     errorPopup(error: "תאריך יום ההולדת לא אפשרי")
                     return
@@ -540,7 +545,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         
         dog.year = Int(year)
-        dog.mounth = Int(mounth)
+        dog.month = Int(month)
         dog.day = Int(day)
         
         if raceTextField.text == ""{

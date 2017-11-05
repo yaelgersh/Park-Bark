@@ -15,7 +15,7 @@ class Dog{
     var name : String!
     var isMale : Bool! // true = male   false = female
     var year : Int!
-    var mounth : Int!
+    var month : Int!
     var day : Int!
     var race : String!
     var size : Int! // 0 = small    1 = small/medium    2 = big/medium  3 = big
@@ -23,28 +23,28 @@ class Dog{
     var ownerId : String?
     var inTheGarden : Bool = false
     
-    init(name: String, isMale: Bool , year: Int , mounth: Int , day: Int , race: String, size: Int) {
+    init(name: String, isMale: Bool , year: Int , month: Int , day: Int , race: String, size: Int) {
         //id = Dog.counter
         //Dog.counter = Dog.counter + 1
         self.id = nil
         self.name = name
         self.isMale = isMale
         self.year = year
-        self.mounth = mounth
+        self.month = month
         self.day = day
         self.race = race
         self.size = size
         
     }
     
-    init(id: String, name: String, isMale: Bool , year: Int , mounth: Int , day: Int , race: String, size: Int, urlImage: String?) {
+    init(id: String, name: String, isMale: Bool , year: Int , month: Int , day: Int , race: String, size: Int, urlImage: String?) {
         self.id = id
         //Dog.counter = Dog.counter + 1
         
         self.name = name
         self.isMale = isMale
         self.year = year
-        self.mounth = mounth
+        self.month = month
         self.day = day
         self.race = race
         self.size = size

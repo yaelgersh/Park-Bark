@@ -70,7 +70,7 @@ class InGardenTableViewCell: UITableViewCell {
         
         var tempDate = DateComponents()
         tempDate.year = dog.year
-        tempDate.month = dog.mounth
+        tempDate.month = dog.month
         tempDate.day = dog.day
         
         let now = Date()

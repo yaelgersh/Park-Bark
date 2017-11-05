@@ -86,13 +86,13 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                         let name : String = dog["name"] as! String
                         let isMale : Bool = dog["isMale"] as! Bool
                         let year : Int = dog["year"] as! Int
-                        let mounth : Int = dog["mounth"] as! Int
+                        let month : Int = dog["mounth"] as! Int
                         let day : Int = dog["day"] as! Int
                         let race : String = dog["race"] as! String
                         let size : Int = dog["size"] as! Int
                         let urlImage : String? = dog["urlImage"] as? String
                         if (!UserApp.getInstance().dogExists(name: name)){
-                            let newDog = Dog(id: id, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage!)
+                            let newDog = Dog(id: id, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: urlImage!)
                             UserApp.getInstance().dogs.append(newDog)
                             
                             if let inTheGarden : Bool = dog["inTheGerden"] as? Bool{
@@ -160,7 +160,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         let dogDic : [String : AnyObject] = ["name" : dog.name as AnyObject,
                                              "isMale" : dog.isMale as AnyObject,
                                              "year" : dog.year as AnyObject,
-                                             "mounth" : dog.mounth as AnyObject,
+                                             "mounth" : dog.month as AnyObject,
                                              "day" : dog.day as AnyObject,
                                              "race" : dog.race as AnyObject,
                                              "size" : dog.size as AnyObject,
@@ -175,7 +175,7 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
         let dogDic : [String : AnyObject] = ["name" : dog.name as AnyObject,
                                              "isMale" : dog.isMale as AnyObject,
                                              "year" : dog.year as AnyObject,
-                                             "mounth" : dog.mounth as AnyObject,
+                                             "mounth" : dog.month as AnyObject,
                                              "day" : dog.day as AnyObject,
                                              "race" : dog.race as AnyObject,
                                              "size" : dog.size as AnyObject,
@@ -252,19 +252,19 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                             let name : String = dog["name"] as! String
                             let isMale : Bool = dog["isMale"] as! Bool
                             let year : Int = dog["year"] as! Int
-                            let mounth : Int = dog["mounth"] as! Int
+                            let month : Int = dog["mounth"] as! Int
                             let day : Int = dog["day"] as! Int
                             let race : String = dog["race"] as! String
                             let size : Int = dog["size"] as! Int
                             if let urlImage : String = dog["urlImage"] as? String{
-                                let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
+                                let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: urlImage)
                                 newDog.setOwnerId(ownerId: userId)
                                 if !self.isDogInTheList(list: self.myFriendsList, id: dogId){
                                     self.myFriendsList.append(newDog)
                                 }
                             }
                             else{
-                                let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
+                                let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: nil)
                                 newDog.setOwnerId(ownerId: userId)
                                 if !self.isDogInTheList(list: self.myFriendsList, id: dogId){
                                     self.myFriendsList.append(newDog)
@@ -294,19 +294,19 @@ class FBDatabaseManagment{private static let instance : FBDatabaseManagment = FB
                                 let name : String = dog["name"] as! String
                                 let isMale : Bool = dog["isMale"] as! Bool
                                 let year : Int = dog["year"] as! Int
-                                let mounth : Int = dog["mounth"] as! Int
+                                let month : Int = dog["mounth"] as! Int
                                 let day : Int = dog["day"] as! Int
                                 let race : String = dog["race"] as! String
                                 let size : Int = dog["size"] as! Int
                                 if let urlImage : String = dog["urlImage"] as? String{
-                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: urlImage)
+                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: urlImage)
                                     newDog.setOwnerId(ownerId: userId)
                                     if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
                                         self.dogInGardenList.append(newDog)
                                     }
                                 }
                                 else{
-                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, mounth: mounth, day: day, race: race, size: size, urlImage: nil)
+                                    let newDog : Dog = Dog(id: dogId, name: name, isMale: isMale, year: year, month: month, day: day, race: race, size: size, urlImage: nil)
                                     newDog.setOwnerId(ownerId: userId)
                                     if !self.isDogInTheList(list: self.dogInGardenList, id: dogId){
                                         self.dogInGardenList.append(newDog)
