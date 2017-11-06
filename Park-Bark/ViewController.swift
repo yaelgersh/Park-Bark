@@ -193,7 +193,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate, AnyDog
             if(settings.authorizationStatus == .authorized){
                 self.buildNotification(timeInterval: 10)
             }
-            else{
+            else if settings.authorizationStatus == .denied{
                 self.alertToEncourageNotificationPermission()
             }
         }
